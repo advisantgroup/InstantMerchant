@@ -32,9 +32,9 @@ curl "api_endpoint_here"
 
 > Make sure to replace `meowmeowmeow` with your API key and API secret.
 
-InstantMerchant uses API key/secret pair to allow access to the API. You can get a new InstantMerchant API key at [developer support](mailto:support@instantmerchant.io).
+InstantMerchant uses API key/secret pair to allow access to the API. You can get a new InstantMerchant API key by emailing [developer support](mailto:support@instantmerchant.io).
 
-InstantMerchant expects for the API key / secret to be included in all API requests to the server in a header that looks like the following:
+InstantMerchant expects the API key and secret to be included in all API requests to the server in a header that looks like the following:
 
 `X-Api-Key: meowmeowmeow`
 `X-Api-Secret: meowmeowmeow`
@@ -90,20 +90,20 @@ This endpoint creates invoice and optionally charges it immediately.
 
 Parameter | Default | Description
 --------- | ------- | -----------
-customer [required] | none | customer id if created already
-description [required] | none | payment description
-date_due [required] | none | invoice due date in format mm/dd/yyyy
-payment_type [required] | none | only allowed payment type is 'one_time'
-items[] [required] | none | item name
+customer [required] | none | Customer id if created already
+description [required] | none | Payment description
+date_due [required] | none | Invoice due date in format mm/dd/yyyy
+payment_type [required] | none | Only allowed payment type is 'one_time'
+items[] [required] | none | Item name
 items_price[] [required] | none | Item price
-send_now [optional] | 0 | if set to 1, customer will receive invoice email
-pay_now [optional] | no | if set to yes, given credit card will be charged immediately
-cardholder_name [optional] | none | actual cardholder name
-card_number [optional] | none | the card number, as a string without any separators.
-exp_month [optional] | none | two digit number representing the card's expiration month.
-exp_year [optional] | none | two or four digit number representing the card's expiration year.
-cvc [optional] | none | card security code
-currency [optional] | usd | only allowed currency is usd
+send_now [optional] | 0 | If set to 1, customer will receive invoice email
+pay_now [optional] | no | If set to yes, given credit card will be charged immediately
+cardholder_name [optional] | none | Actual cardholder name
+card_number [optional] | none | The card number, as a string without any separators.
+exp_month [optional] | none | Two digit number representing the card's expiration month.
+exp_year [optional] | none | Two or four digit number representing the card's expiration year.
+cvc [optional] | none | Card security code
+currency [optional] | usd | Only allowed currency is USD
 
 ## Send Invoice
 
@@ -169,14 +169,14 @@ This endpoint allow you to charge a credit or a debit card against an invoice, t
 
 Parameter | Default | Description
 --------- | ------- | -----------
-invoice_num [required] | none | the id of the invoice to charge
-send_now [optional] | 0 | if set to 1, customer will receive invoice email
-cardholder_name [optional] | none | actual cardholder name
-card_number [optional] | none | the card number, as a string without any separators.
-exp_month [optional] | none | two digit number representing the card's expiration month.
-exp_year [optional] | none | two or four digit number representing the card's expiration year.
-cvc [optional] | none | card security code
-currency [optional] | usd | only allowed currency is usd
+invoice_num [required] | none | The id of the invoice to charge
+send_now [optional] | 0 | If set to 1, customer will receive invoice email
+cardholder_name [optional] | none | Actual cardholder name
+card_number [optional] | none | The card number, as a string, without any separators.
+exp_month [optional] | none | Two digit number representing the card's expiration month.
+exp_year [optional] | none | Two or four digit number representing the card's expiration year.
+cvc [optional] | none | Card security code
+currency [optional] | usd | Only allowed currency is usd
 
 ## Refund
 
@@ -212,8 +212,8 @@ You can optionally refund only part of a charge. You can do so as many times as 
 
 Parameter | Default | Description
 --------- | ------- | -----------
-charge_id [required] | none | the transaction id of the charge to refund
-amount [optional] | entire charge | A positive integer representing how much of this charge to refund. Can only refund up to the unrefunded amount remaining of the charge.
+charge_id [required] | none | The transaction id of the charge to refund
+amount [optional] | entire charge | A positive integer representing how much of this charge to refund. Can only refund up to the un-refunded amount remaining of the charge.
 
 # Customer
 
@@ -255,12 +255,12 @@ This endpoint allows you to create your customers.
 
 Parameter | Default | Description
 --------- | ------- | -----------
-name [required] | none | customer name
-email [required] | none | customer email address
-username [required] | none | unique username
-address [required] | none | customer address
-city [required] | none | city/suburb/town/village
-zip [required] | none | zip code or postal code
+name [required] | none | Customer name
+email [required] | none | Customer email address
+username [required] | none | Unique username
+address [required] | none | Customer address
+city [required] | none | City/Suburb/Town/Village
+zip [required] | none | Zip code or postal code
 state [required] | none | 2-letter state code
 country [required] | none | 2-letter country code
 
@@ -309,15 +309,15 @@ This endpoint allows you to transfer $ to debit cards.
 
 Parameter | Default | Description
 --------- | ------- | -----------
-recipient_name [required] | none | recipient name
-recipient_email [required] | none | recipient email address
-type [required] | none | card or bank
+recipient_name [required] | none | Recipient name
+recipient_email [required] | none | Recipient email address
+type [required] | none | Card or bank
 transfer_amount [required] | none | A positive integer representing how much to transfer
-transfer_description [required] | none | description about the transfer
-card_number [required] | none | debit card number
-exp_month [required] | none | expiry month
-exp_year [required] | none | expiry year
-cvc  [required] | none | card security code
+transfer_description [required] | none | Description about the transfer
+card_number [required] | none | Debit card number
+exp_month [required] | none | Expiry month
+exp_year [required] | none | Expiry year
+cvc  [required] | none | Card security code
 currency  [required] | none | 3-letter ISO code for currency
 country [required] | none | 2-letter country code
 
@@ -362,14 +362,14 @@ This endpoint allows you to fund any bank account from your InstantMerchant acco
 
 Parameter | Default | Description
 --------- | ------- | -----------
-recipient_name [required] | none | recipient name
-recipient_email [required] | none | recipient email address
-type [required] | none | card or bank
+recipient_name [required] | none | Recipient name
+recipient_email [required] | none | Recipient email address
+type [required] | none | Card or bank
 transfer_amount [required] | none | A positive integer representing how much to transfer
-transfer_description [required] | none | description about the transfer
-account_number [required] | none | bank account number
-routing_number [required] | none | routing number
-account_holder_type [required] | none | account type either invidual or company
-bank_name [required] | none | name of the bank
+transfer_description [required] | none | Description about the transfer
+account_number [required] | none | Bank account number
+routing_number [required] | none | Routing number
+account_holder_type [required] | none | Account type either invidual or company
+bank_name [required] | none | Name of the bank
 currency  [required] | none | 3-letter ISO code for currency
 country [required] | none | 2-letter country code
