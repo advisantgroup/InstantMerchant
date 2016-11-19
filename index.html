@@ -179,7 +179,8 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   </span><span class="p">{</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"invoice created successfully"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"data"</span><span class="p">:</span><span class="s2">"18gd5UB0o5NJGO1rgAoygmCU"</span><span class="w">
+    </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="w">
+    </span><span class="s2">"charge_id"</span><span class="err">:</span><span class="s2">"18gd5UB0o5NJGO1rgAoygmCU"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
@@ -271,12 +272,51 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </tr>
 </tbody></table>
 
-<h2 id="charge-invoice">Charge Invoice</h2>
-<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/invoice/refund <span class="se">\</span>
+<h2 id="send-invoice">Send Invoice</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/invoice/send <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
-  -d <span class="nv">charge_id</span><span class="o">=</span><span class="s1">'1gd5UB0o5NJGO1rgAoygm'</span> <span class="se">\</span>
-  -d <span class="nv">amount</span><span class="o">=</span>10
+  -d <span class="nv">invoice_num</span><span class="o">=</span>10
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"Invoice notification sent successfully"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint allows you to email the invoice to customer.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v2/invoice/send</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>invoice_num [required]</td>
+<td>none</td>
+<td>the identifier of the invoice</td>
+</tr>
+</tbody></table>
+
+<h2 id="charge-invoice">Charge Invoice</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/invoice/charge <span class="se">\</span>
+  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -d <span class="nv">invoice_num</span><span class="o">=</span>30
 </code></pre>
 
 <blockquote>
@@ -286,7 +326,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   </span><span class="p">{</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"payment processed successfully"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"data"</span><span class="p">:</span><span class="s2">"8ac9l0o54KJGsDhK3gmCU"</span><span class="w">
+    </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="s2">"8ac9l0o54KJGsDhK3gmCU"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
@@ -295,7 +335,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v2/invoice/refund</code></p>
+<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v2/invoice/charge</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -363,7 +403,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   </span><span class="p">{</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"Refund has been initiated successfully"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"data"</span><span class="p">:</span><span class="s2">"8ac9l0o54KJGsDhK3gmCU"</span><span class="w">
+    </span><span class="nt">"refund_id"</span><span class="p">:</span><span class="s2">"8ac9l0o54KJGsDhK3gmCU"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
@@ -420,7 +460,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   </span><span class="p">{</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"Customer created successfully"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"data"</span><span class="p">:</span><span class="mi">23</span><span class="w">
+    </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="mi">23</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
