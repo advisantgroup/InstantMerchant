@@ -164,7 +164,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   -d items[]<span class="o">=</span><span class="s1">'orange'</span> <span class="se">\</span>
   -d items_price[]<span class="o">=</span>18 <span class="se">\</span>
   -d <span class="nv">send_email</span><span class="o">=</span>1 <span class="se">\</span>
-  -d <span class="nv">pay_now</span><span class="o">=</span>yes <span class="se">\</span>
+  -d <span class="nv">payment_mode</span><span class="o">=</span>auth_and_capture <span class="se">\</span>
   -d <span class="nv">cardholder_name</span><span class="o">=</span><span class="s1">'Jim'</span> <span class="se">\</span>
   -d <span class="nv">card_number</span><span class="o">=</span>4242424242424242 <span class="se">\</span>
   -d <span class="nv">exp_month</span><span class="o">=</span>12 <span class="se">\</span>
@@ -218,7 +218,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <tr>
 <td>payment_type [required]</td>
 <td>none</td>
-<td>only allowed payment type is &lsquo;one_time&rsquo;</td>
+<td>only allowed payment type is <code class="prettyprint">one_time</code></td>
 </tr>
 <tr>
 <td>items[] [required]</td>
@@ -236,9 +236,9 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <td>if set to 1, customer will receive invoice email</td>
 </tr>
 <tr>
-<td>pay_now [optional]</td>
-<td>no</td>
-<td>if set to yes, given credit card will be charged immediately</td>
+<td>payment_mode [optional]</td>
+<td>pay_later</td>
+<td>if set to <code class="prettyprint">auth_and_capture</code>, given credit card will be charged immediately. if set to <code class="prettyprint">auth_only</code> the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in <strong>7 days</strong>.</td>
 </tr>
 <tr>
 <td>cardholder_name [optional]</td>
@@ -316,6 +316,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/invoice/charge <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -d <span class="nv">payment_mode</span><span class="o">=</span>auth_and_capture <span class="se">\</span>
   -d <span class="nv">invoice_num</span><span class="o">=</span>30
 </code></pre>
 
@@ -355,6 +356,11 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <td>send_now [optional]</td>
 <td>0</td>
 <td>if set to 1, customer will receive invoice email</td>
+</tr>
+<tr>
+<td>payment_mode [optional]</td>
+<td>auth_and_capture</td>
+<td>if set to <code class="prettyprint">auth_and_capture</code>, given credit card will be charged immediately. if set to <code class="prettyprint">auth_only</code> the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in <strong>7 days</strong>.</td>
 </tr>
 <tr>
 <td>cardholder_name [optional]</td>
@@ -492,7 +498,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   -d <span class="nv">amount</span><span class="o">=</span>100 <span class="se">\</span>
   -d <span class="nv">authorize_now</span><span class="o">=</span>1 <span class="se">\</span>
   -d <span class="nv">pay_later</span><span class="o">=</span>1 <span class="se">\</span>
-  -d <span class="nv">pay_now</span><span class="o">=</span>1 <span class="se">\</span>
+  -d <span class="nv">payment_mode</span><span class="o">=</span>auth_and_capture <span class="se">\</span>
   -d <span class="nv">currency</span><span class="o">=</span><span class="s1">'usd'</span> <span class="se">\</span>
   -d <span class="nv">address</span><span class="o">=</span><span class="s1">'my address here'</span> <span class="se">\</span>
   -d <span class="nv">city</span><span class="o">=</span><span class="s1">'nashville'</span> <span class="se">\</span>
@@ -578,6 +584,11 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <td>country [required]</td>
 <td>none</td>
 <td>2-letter country code</td>
+</tr>
+<tr>
+<td>payment_mode [optional]</td>
+<td>auth_and_capture</td>
+<td>if set to <code class="prettyprint">auth_and_capture</code>, given credit card will be charged immediately. if set to <code class="prettyprint">auth_only</code> the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in <strong>7 days</strong>.</td>
 </tr>
 <tr>
 <td>cardholder_name [optional]</td>
