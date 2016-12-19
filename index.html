@@ -138,9 +138,9 @@ curl <span class="s2">"api_endpoint_here"</span>
 <p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key and API secret.</p>
 </blockquote>
 
-<p>InstantMerchant uses API key/secret pair to allow access to the API. You can get a new InstantMerchant API key at <a href="mailto:support@instantmerchant.io">developer support</a>.</p>
+<p>InstantMerchant uses API key/secret pair to allow access to the API. You can get a new InstantMerchant API key by emailing <a href="mailto:support@instantmerchant.io">developer support</a>.</p>
 
-<p>InstantMerchant expects for the API key / secret to be included in all API requests to the server in a header that looks like the following:</p>
+<p>InstantMerchant expects the API key and secret to be included in all API requests to the server in a header that looks like the following:</p>
 
 <p><code class="prettyprint">X-Api-Key: meowmeowmeow</code>
 <code class="prettyprint">X-Api-Secret: meowmeowmeow</code></p>
@@ -203,17 +203,17 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <tr>
 <td>customer [required]</td>
 <td>none</td>
-<td>customer id if created already</td>
+<td>Customer id if created already</td>
 </tr>
 <tr>
 <td>description [required]</td>
 <td>none</td>
-<td>payment description</td>
+<td>Payment description</td>
 </tr>
 <tr>
 <td>date_due [required]</td>
 <td>none</td>
-<td>invoice due date in format mm/dd/yyyy</td>
+<td>Invoice due date in format mm/dd/yyyy</td>
 </tr>
 <tr>
 <td>payment_type [required]</td>
@@ -223,7 +223,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <tr>
 <td>items[] [required]</td>
 <td>none</td>
-<td>item name</td>
+<td>Item name</td>
 </tr>
 <tr>
 <td>items_price[] [required]</td>
@@ -233,7 +233,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <tr>
 <td>send_now [optional]</td>
 <td>0</td>
-<td>if set to 1, customer will receive invoice email</td>
+<td>If set to 1, customer will receive invoice email</td>
 </tr>
 <tr>
 <td>payment_mode [optional]</td>
@@ -243,32 +243,32 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <tr>
 <td>cardholder_name [optional]</td>
 <td>none</td>
-<td>actual cardholder name</td>
+<td>Actual cardholder name</td>
 </tr>
 <tr>
 <td>card_number [optional]</td>
 <td>none</td>
-<td>the card number, as a string without any separators.</td>
+<td>The card number, as a string without any separators.</td>
 </tr>
 <tr>
 <td>exp_month [optional]</td>
 <td>none</td>
-<td>two digit number representing the card&rsquo;s expiration month.</td>
+<td>Two digit number representing the card&rsquo;s expiration month.</td>
 </tr>
 <tr>
 <td>exp_year [optional]</td>
 <td>none</td>
-<td>two or four digit number representing the card&rsquo;s expiration year.</td>
+<td>Two or four digit number representing the card&rsquo;s expiration year.</td>
 </tr>
 <tr>
 <td>cvc [optional]</td>
 <td>none</td>
-<td>card security code</td>
+<td>Card security code</td>
 </tr>
 <tr>
 <td>currency [optional]</td>
 <td>usd</td>
-<td>only allowed currency is usd</td>
+<td>Only allowed currency is USD</td>
 </tr>
 </tbody></table>
 
@@ -350,12 +350,12 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <tr>
 <td>invoice_num [required]</td>
 <td>none</td>
-<td>the id of the invoice to charge</td>
+<td>The id of the invoice to charge</td>
 </tr>
 <tr>
 <td>send_now [optional]</td>
 <td>0</td>
-<td>if set to 1, customer will receive invoice email</td>
+<td>If set to 1, customer will receive invoice email</td>
 </tr>
 <tr>
 <td>payment_mode [optional]</td>
@@ -365,32 +365,32 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <tr>
 <td>cardholder_name [optional]</td>
 <td>none</td>
-<td>actual cardholder name</td>
+<td>Actual cardholder name</td>
 </tr>
 <tr>
 <td>card_number [optional]</td>
 <td>none</td>
-<td>the card number, as a string without any separators.</td>
+<td>The card number, as a string, without any separators.</td>
 </tr>
 <tr>
 <td>exp_month [optional]</td>
 <td>none</td>
-<td>two digit number representing the card&rsquo;s expiration month.</td>
+<td>Two digit number representing the card&rsquo;s expiration month.</td>
 </tr>
 <tr>
 <td>exp_year [optional]</td>
 <td>none</td>
-<td>two or four digit number representing the card&rsquo;s expiration year.</td>
+<td>Two or four digit number representing the card&rsquo;s expiration year.</td>
 </tr>
 <tr>
 <td>cvc [optional]</td>
 <td>none</td>
-<td>card security code</td>
+<td>Card security code</td>
 </tr>
 <tr>
 <td>currency [optional]</td>
 <td>usd</td>
-<td>only allowed currency is usd</td>
+<td>Only allowed currency is usd</td>
 </tr>
 </tbody></table>
 
@@ -478,12 +478,12 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <tr>
 <td>charge_id [required]</td>
 <td>none</td>
-<td>the transaction id of the charge to refund</td>
+<td>The transaction id of the charge to refund</td>
 </tr>
 <tr>
 <td>amount [optional]</td>
 <td>entire charge</td>
-<td>A positive integer representing how much of this charge to refund. Can only refund up to the unrefunded amount remaining of the charge.</td>
+<td>A positive integer representing how much of this charge to refund. Can only refund up to the un-refunded amount remaining of the charge.</td>
 </tr>
 </tbody></table>
 
@@ -543,37 +543,37 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <tr>
 <td>name [required]</td>
 <td>none</td>
-<td>customer name</td>
+<td>Customer name</td>
 </tr>
 <tr>
 <td>email [required]</td>
 <td>none</td>
-<td>customer email address</td>
+<td>Customer email address</td>
 </tr>
 <tr>
 <td>description [required]</td>
 <td>none</td>
-<td>payment description</td>
+<td>Payment description</td>
 </tr>
 <tr>
 <td>amount [required]</td>
 <td>none</td>
-<td>a positive integer representing how much to charge the card. The minimum amount is $1 USD</td>
+<td>A positive integer representing how much to charge the card. The minimum amount is $1 USD</td>
 </tr>
 <tr>
 <td>address [required]</td>
 <td>none</td>
-<td>customer address</td>
+<td>Customer address</td>
 </tr>
 <tr>
 <td>city [required]</td>
 <td>none</td>
-<td>city/suburb/town/village</td>
+<td>City/Suburb/Town/Village</td>
 </tr>
 <tr>
 <td>zip [required]</td>
 <td>none</td>
-<td>zip code or postal code</td>
+<td>Zip code or postal code</td>
 </tr>
 <tr>
 <td>state [required]</td>
@@ -588,37 +588,37 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <tr>
 <td>payment_mode [optional]</td>
 <td>auth_and_capture</td>
-<td>if set to <code class="prettyprint">auth_and_capture</code>, given credit card will be charged immediately. if set to <code class="prettyprint">auth_only</code> the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in <strong>7 days</strong>.</td>
+<td>If set to <code class="prettyprint">auth_and_capture</code>, given credit card will be charged immediately. if set to <code class="prettyprint">auth_only</code> the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in <strong>7 days</strong>.</td>
 </tr>
 <tr>
 <td>cardholder_name [optional]</td>
 <td>none</td>
-<td>actual cardholder name</td>
+<td>Actual cardholder name</td>
 </tr>
 <tr>
 <td>card_number [optional]</td>
 <td>none</td>
-<td>the card number, as a string without any separators.</td>
+<td>The card number, as a string without any separators.</td>
 </tr>
 <tr>
 <td>exp_month [optional]</td>
 <td>none</td>
-<td>two digit number representing the card&rsquo;s expiration month.</td>
+<td>Two digit number representing the card&rsquo;s expiration month.</td>
 </tr>
 <tr>
 <td>exp_year [optional]</td>
 <td>none</td>
-<td>two or four digit number representing the card&rsquo;s expiration year.</td>
+<td>Two or four digit number representing the card&rsquo;s expiration year.</td>
 </tr>
 <tr>
 <td>cvc [optional]</td>
 <td>none</td>
-<td>card security code</td>
+<td>Card security code</td>
 </tr>
 <tr>
 <td>currency [optional]</td>
 <td>usd</td>
-<td>only allowed currency is usd</td>
+<td>Only allowed currency is usd</td>
 </tr>
 </tbody></table>
 
@@ -706,7 +706,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <tr>
 <td>charge_id [required]</td>
 <td>none</td>
-<td>the transaction id of the charge to refund</td>
+<td>The transaction id of the charge to refund</td>
 </tr>
 <tr>
 <td>amount [optional]</td>
@@ -761,37 +761,32 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <tr>
 <td>name [required]</td>
 <td>none</td>
-<td>customer name</td>
+<td>Customer name</td>
 </tr>
 <tr>
 <td>email [required]</td>
 <td>none</td>
-<td>customer email address</td>
+<td>Customer email address</td>
 </tr>
 <tr>
 <td>username [required]</td>
 <td>none</td>
-<td>unique username</td>
+<td>Unique username</td>
 </tr>
 <tr>
 <td>address [required]</td>
 <td>none</td>
-<td>customer address</td>
+<td>Customer address</td>
 </tr>
 <tr>
 <td>city [required]</td>
 <td>none</td>
-<td>city/suburb/town/village</td>
+<td>City/Suburb/Town/Village</td>
 </tr>
 <tr>
 <td>zip [required]</td>
 <td>none</td>
-<td>zip code or postal code</td>
-</tr>
-<tr>
-<td>state [required]</td>
-<td>none</td>
-<td>2-letter state code</td>
+<td>Zip code or postal code</td>
 </tr>
 <tr>
 <td>country [required]</td>
