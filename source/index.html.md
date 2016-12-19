@@ -439,4 +439,5 @@ username [required] | none | Unique username
 address [required] | none | Customer address
 city [required] | none | City/Suburb/Town/Village
 zip [required] | none | Zip code or postal code
+state [required] | none | 2-letter state code
 country [required] | none | 2-letter country code
