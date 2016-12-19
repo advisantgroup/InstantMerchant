@@ -32,9 +32,9 @@ curl "api_endpoint_here"
 
 > Make sure to replace `meowmeowmeow` with your API key and API secret.
 
-InstantMerchant uses API key/secret pair to allow access to the API. You can get a new InstantMerchant API key at [developer support](mailto:support@instantmerchant.io).
+InstantMerchant uses API key/secret pair to allow access to the API. You can get a new InstantMerchant API key by emailing [developer support](mailto:support@instantmerchant.io).
 
-InstantMerchant expects for the API key / secret to be included in all API requests to the server in a header that looks like the following:
+InstantMerchant expects the API key and secret to be included in all API requests to the server in a header that looks like the following:
 
 `X-Api-Key: meowmeowmeow`
 `X-Api-Secret: meowmeowmeow`
@@ -91,20 +91,20 @@ This endpoint creates invoice and optionally charges it immediately.
 
 Parameter | Default | Description
 --------- | ------- | -----------
-customer [required] | none | customer id if created already
-description [required] | none | payment description
-date_due [required] | none | invoice due date in format mm/dd/yyyy
+customer [required] | none | Customer id if created already
+description [required] | none | Payment description
+date_due [required] | none | Invoice due date in format mm/dd/yyyy
 payment_type [required] | none | only allowed payment type is `one_time`
-items[] [required] | none | item name
+items[] [required] | none | Item name
 items_price[] [required] | none | Item price
-send_now [optional] | 0 | if set to 1, customer will receive invoice email
+send_now [optional] | 0 | If set to 1, customer will receive invoice email
 payment_mode [optional] | pay_later | if set to `auth_and_capture`, given credit card will be charged immediately. if set to `auth_only` the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in **7 days**.
-cardholder_name [optional] | none | actual cardholder name
-card_number [optional] | none | the card number, as a string without any separators.
-exp_month [optional] | none | two digit number representing the card's expiration month.
-exp_year [optional] | none | two or four digit number representing the card's expiration year.
-cvc [optional] | none | card security code
-currency [optional] | usd | only allowed currency is usd
+cardholder_name [optional] | none | Actual cardholder name
+card_number [optional] | none | The card number, as a string without any separators.
+exp_month [optional] | none | Two digit number representing the card's expiration month.
+exp_year [optional] | none | Two or four digit number representing the card's expiration year.
+cvc [optional] | none | Card security code
+currency [optional] | usd | Only allowed currency is USD
 
 ## Send Invoice
 
@@ -170,15 +170,15 @@ This endpoint allow you to charge a credit or a debit card against an invoice, t
 
 Parameter | Default | Description
 --------- | ------- | -----------
-invoice_num [required] | none | the id of the invoice to charge
-send_now [optional] | 0 | if set to 1, customer will receive invoice email
+invoice_num [required] | none | The id of the invoice to charge
+send_now [optional] | 0 | If set to 1, customer will receive invoice email
 payment_mode [optional] | auth_and_capture | if set to `auth_and_capture`, given credit card will be charged immediately. if set to `auth_only` the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in **7 days**.
-cardholder_name [optional] | none | actual cardholder name
-card_number [optional] | none | the card number, as a string without any separators.
-exp_month [optional] | none | two digit number representing the card's expiration month.
-exp_year [optional] | none | two or four digit number representing the card's expiration year.
-cvc [optional] | none | card security code
-currency [optional] | usd | only allowed currency is usd
+cardholder_name [optional] | none | Actual cardholder name
+card_number [optional] | none | The card number, as a string, without any separators.
+exp_month [optional] | none | Two digit number representing the card's expiration month.
+exp_year [optional] | none | Two or four digit number representing the card's expiration year.
+cvc [optional] | none | Card security code
+currency [optional] | usd | Only allowed currency is usd
 
 ## Capture Invoice
 
@@ -250,8 +250,8 @@ You can optionally refund only part of a charge. You can do so as many times as 
 
 Parameter | Default | Description
 --------- | ------- | -----------
-charge_id [required] | none | the transaction id of the charge to refund
-amount [optional] | entire charge | A positive integer representing how much of this charge to refund. Can only refund up to the unrefunded amount remaining of the charge.
+charge_id [required] | none | The transaction id of the charge to refund
+amount [optional] | entire charge | A positive integer representing how much of this charge to refund. Can only refund up to the un-refunded amount remaining of the charge.
 
 # Direct Payment
 
@@ -303,22 +303,22 @@ Use this endpoint to charge a credit card.
 
 Parameter | Default | Description
 --------- | ------- | -----------
-name [required] | none | customer name
-email [required] | none | customer email address
-description [required] | none | payment description
-amount [required] | none | a positive integer representing how much to charge the card. The minimum amount is $1 USD
-address [required] | none | customer address
-city [required] | none | city/suburb/town/village
-zip [required] | none | zip code or postal code
+name [required] | none | Customer name
+email [required] | none | Customer email address
+description [required] | none | Payment description
+amount [required] | none | A positive integer representing how much to charge the card. The minimum amount is $1 USD
+address [required] | none | Customer address
+city [required] | none | City/Suburb/Town/Village
+zip [required] | none | Zip code or postal code
 state [required] | none | 2-letter state code
 country [required] | none | 2-letter country code
-payment_mode [optional] | auth_and_capture | if set to `auth_and_capture`, given credit card will be charged immediately. if set to `auth_only` the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in **7 days**.
-cardholder_name [optional] | none | actual cardholder name
-card_number [optional] | none | the card number, as a string without any separators.
-exp_month [optional] | none | two digit number representing the card's expiration month.
-exp_year [optional] | none | two or four digit number representing the card's expiration year.
-cvc [optional] | none | card security code
-currency [optional] | usd | only allowed currency is usd
+payment_mode [optional] | auth_and_capture | If set to `auth_and_capture`, given credit card will be charged immediately. if set to `auth_only` the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in **7 days**.
+cardholder_name [optional] | none | Actual cardholder name
+card_number [optional] | none | The card number, as a string without any separators.
+exp_month [optional] | none | Two digit number representing the card's expiration month.
+exp_year [optional] | none | Two or four digit number representing the card's expiration year.
+cvc [optional] | none | Card security code
+currency [optional] | usd | Only allowed currency is usd
 
 ## Capture Charge
 
@@ -390,7 +390,7 @@ You can optionally refund only part of a charge. You can do so as many times as 
 
 Parameter | Default | Description
 --------- | ------- | -----------
-charge_id [required] | none | the transaction id of the charge to refund
+charge_id [required] | none | The transaction id of the charge to refund
 amount [optional] | entire charge | A positive integer representing how much of this charge to refund. Can only refund up to the unrefunded amount remaining of the charge.
 
 # Customer
@@ -433,11 +433,10 @@ This endpoint allows you to create your customers.
 
 Parameter | Default | Description
 --------- | ------- | -----------
-name [required] | none | customer name
-email [required] | none | customer email address
-username [required] | none | unique username
-address [required] | none | customer address
-city [required] | none | city/suburb/town/village
-zip [required] | none | zip code or postal code
-state [required] | none | 2-letter state code
+name [required] | none | Customer name
+email [required] | none | Customer email address
+username [required] | none | Unique username
+address [required] | none | Customer address
+city [required] | none | City/Suburb/Town/Village
+zip [required] | none | Zip code or postal code
 country [required] | none | 2-letter country code
