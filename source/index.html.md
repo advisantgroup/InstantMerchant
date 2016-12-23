@@ -65,7 +65,14 @@ curl https://api.instantmerchant.io/api/v2/invoice \
   -d card_number=4242424242424242 \
   -d exp_month=12 \
   -d exp_year=2020 \
-  -d cvc=123
+  -d cvc=123 \
+  -d payment_type=recurring \
+  -d interval=quarterly \
+  -d create_customer=true \
+  -d save_card=true \
+  -d card_type=live_card \
+  -d is_default=true \
+  -d card_id=card_585a3da60deae
 ```
 
 > The above command returns JSON structured like this:
@@ -73,10 +80,14 @@ curl https://api.instantmerchant.io/api/v2/invoice \
 ```json
 [
   {
-    "status":true,
-    "message":"invoice created successfully",
-    "invoice_num": 12,
-    "charge_id":"18gd5UB0o5NJGO1rgAoygmCU"
+    "status": true,
+    "message": "invoice created successfully",
+    "card_id": "card_585d0bf69f5f0",
+    "card_last_4": "4242",
+    "subscription_id": "sub_585d0bf69f5b21",
+    "expiry_date": 1485151200,
+    "invoice_num": 29,
+    "charge_id": "cha_585d0bf93573f1"
   }
 ]
 ```
@@ -94,17 +105,28 @@ Parameter | Default | Description
 customer [required] | none | Customer id if created already
 description [required] | none | Payment description
 date_due [required] | none | Invoice due date in format mm/dd/yyyy
-payment_type [required] | none | only allowed payment type is `one_time`
 items[] [required] | none | Item name
 items_price[] [required] | none | Item price
 send_now [optional] | 0 | If set to 1, customer will receive invoice email
-payment_mode [optional] | pay_later | if set to `auth_and_capture`, given credit card will be charged immediately. if set to `auth_only` the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in **7 days**.
+payment_mode [required] | pay_later | if set to `auth_and_capture`, given credit card will be charged immediately. if set to `auth_only` the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in **7 days**.
 cardholder_name [optional] | none | Actual cardholder name
 card_number [optional] | none | The card number, as a string without any separators.
 exp_month [optional] | none | Two digit number representing the card's expiration month.
 exp_year [optional] | none | Two or four digit number representing the card's expiration year.
 cvc [optional] | none | Card security code
 currency [optional] | usd | Only allowed currency is USD
+address [optional] | none | Required, when the customer is new.
+city [optional] | none | Required, when the customer is new.
+state [optional] | none | Required, when the customer is new.
+zip [optional] | none | Required, when the customer is new.
+country [optional] | US | Required, when the customer is new.
+payment_type [required] | one_time | The type of payment source is either one_time nor recurring.
+interval [optional] | none | Interval type is set to monthly/quarterly/yearly when payment_type is set to recurring.
+create_customer [optional] | none | Customer is created when create_customer is set to True.
+save_card [optional] | none | if card details is posted,it will be stored into their account.
+card_type [optional] | live_card | if set , whether using live_card or test_card
+is_default [optional] | none | Customer card details is saved to their account when parameter is_default is set to True.
+card_id [optional] | none | if set to existing saved card, no card details needed. and if set to new, card details are essential.
 
 ## Send Invoice
 
@@ -145,7 +167,12 @@ curl https://api.instantmerchant.io/api/v2/invoice/charge \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -d payment_mode=auth_and_capture \
-  -d invoice_num=30
+  -d invoice_num=30 \
+  -d cardholder_name='Jim' \
+  -d card_number=4242424242424242 \
+  -d exp_month=11 \
+  -d exp_year=2019 \
+  -d cvc=123
 ```
 
 > The above command returns JSON structured like this:
@@ -173,12 +200,11 @@ Parameter | Default | Description
 invoice_num [required] | none | The id of the invoice to charge
 send_now [optional] | 0 | If set to 1, customer will receive invoice email
 payment_mode [optional] | auth_and_capture | if set to `auth_and_capture`, given credit card will be charged immediately. if set to `auth_only` the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in **7 days**.
-cardholder_name [optional] | none | Actual cardholder name
-card_number [optional] | none | The card number, as a string, without any separators.
-exp_month [optional] | none | Two digit number representing the card's expiration month.
-exp_year [optional] | none | Two or four digit number representing the card's expiration year.
-cvc [optional] | none | Card security code
-currency [optional] | usd | Only allowed currency is usd
+cardholder_name [required] | none | Actual cardholder name
+card_number [required] | none | The card number, as a string without any separators.
+exp_month [required] | none | Two digit number representing the card’s expiration month.
+exp_year [required] | none | Two or four digit number representing the card’s expiration year.
+cvc [required] | none | Card security code
 
 ## Capture Invoice
 
@@ -186,7 +212,7 @@ currency [optional] | usd | Only allowed currency is usd
 curl https://api.instantmerchant.io/api/v2/invoice/capture \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
-  -d invoice_num=30
+  -d charge_id=ch_8ac9l0o54KJGsDhK3gmCU
 ```
 
 > The above command returns JSON structured like this:
@@ -196,7 +222,7 @@ curl https://api.instantmerchant.io/api/v2/invoice/capture \
   {
     "status":true,
     "message":"payment captured successfully",
-    "charge_id":"8ac9l0o54KJGsDhK3gmCU",
+    "charge_id":"ch_8ac9l0o54KJGsDhK3gmCU",
     "invoice_num":145
   }
 ]
@@ -233,7 +259,7 @@ curl https://api.instantmerchant.io/api/v2/invoice/refund \
   {
     "status":true,
     "message":"Refund has been initiated successfully",
-    "refund_id":"8ac9l0o54KJGsDhK3gmCU"
+    "refund_id":"re_8ac9l0o54KJGsDhK3gmCU"
   }
 ]
 ```
@@ -264,21 +290,26 @@ curl https://api.instantmerchant.io/api/v2/charge \
   -d name='Jim' \
   -d email='jim@instantmerchant.io' \
   -d amount=100 \
-  -d authorize_now=1 \
-  -d pay_later=1 \
   -d payment_mode=auth_and_capture \
   -d currency='usd' \
   -d address='my address here' \
   -d city='nashville' \
   -d zip=37251 \
   -d state='TN' \
-  -d country='US'
+  -d country='US' \
   -d description='first payment' \
   -d cardholder_name='Jim' \
   -d card_number=4242424242424242 \
   -d exp_month=12 \
   -d exp_year=2020 \
-  -d cvc=123
+  -d cvc=123 \
+  -d payment_type=recurring \
+  -d interval=quarterly \
+  -d create_customer=true \
+  -d save_card=true \
+  -d card_type=live_card \
+  -d is_default=true \
+  -d card_id=card_585a3da60deae
 ```
 
 > The above command returns JSON structured like this:
@@ -288,7 +319,7 @@ curl https://api.instantmerchant.io/api/v2/charge \
   {
     "status":true,
     "message":"payment processed successfully",
-    "charge_id":"18gd5UB0o5NJGO1rgAoygmCU"
+    "charge_id":"ch_18gd5UB0o5NJGO1rgAoygmCU"
   }
 ]
 ```
@@ -312,13 +343,20 @@ city [required] | none | City/Suburb/Town/Village
 zip [required] | none | Zip code or postal code
 state [required] | none | 2-letter state code
 country [required] | none | 2-letter country code
-payment_mode [optional] | auth_and_capture | If set to `auth_and_capture`, given credit card will be charged immediately. if set to `auth_only` the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in **7 days**.
-cardholder_name [optional] | none | Actual cardholder name
-card_number [optional] | none | The card number, as a string without any separators.
-exp_month [optional] | none | Two digit number representing the card's expiration month.
-exp_year [optional] | none | Two or four digit number representing the card's expiration year.
-cvc [optional] | none | Card security code
+payment_mode [required] | auth_and_capture | If set to `auth_and_capture`, given credit card will be charged immediately. if set to `auth_only` the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in **7 days**.
+cardholder_name [required] | none | Actual cardholder name.
+card_number [required] | none | The card number, as a string without any separators.
+exp_month [required] | none | Two digit number representing the card's expiration month.
+exp_year [required] | none | Two or four digit number representing the card's expiration year.
+cvc [required] | none | Card security code
 currency [optional] | usd | Only allowed currency is usd
+payment_type [optional] | one_time | The type of payment source is either one_time nor recurring.
+interval [optional] | none | Interval type is set to monthly/quarterly/yearly when payment_type is set to recurring.
+create_customer [optional] | none | Customer is created when create_customer is set to True.
+save_card [optional] | none | if card details is posted,it will be stored into their account.
+card_type [optional] | live_card | if set , whether using live_card or test_card
+is_default [optional] | none | Customer card details is saved to their account when parameter is_default is set to True.
+card_id [optional] | none | if set to existing saved card, no card details needed. and if set to new, card details are essential.
 
 ## Capture Charge
 
@@ -326,7 +364,7 @@ currency [optional] | usd | Only allowed currency is usd
 curl https://api.instantmerchant.io/api/v2/capture \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
-  -d invoice_num=30
+  -d charge_id=ch_8ac9l0o54KJGsDhK3gmCU
 ```
 
 > The above command returns JSON structured like this:
@@ -336,8 +374,7 @@ curl https://api.instantmerchant.io/api/v2/capture \
   {
     "status":true,
     "message":"payment captured successfully",
-    "charge_id":"8ac9l0o54KJGsDhK3gmCU",
-    "invoice_num":145
+    "charge_id":"ch_8ac9l0o54KJGsDhK3gmCU"
   }
 ]
 ```
@@ -362,7 +399,7 @@ charge_id [required] | none | the transaction id of the charge to capture
 curl https://api.instantmerchant.io/api/v2/refund \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
-  -d charge_id='1gd5UB0o5NJGO1rgAoygm' \
+  -d charge_id='ch_1gd5UB0o5NJGO1rgAoygm' \
   -d amount=10
 ```
 
@@ -373,7 +410,7 @@ curl https://api.instantmerchant.io/api/v2/refund \
   {
     "status":true,
     "message":"Refund has been initiated successfully",
-    "refund_id":"8ac9l0o54KJGsDhK3gmCU"
+    "refund_id":"re_8ac9l0o54KJGsDhK3gmCU"
   }
 ]
 ```
