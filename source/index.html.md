@@ -82,7 +82,7 @@ curl https://api.instantmerchant.io/api/v2/invoice \
   {
     "status": true,
     "message": "invoice created successfully",
-    "card_id": "card_585d0bf69f5f0",
+    "card_id": "card_585a3da60deae",
     "card_last_4": "4242",
     "subscription_id": "sub_585d0bf69f5b21",
     "expiry_date": 1485151200,
@@ -120,13 +120,13 @@ city [optional] | none | Required, when the customer is new.
 state [optional] | none | Required, when the customer is new.
 zip [optional] | none | Required, when the customer is new.
 country [optional] | US | Required, when the customer is new.
-payment_type [required] | one_time | The type of payment source is either one_time nor recurring.
-interval [optional] | none | Interval type is set to monthly/quarterly/yearly when payment_type is set to recurring.
-create_customer [optional] | none | Customer is created when create_customer is set to True.
-save_card [optional] | none | if card details is posted,it will be stored into their account.
-card_type [optional] | live_card | if set , whether using live_card or test_card
-is_default [optional] | none | Customer card details is saved to their account when parameter is_default is set to True.
-card_id [optional] | none | if set to existing saved card, no card details needed. and if set to new, card details are essential.
+payment_type [required] | one_time | if set to `recurring` , subscription will be added to the charge.
+interval [optional] | none | if interval is set to `monthly` or `quarterly` or `yearly`. subscription will be created according to the interval.
+create_customer [optional] | none | if set to `true`, Customer will be created.
+save_card [optional] | none | if set to `true`, card details will be stored.
+card_type [optional] | live_card | if set to 'live_card' or 'test_card'.
+is_default [optional] | none | if set to 'true'. card details are saved and make it as default card.
+card_id [optional] | none | if set to existing saved card, no card details needed. and if set to 'new', card details are essential.
 
 ## Send Invoice
 
@@ -172,7 +172,10 @@ curl https://api.instantmerchant.io/api/v2/invoice/charge \
   -d card_number=4242424242424242 \
   -d exp_month=11 \
   -d exp_year=2019 \
-  -d cvc=123
+  -d cvc=123 \
+  -d save_card=true \
+  -d is_default=true \
+  -d card_id=card_585d2a6c7c5d4
 ```
 
 > The above command returns JSON structured like this:
@@ -180,9 +183,13 @@ curl https://api.instantmerchant.io/api/v2/invoice/charge \
 ```json
 [
   {
-    "status":true,
-    "message":"payment processed successfully",
-    "charge_id":"8ac9l0o54KJGsDhK3gmCU"
+    "status": true,
+    "message": "payment processed successfully",
+    "card_id": "card_585d2a6c7c5d4",
+    "card_last_4": "4242",
+    "charge_id": "cha_585d2a6f0e02f1",
+    "invoice_num": "31",
+    "subscription_id": "sub_585d2a6c7c5711"
   }
 ]
 ```
@@ -205,6 +212,10 @@ card_number [required] | none | The card number, as a string without any separat
 exp_month [required] | none | Two digit number representing the card’s expiration month.
 exp_year [required] | none | Two or four digit number representing the card’s expiration year.
 cvc [required] | none | Card security code
+save_card [optional] | none | if set to `true`, card details will be stored.
+card_type [optional] | live_card | if set to `live_card` or `test_card`.
+is_default [optional] | none | if set to `true`. card details are saved and make it as default card.
+card_id [optional] | none | if set to existing saved card, no card details needed. and if set to `new`, card details are essential.
 
 ## Capture Invoice
 
@@ -212,7 +223,7 @@ cvc [required] | none | Card security code
 curl https://api.instantmerchant.io/api/v2/invoice/capture \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
-  -d charge_id=ch_8ac9l0o54KJGsDhK3gmCU
+  -d charge_id=cha_585d0bf93573f1
 ```
 
 > The above command returns JSON structured like this:
@@ -222,7 +233,7 @@ curl https://api.instantmerchant.io/api/v2/invoice/capture \
   {
     "status":true,
     "message":"payment captured successfully",
-    "charge_id":"ch_8ac9l0o54KJGsDhK3gmCU",
+    "charge_id":"cha_585d0bf93573f1",
     "invoice_num":145
   }
 ]
@@ -248,7 +259,7 @@ charge_id [required] | none | the transaction id of the charge to capture
 curl https://api.instantmerchant.io/api/v2/invoice/refund \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
-  -d charge_id='1gd5UB0o5NJGO1rgAoygm' \
+  -d charge_id='cha_585d0bf93573f1' \
   -d amount=10
 ```
 
@@ -259,7 +270,7 @@ curl https://api.instantmerchant.io/api/v2/invoice/refund \
   {
     "status":true,
     "message":"Refund has been initiated successfully",
-    "refund_id":"re_8ac9l0o54KJGsDhK3gmCU"
+    "refund_id":"ref_397d0me53575f3"
   }
 ]
 ```
@@ -319,7 +330,7 @@ curl https://api.instantmerchant.io/api/v2/charge \
   {
     "status":true,
     "message":"payment processed successfully",
-    "charge_id":"ch_18gd5UB0o5NJGO1rgAoygmCU"
+    "charge_id":"cha_585d0bf93573f1"
   }
 ]
 ```
@@ -350,12 +361,11 @@ exp_month [required] | none | Two digit number representing the card's expiratio
 exp_year [required] | none | Two or four digit number representing the card's expiration year.
 cvc [required] | none | Card security code
 currency [optional] | usd | Only allowed currency is usd
-payment_type [optional] | one_time | The type of payment source is either one_time nor recurring.
-interval [optional] | none | Interval type is set to monthly/quarterly/yearly when payment_type is set to recurring.
-create_customer [optional] | none | Customer is created when create_customer is set to True.
-save_card [optional] | none | if card details is posted,it will be stored into their account.
-card_type [optional] | live_card | if set , whether using live_card or test_card
-is_default [optional] | none | Customer card details is saved to their account when parameter is_default is set to True.
+interval [optional] | none | if interval is set to `monthly` or `quarterly` or `yearly`. subscription will be created according to the interval.
+create_customer [optional] | none | if set to `true`. Customer is created.
+save_card [optional] | none | if set to `true`, card details will be stored.
+card_type [optional] | live_card | if set to `live_card` or `test_card`.
+is_default [optional] | none | if set to `true`. card details are saved and make it as default card.
 card_id [optional] | none | if set to existing saved card, no card details needed. and if set to new, card details are essential.
 
 ## Capture Charge
@@ -364,7 +374,7 @@ card_id [optional] | none | if set to existing saved card, no card details neede
 curl https://api.instantmerchant.io/api/v2/capture \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
-  -d charge_id=ch_8ac9l0o54KJGsDhK3gmCU
+  -d charge_id=cha_585d0bf93573f1
 ```
 
 > The above command returns JSON structured like this:
@@ -374,7 +384,7 @@ curl https://api.instantmerchant.io/api/v2/capture \
   {
     "status":true,
     "message":"payment captured successfully",
-    "charge_id":"ch_8ac9l0o54KJGsDhK3gmCU"
+    "charge_id":"cha_585d0bf93573f1"
   }
 ]
 ```
@@ -399,7 +409,7 @@ charge_id [required] | none | the transaction id of the charge to capture
 curl https://api.instantmerchant.io/api/v2/refund \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
-  -d charge_id='ch_1gd5UB0o5NJGO1rgAoygm' \
+  -d charge_id='cha_585d0bf93573f1' \
   -d amount=10
 ```
 
@@ -410,7 +420,7 @@ curl https://api.instantmerchant.io/api/v2/refund \
   {
     "status":true,
     "message":"Refund has been initiated successfully",
-    "refund_id":"re_8ac9l0o54KJGsDhK3gmCU"
+    "refund_id":"ref_397d0me53575f3"
   }
 ]
 ```
@@ -478,3 +488,231 @@ city [required] | none | City/Suburb/Town/Village
 zip [required] | none | Zip code or postal code
 state [required] | none | 2-letter state code
 country [required] | none | 2-letter country code
+
+# Card
+
+## Create Card
+
+```shell
+curl https://api.instantmerchant.io/api/v2/card \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -d customer=22 \
+  -d description='newcard' \
+  -d cardholder_name='Jim' \
+  -d card_number='4111111111111111' \
+  -d exp_month=03  \
+  -d exp_year=2018 \
+  -d cvc=123 \
+  -d currency=usd \
+  -d save_card=true \
+  -d is_default=true \
+  -d card_type=live_card
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status": true,
+    "message": "Card created successfully",
+    "card_id": "card_585d4e7edcf93",
+    "card_last_4": "1111"
+  }
+]
+```
+
+This endpoint allows you to create your card.
+
+### HTTP Request
+
+`POST https://api.instantmerchant.io/api/v2/card`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+customer [required] | none | Customer id if created already
+description [optional] | none | card description
+cardholder_name [required] | none | Actual cardholder name.
+card_number [required] | none | The card number, as a string without any separators.
+exp_month [required] | none | Two digit number representing the card's expiration month.
+exp_year [required] | none | Two or four digit number representing the card's expiration year.
+cvc [required] | none | Card security code
+save_card [optional] | none | if set to `true`, card details will be stored.
+is_default [optional] | none | if set to `true`. card details are saved and make it as default card.
+
+## View Card
+
+```shell
+curl https://api.instantmerchant.io/api/v2/card/get \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -d customer=22 \
+  -d card_id=card_585a3da60deae
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status": true,
+    "message": "Credit card details retrieved successfully",
+    "data": [{
+        "card_id": "card_585a3da60deae",
+        "is_default": "0",
+        "card_type": "",
+        "cc_last_4": "4242",
+        "cc_valid_thru": "1/2017"
+    }, {
+        "card_id": "card_585a3e5b27e1c",
+        "is_default": "0",
+        "card_type": "",
+        "cc_last_4": "4242",
+        "cc_valid_thru": "2/2017"
+    }, {
+        "card_id": "card_585a40c6e8afb",
+        "is_default": "1",
+        "card_type": "",
+        "cc_last_4": "4242",
+        "cc_valid_thru": "5/2017"
+    }]
+  }
+]
+```
+
+This endpoint allows you to retrieve your saved card.
+
+### HTTP Request
+
+`POST https://api.instantmerchant.io/api/v2/card/get`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+customer [required] | none | Customer id if created already
+card_id [optional] | none | if set to existing saved card, no card details needed. and if set to `new`, card details are essential.
+
+## Update Card
+
+```shell
+curl https://api.instantmerchant.io/api/v2/subscription/update_card \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -d subscription_id=sub_58611e30ae9131 \
+  -d cardholder_name='JimTest' \
+  -d card_number=4111111111111111 \
+  -d exp_month=11 \
+  -d exp_year=2019 \
+  -d cvc=999 \
+  -d save_card=true \
+  -d is_default=true
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status": true,
+    "message": "Customer card updated successfully",
+    "card_id": "card_58612d5143b2a",
+    "card_last_4": "07/2037"
+  }
+]
+```
+
+This endpoint allows you to update your new card.
+
+### HTTP Request
+
+`POST https://api.instantmerchant.io/api/v2/subscription/update_card`
+
+
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+subscription_id [required] | none | The identifier of the subscription.
+cardholder_name [required] | none | Actual cardholder name.
+card_number [required] | none | The card number, as a string without any separators.
+exp_month [required] | none | Two digit number representing the card's expiration month.
+exp_year [required] | none | Two or four digit number representing the card's expiration year.
+cvc [required] | none | Card security code
+save_card [optional] | none | if set to `true`, card details will be stored.
+is_default [optional] | none | if set to `true`. card details are saved and make it as default card.
+
+
+# Subscription
+
+## Renew Subscription
+
+```shell
+curl https://api.instantmerchant.io/api/v2/subscription/renew \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -d subscription_id=sub_58611e30ae9131
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status": true,
+    "message": "subscription renewed successfully",
+    "charge_id": "cha_58612419c7e571",
+    "subscription_id": "sub_58611e30ae9131",
+    "expiry_date": 1485410400,
+    "invoice_num": 36
+  }
+]
+```
+
+This endpoint allows you to renew subscription.
+
+### HTTP Request
+
+`POST https://api.instantmerchant.io/api/v2/subscription/renew`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+subscription_id [required] | none | The identifier of the subscription.
+
+## Cancel Subscription
+
+```shell
+curl https://api.instantmerchant.io/api/v2/subscription/cancel \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -d subscription_id=sub_58611e30ae9131
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status": true,
+    "message": "subscription canceled successfully"
+  }
+]
+```
+
+This endpoint allows you to cancel your subscription.
+
+### HTTP Request
+
+`POST https://api.instantmerchant.io/api/v2/subscription/cancel`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+subscription_id [required] | none | The identifier of the subscription.
