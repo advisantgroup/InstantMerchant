@@ -124,9 +124,9 @@ payment_type [required] | one_time | if set to `recurring` , subscription will b
 interval [optional] | none | if interval is set to `monthly` or `quarterly` or `yearly`. subscription will be created according to the interval.
 create_customer [optional] | none | if set to `true`, Customer will be created.
 save_card [optional] | none | if set to `true`, card details will be stored.
-card_type [optional] | live_card | if set to 'live_card' or 'test_card'.
-is_default [optional] | none | if set to 'true'. card details are saved and make it as default card.
-card_id [optional] | none | if set to existing saved card, no card details needed. and if set to 'new', card details are essential.
+card_type [optional] | live_card | if set to `live_card` or `test_card`.
+is_default [optional] | none | if set to `true`. card details are saved and make it as default card.
+card_id [optional] | none | if set to existing saved card, no card details needed. and if set to `new`, card details are essential.
 
 ## Send Invoice
 
