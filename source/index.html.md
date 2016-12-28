@@ -59,13 +59,15 @@ curl https://api.instantmerchant.io/api/v2/invoice \
   -d items_price[]=20 \
   -d items[]='orange' \
   -d items_price[]=18 \
-  -d send_email=1 \
+  -d send_now=1 \
   -d payment_mode=auth_and_capture \
   -d cardholder_name='Jim' \
   -d card_number=4242424242424242 \
   -d exp_month=12 \
   -d exp_year=2020 \
   -d cvc=123 \
+  -d invoice_to_staff = 254 \
+  -d send_invoice_to = jim@instantmerchant.io \
   -d payment_type=recurring \
   -d interval=quarterly \
   -d create_customer=true \
@@ -115,6 +117,8 @@ exp_month [optional] | none | Two digit number representing the card's expiratio
 exp_year [optional] | none | Two or four digit number representing the card's expiration year.
 cvc [optional] | none | Card security code
 currency [optional] | usd | Only allowed currency is USD
+invoice_to_staff [optional] | none | the identifier of the staff
+send_invoice_to [optional] | none | email address to notify about the invoice
 address [optional] | none | Required, when the customer is new.
 city [optional] | none | Required, when the customer is new.
 state [optional] | none | Required, when the customer is new.
@@ -173,6 +177,7 @@ curl https://api.instantmerchant.io/api/v2/invoice/charge \
   -d exp_month=11 \
   -d exp_year=2019 \
   -d cvc=123 \
+  -d send_email=1 \
   -d save_card=true \
   -d is_default=true \
   -d card_id=card_585d2a6c7c5d4
@@ -205,7 +210,7 @@ This endpoint allow you to charge a credit or a debit card against an invoice, t
 Parameter | Default | Description
 --------- | ------- | -----------
 invoice_num [required] | none | The id of the invoice to charge
-send_now [optional] | 0 | If set to 1, customer will receive invoice email
+send_email [optional] | 0 | If set to 1, customer will receive invoice email
 payment_mode [optional] | auth_and_capture | if set to `auth_and_capture`, given credit card will be charged immediately. if set to `auth_only` the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in **7 days**.
 cardholder_name [required] | none | Actual cardholder name
 card_number [required] | none | The card number, as a string without any separators.
@@ -314,6 +319,7 @@ curl https://api.instantmerchant.io/api/v2/charge \
   -d exp_month=12 \
   -d exp_year=2020 \
   -d cvc=123 \
+  -d send_email=1 \
   -d payment_type=recurring \
   -d interval=quarterly \
   -d create_customer=true \
@@ -328,9 +334,14 @@ curl https://api.instantmerchant.io/api/v2/charge \
 ```json
 [
   {
-    "status":true,
-    "message":"payment processed successfully",
-    "charge_id":"cha_585d0bf93573f1"
+    "status": true,
+    "message": "payment processed successfully",
+    "card_id": "card_58626a702e23c",
+    "card_last_4": "1111",
+    "subscription_id": "sub_58626a702eb9e1",
+    "expiry_date": 1490590800,
+    "customer_id": 363,
+    "charge_id": "cha_689d0tf96536d1"
   }
 ]
 ```
@@ -360,6 +371,7 @@ card_number [required] | none | The card number, as a string without any separat
 exp_month [required] | none | Two digit number representing the card's expiration month.
 exp_year [required] | none | Two or four digit number representing the card's expiration year.
 cvc [required] | none | Card security code
+send_email [optional] | 0 | If set to 1, customer will receive payment email
 currency [optional] | usd | Only allowed currency is usd
 interval [optional] | none | if interval is set to `monthly` or `quarterly` or `yearly`. subscription will be created according to the interval.
 create_customer [optional] | none | if set to `true`. Customer is created.
@@ -648,6 +660,16 @@ is_default [optional] | none | if set to `true`. card details are saved and make
 
 
 # Subscription
+
+## New Subscription
+
+This endpoint allows you to create your subscription.
+
+### HTTP Request
+`POST` <a href='http://localhost/IM-doc/build/#create-invoice'>Create Invoice</a>
+`POST` <a href='http://localhost/IM-doc/build/#create-charge'>Create Charge</a>
+
+if payment_type is set to `recurring` , subscription will be created on the charge.
 
 ## Renew Subscription
 
