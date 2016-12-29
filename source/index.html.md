@@ -72,7 +72,6 @@ curl https://api.instantmerchant.io/api/v2/invoice \
   -d interval=quarterly \
   -d create_customer=true \
   -d save_card=true \
-  -d card_type=live_card \
   -d is_default=true \
   -d card_id=card_585a3da60deae
 ```
@@ -110,27 +109,26 @@ date_due [required] | none | Invoice due date in format mm/dd/yyyy
 items[] [required] | none | Item name
 items_price[] [required] | none | Item price
 send_now [optional] | 0 | If set to 1, customer will receive invoice email
-payment_mode [required] | pay_later | if set to `auth_and_capture`, given credit card will be charged immediately. if set to `auth_only` the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in **7 days**.
-cardholder_name [optional] | none | Actual cardholder name
-card_number [optional] | none | The card number, as a string without any separators.
-exp_month [optional] | none | Two digit number representing the card's expiration month.
-exp_year [optional] | none | Two or four digit number representing the card's expiration year.
-cvc [optional] | none | Card security code
-currency [optional] | usd | Only allowed currency is USD
-invoice_to_staff [optional] | none | the identifier of the staff
-send_invoice_to [optional] | none | email address to notify about the invoice
+payment_mode [required] | pay_later | If set to `auth_and_capture`, given credit card will be charged immediately. If set to `auth_only` the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in **7 days**.
+cardholder_name [optional] | none | Actual cardholder name. Required, when `card_id` is not present. 
+card_number [optional] | none | The card number, as a string without any separators. Required, when `card_id` is not present.
+exp_month [optional] | none | Two digit number representing the card's expiration month. Required, when `card_id` is not present.
+exp_year [optional] | none | Two or four digit number representing the card's expiration year. Required, when `card_id` is not present.
+cvc [optional] | none | Card security code. Required, when `card_id` is not present.
+currency [optional] | USD | Only allowed currency is `USD`.
+invoice_to_staff [optional] | none | The identifier of the staff.
+send_invoice_to [optional] | none | Email address to notify about the invoice
 address [optional] | none | Required, when the customer is new.
 city [optional] | none | Required, when the customer is new.
 state [optional] | none | Required, when the customer is new.
 zip [optional] | none | Required, when the customer is new.
-country [optional] | US | Required, when the customer is new.
-payment_type [required] | one_time | if set to `recurring` , subscription will be added to the charge.
-interval [optional] | none | if interval is set to `monthly` or `quarterly` or `yearly`. subscription will be created according to the interval.
-create_customer [optional] | none | if set to `true`, Customer will be created.
-save_card [optional] | none | if set to `true`, card details will be stored.
-card_type [optional] | live_card | if set to `live_card` or `test_card`.
-is_default [optional] | none | if set to `true`. card details are saved and make it as default card.
-card_id [optional] | none | if set to existing saved card, no card details needed. and if set to `new`, card details are essential.
+country [optional] | US | Only allowed country is `US`.
+payment_type [required] | one_time | If set to `recurring` , subscription will be added to the charge.
+interval [optional] | false | Required, when payment_type is set to `recurring`.
+create_customer [optional] | false | If set to `true`, Customer will be created.
+save_card [optional] | false | If set to `true`, card details will be stored.
+is_default [optional] | false | If set to `true`. card details are saved and make it as default card.
+card_id [optional] | none | Required, when card details are not present.
 
 ## Send Invoice
 
@@ -162,7 +160,7 @@ This endpoint allows you to email the invoice to customer.
 
 Parameter | Default | Description
 --------- | ------- | -----------
-invoice_num [required] | none | the identifier of the invoice
+invoice_num [required] | none | The identifier of the invoice
 
 ## Charge Invoice
 
@@ -211,16 +209,15 @@ Parameter | Default | Description
 --------- | ------- | -----------
 invoice_num [required] | none | The id of the invoice to charge
 send_email [optional] | 0 | If set to 1, customer will receive invoice email
-payment_mode [optional] | auth_and_capture | if set to `auth_and_capture`, given credit card will be charged immediately. if set to `auth_only` the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in **7 days**.
+payment_mode [optional] | auth_and_capture | If set to `auth_and_capture`, given credit card will be charged immediately. If set to `auth_only` the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in **7 days**.
 cardholder_name [required] | none | Actual cardholder name
 card_number [required] | none | The card number, as a string without any separators.
 exp_month [required] | none | Two digit number representing the card’s expiration month.
 exp_year [required] | none | Two or four digit number representing the card’s expiration year.
 cvc [required] | none | Card security code
-save_card [optional] | none | if set to `true`, card details will be stored.
-card_type [optional] | live_card | if set to `live_card` or `test_card`.
-is_default [optional] | none | if set to `true`. card details are saved and make it as default card.
-card_id [optional] | none | if set to existing saved card, no card details needed. and if set to `new`, card details are essential.
+save_card [optional] | false | If set to `true`, card details will be stored.
+is_default [optional] | false | If set to `true`. card details are saved and make it as default card.
+card_id [optional] | none | Required, when card details are not present.
 
 ## Capture Invoice
 
@@ -324,7 +321,6 @@ curl https://api.instantmerchant.io/api/v2/charge \
   -d interval=quarterly \
   -d create_customer=true \
   -d save_card=true \
-  -d card_type=live_card \
   -d is_default=true \
   -d card_id=card_585a3da60deae
 ```
@@ -373,12 +369,11 @@ exp_year [required] | none | Two or four digit number representing the card's ex
 cvc [required] | none | Card security code
 send_email [optional] | 0 | If set to 1, customer will receive payment email
 currency [optional] | usd | Only allowed currency is usd
-interval [optional] | none | if interval is set to `monthly` or `quarterly` or `yearly`. subscription will be created according to the interval.
-create_customer [optional] | none | if set to `true`. Customer is created.
-save_card [optional] | none | if set to `true`, card details will be stored.
-card_type [optional] | live_card | if set to `live_card` or `test_card`.
-is_default [optional] | none | if set to `true`. card details are saved and make it as default card.
-card_id [optional] | none | if set to existing saved card, no card details needed. and if set to new, card details are essential.
+interval [optional] | false | Required, when payment_type is set to `recurring`.
+create_customer [optional] | false | If set to `true`. Customer is created.
+save_card [optional] | false | If set to `true`, card details will be stored.
+is_default [optional] | false | If set to `true`. card details are saved and make it as default card.
+card_id [optional] | none | Required, when card details are not present.
 
 ## Capture Charge
 
@@ -413,7 +408,7 @@ Uncaptured payments expire exactly seven days after they are created. If they ar
 
 Parameter | Default | Description
 --------- | ------- | -----------
-charge_id [required] | none | the transaction id of the charge to capture
+charge_id [required] | none | The transaction id of the charge to capture
 
 ## Refund
 
@@ -518,8 +513,7 @@ curl https://api.instantmerchant.io/api/v2/card \
   -d cvc=123 \
   -d currency=usd \
   -d save_card=true \
-  -d is_default=true \
-  -d card_type=live_card
+  -d is_default=true
 ```
 
 > The above command returns JSON structured like this:
@@ -535,7 +529,7 @@ curl https://api.instantmerchant.io/api/v2/card \
 ]
 ```
 
-This endpoint allows you to create your card.
+This endpoint allows you to store multiple cards on a customer in order to charge the customer later.
 
 ### HTTP Request
 
@@ -546,16 +540,16 @@ This endpoint allows you to create your card.
 Parameter | Default | Description
 --------- | ------- | -----------
 customer [required] | none | Customer id if created already
-description [optional] | none | card description
+description [optional] | none | An arbitrary string which you can attach to a card object.
 cardholder_name [required] | none | Actual cardholder name.
 card_number [required] | none | The card number, as a string without any separators.
 exp_month [required] | none | Two digit number representing the card's expiration month.
 exp_year [required] | none | Two or four digit number representing the card's expiration year.
 cvc [required] | none | Card security code
-save_card [optional] | none | if set to `true`, card details will be stored.
-is_default [optional] | none | if set to `true`. card details are saved and make it as default card.
+save_card [optional] | false | If set to `true`, card details will be stored.
+is_default [optional] | false | If set to `true`. card details are saved and make it as default card.
 
-## View Card
+## Retrieve Card
 
 ```shell
 curl https://api.instantmerchant.io/api/v2/card/get \
@@ -595,7 +589,7 @@ curl https://api.instantmerchant.io/api/v2/card/get \
 ]
 ```
 
-This endpoint allows you to retrieve your saved card.
+This endpoint allows you to retrieve details about a specific card stored on the customer.
 
 ### HTTP Request
 
@@ -606,7 +600,7 @@ This endpoint allows you to retrieve your saved card.
 Parameter | Default | Description
 --------- | ------- | -----------
 customer [required] | none | Customer id if created already
-card_id [optional] | none | if set to existing saved card, no card details needed. and if set to `new`, card details are essential.
+card_id [optional] | none | Required, when card details are not present.
 
 ## Update Card
 
@@ -637,7 +631,7 @@ curl https://api.instantmerchant.io/api/v2/subscription/update_card \
 ]
 ```
 
-This endpoint allows you to update your new card.
+This endpoint allows you to update only card details, like the expiration date or expiration year, you can do so without having to re-enter the full card details.
 
 ### HTTP Request
 
@@ -655,21 +649,18 @@ card_number [required] | none | The card number, as a string without any separat
 exp_month [required] | none | Two digit number representing the card's expiration month.
 exp_year [required] | none | Two or four digit number representing the card's expiration year.
 cvc [required] | none | Card security code
-save_card [optional] | none | if set to `true`, card details will be stored.
-is_default [optional] | none | if set to `true`. card details are saved and make it as default card.
+save_card [optional] | false | If set to `true`, card details will be stored.
+is_default [optional] | false | If set to `true`. card details are saved and make it as default card.
 
 
 # Subscription
 
 ## New Subscription
 
-This endpoint allows you to create your subscription.
+You can create subscription on Invoice creation or Direct payment.
 
-### HTTP Request
-`POST` <a href='http://localhost/IM-doc/build/#create-invoice'>Create Invoice</a>
-`POST` <a href='http://localhost/IM-doc/build/#create-charge'>Create Charge</a>
-
-if payment_type is set to `recurring` , subscription will be created on the charge.
+`POST` <a href='#create-invoice'>Create Invoice</a>
+`POST` <a href='#create-charge'>Create Charge</a>
 
 ## Renew Subscription
 
