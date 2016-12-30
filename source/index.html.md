@@ -210,11 +210,11 @@ Parameter | Default | Description
 invoice_num [required] | none | The id of the invoice to charge
 send_email [optional] | 0 | If set to 1, customer will receive invoice email
 payment_mode [optional] | auth_and_capture | If set to `auth_and_capture`, given credit card will be charged immediately. If set to `auth_only` the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in **7 days**.
-cardholder_name [required] | none | Actual cardholder name
-card_number [required] | none | The card number, as a string without any separators.
-exp_month [required] | none | Two digit number representing the card’s expiration month.
-exp_year [required] | none | Two or four digit number representing the card’s expiration year.
-cvc [required] | none | Card security code
+cardholder_name [required] | none | Actual cardholder name. Required, when `card_id` is not present.
+card_number [required] | none | The card number, as a string without any separators.Required, when `card_id` is not present.
+exp_month [required] | none | Two digit number representing the card’s expiration month. Required, when `card_id` is not present.
+exp_year [required] | none | Two or four digit number representing the card’s expiration year. Required, when `card_id` is not present.
+cvc [required] | none | Card security code. Required, when `card_id` is not present.
 save_card [optional] | false | If set to `true`, card details will be stored.
 is_default [optional] | false | If set to `true`. card details are saved and make it as default card.
 card_id [optional] | none | Required, when card details are not present.
@@ -362,11 +362,11 @@ zip [required] | none | Zip code or postal code
 state [required] | none | 2-letter state code
 country [required] | none | 2-letter country code
 payment_mode [required] | auth_and_capture | If set to `auth_and_capture`, given credit card will be charged immediately. if set to `auth_only` the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in **7 days**.
-cardholder_name [required] | none | Actual cardholder name.
-card_number [required] | none | The card number, as a string without any separators.
-exp_month [required] | none | Two digit number representing the card's expiration month.
-exp_year [required] | none | Two or four digit number representing the card's expiration year.
-cvc [required] | none | Card security code
+cardholder_name [required] | none | Actual cardholder name. when `card_id` is not present.
+card_number [required] | none | The card number, as a string without any separators. when `card_id` is not present.
+exp_month [required] | none | Two digit number representing the card's expiration month. when `card_id` is not present.
+exp_year [required] | none | Two or four digit number representing the card's expiration year. when `card_id` is not present.
+cvc [required] | none | Card security code. when `card_id` is not present.
 send_email [optional] | 0 | If set to 1, customer will receive payment email
 currency [optional] | usd | Only allowed currency is usd
 interval [optional] | false | Required, when payment_type is set to `recurring`.
