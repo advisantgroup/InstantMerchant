@@ -163,13 +163,21 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   -d items_price[]<span class="o">=</span>20 <span class="se">\</span>
   -d items[]<span class="o">=</span><span class="s1">'orange'</span> <span class="se">\</span>
   -d items_price[]<span class="o">=</span>18 <span class="se">\</span>
-  -d <span class="nv">send_email</span><span class="o">=</span>1 <span class="se">\</span>
+  -d <span class="nv">send_now</span><span class="o">=</span>1 <span class="se">\</span>
   -d <span class="nv">payment_mode</span><span class="o">=</span>auth_and_capture <span class="se">\</span>
   -d <span class="nv">cardholder_name</span><span class="o">=</span><span class="s1">'Jim'</span> <span class="se">\</span>
   -d <span class="nv">card_number</span><span class="o">=</span>4242424242424242 <span class="se">\</span>
   -d <span class="nv">exp_month</span><span class="o">=</span>12 <span class="se">\</span>
   -d <span class="nv">exp_year</span><span class="o">=</span>2020 <span class="se">\</span>
-  -d <span class="nv">cvc</span><span class="o">=</span>123
+  -d <span class="nv">cvc</span><span class="o">=</span>123 <span class="se">\</span>
+  -d invoice_to_staff <span class="o">=</span> 254 <span class="se">\</span>
+  -d send_invoice_to <span class="o">=</span> jim@instantmerchant.io <span class="se">\</span>
+  -d <span class="nv">payment_type</span><span class="o">=</span>recurring <span class="se">\</span>
+  -d <span class="nv">interval</span><span class="o">=</span>quarterly <span class="se">\</span>
+  -d <span class="nv">create_customer</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  -d <span class="nv">save_card</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  -d <span class="nv">is_default</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  -d <span class="nv">card_id</span><span class="o">=</span>card_585a3da60deae
 </code></pre>
 
 <blockquote>
@@ -177,10 +185,14 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </blockquote>
 <pre class="highlight json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"status"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"invoice created successfully"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="s2">"18gd5UB0o5NJGO1rgAoygmCU"</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invoice created successfully"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"card_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card_585a3da60deae"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"card_last_4"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4242"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sub_585d0bf69f5b21"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"expiry_date"</span><span class="p">:</span><span class="w"> </span><span class="mi">1485151200</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="w"> </span><span class="mi">29</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cha_585d0bf93573f1"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
@@ -216,11 +228,6 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <td>Invoice due date in format mm/dd/yyyy</td>
 </tr>
 <tr>
-<td>payment_type [required]</td>
-<td>none</td>
-<td>only allowed payment type is <code class="prettyprint">one_time</code></td>
-</tr>
-<tr>
 <td>items[] [required]</td>
 <td>none</td>
 <td>Item name</td>
@@ -236,39 +243,104 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <td>If set to 1, customer will receive invoice email</td>
 </tr>
 <tr>
-<td>payment_mode [optional]</td>
+<td>payment_mode [required]</td>
 <td>pay_later</td>
-<td>if set to <code class="prettyprint">auth_and_capture</code>, given credit card will be charged immediately. if set to <code class="prettyprint">auth_only</code> the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in <strong>7 days</strong>.</td>
+<td>If set to <code class="prettyprint">auth_and_capture</code>, given credit card will be charged immediately. If set to <code class="prettyprint">auth_only</code> the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in <strong>7 days</strong>.</td>
 </tr>
 <tr>
 <td>cardholder_name [optional]</td>
 <td>none</td>
-<td>Actual cardholder name</td>
+<td>Actual cardholder name. Required, when <code class="prettyprint">card_id</code> is not present.</td>
 </tr>
 <tr>
 <td>card_number [optional]</td>
 <td>none</td>
-<td>The card number, as a string without any separators.</td>
+<td>The card number, as a string without any separators. Required, when <code class="prettyprint">card_id</code> is not present.</td>
 </tr>
 <tr>
 <td>exp_month [optional]</td>
 <td>none</td>
-<td>Two digit number representing the card&rsquo;s expiration month.</td>
+<td>Two digit number representing the card&rsquo;s expiration month. Required, when <code class="prettyprint">card_id</code> is not present.</td>
 </tr>
 <tr>
 <td>exp_year [optional]</td>
 <td>none</td>
-<td>Two or four digit number representing the card&rsquo;s expiration year.</td>
+<td>Two or four digit number representing the card&rsquo;s expiration year. Required, when <code class="prettyprint">card_id</code> is not present.</td>
 </tr>
 <tr>
 <td>cvc [optional]</td>
 <td>none</td>
-<td>Card security code</td>
+<td>Card security code. Required, when <code class="prettyprint">card_id</code> is not present.</td>
 </tr>
 <tr>
 <td>currency [optional]</td>
-<td>usd</td>
-<td>Only allowed currency is USD</td>
+<td>USD</td>
+<td>Only allowed currency is <code class="prettyprint">USD</code>.</td>
+</tr>
+<tr>
+<td>invoice_to_staff [optional]</td>
+<td>none</td>
+<td>The identifier of the staff.</td>
+</tr>
+<tr>
+<td>send_invoice_to [optional]</td>
+<td>none</td>
+<td>Email address to notify about the invoice</td>
+</tr>
+<tr>
+<td>address [optional]</td>
+<td>none</td>
+<td>Required, when the customer is new.</td>
+</tr>
+<tr>
+<td>city [optional]</td>
+<td>none</td>
+<td>Required, when the customer is new.</td>
+</tr>
+<tr>
+<td>state [optional]</td>
+<td>none</td>
+<td>Required, when the customer is new.</td>
+</tr>
+<tr>
+<td>zip [optional]</td>
+<td>none</td>
+<td>Required, when the customer is new.</td>
+</tr>
+<tr>
+<td>country [optional]</td>
+<td>US</td>
+<td>Only allowed country is <code class="prettyprint">US</code>.</td>
+</tr>
+<tr>
+<td>payment_type [required]</td>
+<td>one_time</td>
+<td>If set to <code class="prettyprint">recurring</code> , subscription will be added to the charge.</td>
+</tr>
+<tr>
+<td>interval [optional]</td>
+<td>false</td>
+<td>Required, when payment_type is set to <code class="prettyprint">recurring</code>.</td>
+</tr>
+<tr>
+<td>create_customer [optional]</td>
+<td>false</td>
+<td>If set to <code class="prettyprint">true</code>, Customer will be created.</td>
+</tr>
+<tr>
+<td>save_card [optional]</td>
+<td>false</td>
+<td>If set to <code class="prettyprint">true</code>, card details will be stored.</td>
+</tr>
+<tr>
+<td>is_default [optional]</td>
+<td>false</td>
+<td>If set to <code class="prettyprint">true</code>. card details are saved and make it as default card.</td>
+</tr>
+<tr>
+<td>card_id [optional]</td>
+<td>none</td>
+<td>Required, when card details are not present.</td>
 </tr>
 </tbody></table>
 
@@ -308,7 +380,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <tr>
 <td>invoice_num [required]</td>
 <td>none</td>
-<td>the identifier of the invoice</td>
+<td>The identifier of the invoice</td>
 </tr>
 </tbody></table>
 
@@ -317,7 +389,16 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
   -d <span class="nv">payment_mode</span><span class="o">=</span>auth_and_capture <span class="se">\</span>
-  -d <span class="nv">invoice_num</span><span class="o">=</span>30
+  -d <span class="nv">invoice_num</span><span class="o">=</span>30 <span class="se">\</span>
+  -d <span class="nv">cardholder_name</span><span class="o">=</span><span class="s1">'Jim'</span> <span class="se">\</span>
+  -d <span class="nv">card_number</span><span class="o">=</span>4242424242424242 <span class="se">\</span>
+  -d <span class="nv">exp_month</span><span class="o">=</span>11 <span class="se">\</span>
+  -d <span class="nv">exp_year</span><span class="o">=</span>2019 <span class="se">\</span>
+  -d <span class="nv">cvc</span><span class="o">=</span>123 <span class="se">\</span>
+  -d <span class="nv">send_email</span><span class="o">=</span>1 <span class="se">\</span>
+  -d <span class="nv">save_card</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  -d <span class="nv">is_default</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  -d <span class="nv">card_id</span><span class="o">=</span>card_585d2a6c7c5d4
 </code></pre>
 
 <blockquote>
@@ -325,9 +406,13 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </blockquote>
 <pre class="highlight json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"status"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"payment processed successfully"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="s2">"8ac9l0o54KJGsDhK3gmCU"</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment processed successfully"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"card_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card_585d2a6c7c5d4"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"card_last_4"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4242"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cha_585d2a6f0e02f1"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="w"> </span><span class="s2">"31"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sub_585d2a6c7c5711"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
@@ -353,44 +438,54 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <td>The id of the invoice to charge</td>
 </tr>
 <tr>
-<td>send_now [optional]</td>
+<td>send_email [optional]</td>
 <td>0</td>
 <td>If set to 1, customer will receive invoice email</td>
 </tr>
 <tr>
 <td>payment_mode [optional]</td>
 <td>auth_and_capture</td>
-<td>if set to <code class="prettyprint">auth_and_capture</code>, given credit card will be charged immediately. if set to <code class="prettyprint">auth_only</code> the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in <strong>7 days</strong>.</td>
+<td>If set to <code class="prettyprint">auth_and_capture</code>, given credit card will be charged immediately. If set to <code class="prettyprint">auth_only</code> the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in <strong>7 days</strong>.</td>
 </tr>
 <tr>
-<td>cardholder_name [optional]</td>
+<td>cardholder_name [required]</td>
 <td>none</td>
-<td>Actual cardholder name</td>
+<td>Actual cardholder name. Required, when <code class="prettyprint">card_id</code> is not present.</td>
 </tr>
 <tr>
-<td>card_number [optional]</td>
+<td>card_number [required]</td>
 <td>none</td>
-<td>The card number, as a string, without any separators.</td>
+<td>The card number, as a string without any separators.Required, when <code class="prettyprint">card_id</code> is not present.</td>
 </tr>
 <tr>
-<td>exp_month [optional]</td>
+<td>exp_month [required]</td>
 <td>none</td>
-<td>Two digit number representing the card&rsquo;s expiration month.</td>
+<td>Two digit number representing the card’s expiration month. Required, when <code class="prettyprint">card_id</code> is not present.</td>
 </tr>
 <tr>
-<td>exp_year [optional]</td>
+<td>exp_year [required]</td>
 <td>none</td>
-<td>Two or four digit number representing the card&rsquo;s expiration year.</td>
+<td>Two or four digit number representing the card’s expiration year. Required, when <code class="prettyprint">card_id</code> is not present.</td>
 </tr>
 <tr>
-<td>cvc [optional]</td>
+<td>cvc [required]</td>
 <td>none</td>
-<td>Card security code</td>
+<td>Card security code. Required, when <code class="prettyprint">card_id</code> is not present.</td>
 </tr>
 <tr>
-<td>currency [optional]</td>
-<td>usd</td>
-<td>Only allowed currency is usd</td>
+<td>save_card [optional]</td>
+<td>false</td>
+<td>If set to <code class="prettyprint">true</code>, card details will be stored.</td>
+</tr>
+<tr>
+<td>is_default [optional]</td>
+<td>false</td>
+<td>If set to <code class="prettyprint">true</code>. card details are saved and make it as default card.</td>
+</tr>
+<tr>
+<td>card_id [optional]</td>
+<td>none</td>
+<td>Required, when card details are not present.</td>
 </tr>
 </tbody></table>
 
@@ -398,7 +493,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/invoice/capture <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
-  -d <span class="nv">invoice_num</span><span class="o">=</span>30
+  -d <span class="nv">charge_id</span><span class="o">=</span>cha_585d0bf93573f1
 </code></pre>
 
 <blockquote>
@@ -408,7 +503,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   </span><span class="p">{</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"payment captured successfully"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="s2">"8ac9l0o54KJGsDhK3gmCU"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="s2">"cha_585d0bf93573f1"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="mi">145</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
@@ -442,7 +537,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/invoice/refund <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
-  -d <span class="nv">charge_id</span><span class="o">=</span><span class="s1">'1gd5UB0o5NJGO1rgAoygm'</span> <span class="se">\</span>
+  -d <span class="nv">charge_id</span><span class="o">=</span><span class="s1">'cha_585d0bf93573f1'</span> <span class="se">\</span>
   -d <span class="nv">amount</span><span class="o">=</span>10
 </code></pre>
 
@@ -453,7 +548,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   </span><span class="p">{</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"Refund has been initiated successfully"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"refund_id"</span><span class="p">:</span><span class="s2">"8ac9l0o54KJGsDhK3gmCU"</span><span class="w">
+    </span><span class="nt">"refund_id"</span><span class="p">:</span><span class="s2">"ref_397d0me53575f3"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
@@ -496,21 +591,26 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   -d <span class="nv">name</span><span class="o">=</span><span class="s1">'Jim'</span> <span class="se">\</span>
   -d <span class="nv">email</span><span class="o">=</span><span class="s1">'jim@instantmerchant.io'</span> <span class="se">\</span>
   -d <span class="nv">amount</span><span class="o">=</span>100 <span class="se">\</span>
-  -d <span class="nv">authorize_now</span><span class="o">=</span>1 <span class="se">\</span>
-  -d <span class="nv">pay_later</span><span class="o">=</span>1 <span class="se">\</span>
   -d <span class="nv">payment_mode</span><span class="o">=</span>auth_and_capture <span class="se">\</span>
   -d <span class="nv">currency</span><span class="o">=</span><span class="s1">'usd'</span> <span class="se">\</span>
   -d <span class="nv">address</span><span class="o">=</span><span class="s1">'my address here'</span> <span class="se">\</span>
   -d <span class="nv">city</span><span class="o">=</span><span class="s1">'nashville'</span> <span class="se">\</span>
   -d <span class="nv">zip</span><span class="o">=</span>37251 <span class="se">\</span>
   -d <span class="nv">state</span><span class="o">=</span><span class="s1">'TN'</span> <span class="se">\</span>
-  -d <span class="nv">country</span><span class="o">=</span><span class="s1">'US'</span>
+  -d <span class="nv">country</span><span class="o">=</span><span class="s1">'US'</span> <span class="se">\</span>
   -d <span class="nv">description</span><span class="o">=</span><span class="s1">'first payment'</span> <span class="se">\</span>
   -d <span class="nv">cardholder_name</span><span class="o">=</span><span class="s1">'Jim'</span> <span class="se">\</span>
   -d <span class="nv">card_number</span><span class="o">=</span>4242424242424242 <span class="se">\</span>
   -d <span class="nv">exp_month</span><span class="o">=</span>12 <span class="se">\</span>
   -d <span class="nv">exp_year</span><span class="o">=</span>2020 <span class="se">\</span>
-  -d <span class="nv">cvc</span><span class="o">=</span>123
+  -d <span class="nv">cvc</span><span class="o">=</span>123 <span class="se">\</span>
+  -d <span class="nv">send_email</span><span class="o">=</span>1 <span class="se">\</span>
+  -d <span class="nv">payment_type</span><span class="o">=</span>recurring <span class="se">\</span>
+  -d <span class="nv">interval</span><span class="o">=</span>quarterly <span class="se">\</span>
+  -d <span class="nv">create_customer</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  -d <span class="nv">save_card</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  -d <span class="nv">is_default</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  -d <span class="nv">card_id</span><span class="o">=</span>card_585a3da60deae
 </code></pre>
 
 <blockquote>
@@ -518,9 +618,14 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </blockquote>
 <pre class="highlight json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"status"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"payment processed successfully"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="s2">"18gd5UB0o5NJGO1rgAoygmCU"</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment processed successfully"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"card_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card_58626a702e23c"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"card_last_4"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1111"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sub_58626a702eb9e1"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"expiry_date"</span><span class="p">:</span><span class="w"> </span><span class="mi">1490590800</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">363</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cha_689d0tf96536d1"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
@@ -586,39 +691,69 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <td>2-letter country code</td>
 </tr>
 <tr>
-<td>payment_mode [optional]</td>
+<td>payment_mode [required]</td>
 <td>auth_and_capture</td>
 <td>If set to <code class="prettyprint">auth_and_capture</code>, given credit card will be charged immediately. if set to <code class="prettyprint">auth_only</code> the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in <strong>7 days</strong>.</td>
 </tr>
 <tr>
-<td>cardholder_name [optional]</td>
+<td>cardholder_name [required]</td>
 <td>none</td>
-<td>Actual cardholder name</td>
+<td>Actual cardholder name. when <code class="prettyprint">card_id</code> is not present.</td>
 </tr>
 <tr>
-<td>card_number [optional]</td>
+<td>card_number [required]</td>
 <td>none</td>
-<td>The card number, as a string without any separators.</td>
+<td>The card number, as a string without any separators. when <code class="prettyprint">card_id</code> is not present.</td>
 </tr>
 <tr>
-<td>exp_month [optional]</td>
+<td>exp_month [required]</td>
 <td>none</td>
-<td>Two digit number representing the card&rsquo;s expiration month.</td>
+<td>Two digit number representing the card&rsquo;s expiration month. when <code class="prettyprint">card_id</code> is not present.</td>
 </tr>
 <tr>
-<td>exp_year [optional]</td>
+<td>exp_year [required]</td>
 <td>none</td>
-<td>Two or four digit number representing the card&rsquo;s expiration year.</td>
+<td>Two or four digit number representing the card&rsquo;s expiration year. when <code class="prettyprint">card_id</code> is not present.</td>
 </tr>
 <tr>
-<td>cvc [optional]</td>
+<td>cvc [required]</td>
 <td>none</td>
-<td>Card security code</td>
+<td>Card security code. when <code class="prettyprint">card_id</code> is not present.</td>
+</tr>
+<tr>
+<td>send_email [optional]</td>
+<td>0</td>
+<td>If set to 1, customer will receive payment email</td>
 </tr>
 <tr>
 <td>currency [optional]</td>
 <td>usd</td>
 <td>Only allowed currency is usd</td>
+</tr>
+<tr>
+<td>interval [optional]</td>
+<td>false</td>
+<td>Required, when payment_type is set to <code class="prettyprint">recurring</code>.</td>
+</tr>
+<tr>
+<td>create_customer [optional]</td>
+<td>false</td>
+<td>If set to <code class="prettyprint">true</code>. Customer is created.</td>
+</tr>
+<tr>
+<td>save_card [optional]</td>
+<td>false</td>
+<td>If set to <code class="prettyprint">true</code>, card details will be stored.</td>
+</tr>
+<tr>
+<td>is_default [optional]</td>
+<td>false</td>
+<td>If set to <code class="prettyprint">true</code>. card details are saved and make it as default card.</td>
+</tr>
+<tr>
+<td>card_id [optional]</td>
+<td>none</td>
+<td>Required, when card details are not present.</td>
 </tr>
 </tbody></table>
 
@@ -626,7 +761,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/capture <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
-  -d <span class="nv">invoice_num</span><span class="o">=</span>30
+  -d <span class="nv">charge_id</span><span class="o">=</span>cha_585d0bf93573f1
 </code></pre>
 
 <blockquote>
@@ -636,8 +771,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   </span><span class="p">{</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"payment captured successfully"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="s2">"8ac9l0o54KJGsDhK3gmCU"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="mi">145</span><span class="w">
+    </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="s2">"cha_585d0bf93573f1"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
@@ -662,7 +796,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <tr>
 <td>charge_id [required]</td>
 <td>none</td>
-<td>the transaction id of the charge to capture</td>
+<td>The transaction id of the charge to capture</td>
 </tr>
 </tbody></table>
 
@@ -670,7 +804,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/refund <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
-  -d <span class="nv">charge_id</span><span class="o">=</span><span class="s1">'1gd5UB0o5NJGO1rgAoygm'</span> <span class="se">\</span>
+  -d <span class="nv">charge_id</span><span class="o">=</span><span class="s1">'cha_585d0bf93573f1'</span> <span class="se">\</span>
   -d <span class="nv">amount</span><span class="o">=</span>10
 </code></pre>
 
@@ -681,7 +815,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   </span><span class="p">{</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"Refund has been initiated successfully"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"refund_id"</span><span class="p">:</span><span class="s2">"8ac9l0o54KJGsDhK3gmCU"</span><span class="w">
+    </span><span class="nt">"refund_id"</span><span class="p">:</span><span class="s2">"ref_397d0me53575f3"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
@@ -797,6 +931,341 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <td>country [required]</td>
 <td>none</td>
 <td>2-letter country code</td>
+</tr>
+</tbody></table>
+
+<h1 id="card">Card</h1>
+
+<h2 id="create-card">Create Card</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/card <span class="se">\</span>
+  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -d <span class="nv">customer</span><span class="o">=</span>22 <span class="se">\</span>
+  -d <span class="nv">description</span><span class="o">=</span><span class="s1">'newcard'</span> <span class="se">\</span>
+  -d <span class="nv">cardholder_name</span><span class="o">=</span><span class="s1">'Jim'</span> <span class="se">\</span>
+  -d <span class="nv">card_number</span><span class="o">=</span><span class="s1">'4111111111111111'</span> <span class="se">\</span>
+  -d <span class="nv">exp_month</span><span class="o">=</span>03  <span class="se">\</span>
+  -d <span class="nv">exp_year</span><span class="o">=</span>2018 <span class="se">\</span>
+  -d <span class="nv">cvc</span><span class="o">=</span>123 <span class="se">\</span>
+  -d <span class="nv">currency</span><span class="o">=</span>usd <span class="se">\</span>
+  -d <span class="nv">save_card</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  -d <span class="nv">is_default</span><span class="o">=</span><span class="nb">true</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Card created successfully"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"card_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card_585d4e7edcf93"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"card_last_4"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1111"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint allows you to store multiple cards on a customer in order to charge the customer later.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v2/card</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>customer [required]</td>
+<td>none</td>
+<td>Customer id if created already</td>
+</tr>
+<tr>
+<td>description [optional]</td>
+<td>none</td>
+<td>An arbitrary string which you can attach to a card object.</td>
+</tr>
+<tr>
+<td>cardholder_name [required]</td>
+<td>none</td>
+<td>Actual cardholder name.</td>
+</tr>
+<tr>
+<td>card_number [required]</td>
+<td>none</td>
+<td>The card number, as a string without any separators.</td>
+</tr>
+<tr>
+<td>exp_month [required]</td>
+<td>none</td>
+<td>Two digit number representing the card&rsquo;s expiration month.</td>
+</tr>
+<tr>
+<td>exp_year [required]</td>
+<td>none</td>
+<td>Two or four digit number representing the card&rsquo;s expiration year.</td>
+</tr>
+<tr>
+<td>cvc [required]</td>
+<td>none</td>
+<td>Card security code</td>
+</tr>
+<tr>
+<td>save_card [optional]</td>
+<td>false</td>
+<td>If set to <code class="prettyprint">true</code>, card details will be stored.</td>
+</tr>
+<tr>
+<td>is_default [optional]</td>
+<td>false</td>
+<td>If set to <code class="prettyprint">true</code>. card details are saved and make it as default card.</td>
+</tr>
+</tbody></table>
+
+<h2 id="retrieve-card">Retrieve Card</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/card/get <span class="se">\</span>
+  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -d <span class="nv">customer</span><span class="o">=</span>22 <span class="se">\</span>
+  -d <span class="nv">card_id</span><span class="o">=</span>card_585a3da60deae
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Credit card details retrieved successfully"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+        </span><span class="nt">"card_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card_585a3da60deae"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"is_default"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"card_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"cc_last_4"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4242"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"cc_valid_thru"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1/2017"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"card_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card_585a3e5b27e1c"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"is_default"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"card_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"cc_last_4"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4242"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"cc_valid_thru"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2/2017"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"card_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card_585a40c6e8afb"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"is_default"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"card_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"cc_last_4"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4242"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"cc_valid_thru"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5/2017"</span><span class="w">
+    </span><span class="p">}]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint allows you to retrieve details about a specific card stored on the customer.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v2/card/get</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>customer [required]</td>
+<td>none</td>
+<td>Customer id if created already</td>
+</tr>
+<tr>
+<td>card_id [optional]</td>
+<td>none</td>
+<td>Required, when card details are not present.</td>
+</tr>
+</tbody></table>
+
+<h2 id="update-card">Update Card</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/subscription/update_card <span class="se">\</span>
+  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -d <span class="nv">subscription_id</span><span class="o">=</span>sub_58611e30ae9131 <span class="se">\</span>
+  -d <span class="nv">cardholder_name</span><span class="o">=</span><span class="s1">'JimTest'</span> <span class="se">\</span>
+  -d <span class="nv">card_number</span><span class="o">=</span>4111111111111111 <span class="se">\</span>
+  -d <span class="nv">exp_month</span><span class="o">=</span>11 <span class="se">\</span>
+  -d <span class="nv">exp_year</span><span class="o">=</span>2019 <span class="se">\</span>
+  -d <span class="nv">cvc</span><span class="o">=</span>999 <span class="se">\</span>
+  -d <span class="nv">save_card</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  -d <span class="nv">is_default</span><span class="o">=</span><span class="nb">true</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Customer card updated successfully"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"card_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card_58612d5143b2a"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"card_last_4"</span><span class="p">:</span><span class="w"> </span><span class="s2">"07/2037"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint allows you to update only card details, like the expiration date or expiration year, you can do so without having to re-enter the full card details.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v2/subscription/update_card</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>subscription_id [required]</td>
+<td>none</td>
+<td>The identifier of the subscription.</td>
+</tr>
+<tr>
+<td>cardholder_name [required]</td>
+<td>none</td>
+<td>Actual cardholder name.</td>
+</tr>
+<tr>
+<td>card_number [required]</td>
+<td>none</td>
+<td>The card number, as a string without any separators.</td>
+</tr>
+<tr>
+<td>exp_month [required]</td>
+<td>none</td>
+<td>Two digit number representing the card&rsquo;s expiration month.</td>
+</tr>
+<tr>
+<td>exp_year [required]</td>
+<td>none</td>
+<td>Two or four digit number representing the card&rsquo;s expiration year.</td>
+</tr>
+<tr>
+<td>cvc [required]</td>
+<td>none</td>
+<td>Card security code</td>
+</tr>
+<tr>
+<td>save_card [optional]</td>
+<td>false</td>
+<td>If set to <code class="prettyprint">true</code>, card details will be stored.</td>
+</tr>
+<tr>
+<td>is_default [optional]</td>
+<td>false</td>
+<td>If set to <code class="prettyprint">true</code>. card details are saved and make it as default card.</td>
+</tr>
+</tbody></table>
+
+<h1 id="subscription">Subscription</h1>
+
+<h2 id="new-subscription">New Subscription</h2>
+
+<p>You can create subscription on Invoice creation or Direct payment.</p>
+
+<p><code class="prettyprint">POST</code> <a href='#create-invoice'>Create Invoice</a>
+<code class="prettyprint">POST</code> <a href='#create-charge'>Create Charge</a></p>
+
+<h2 id="renew-subscription">Renew Subscription</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/subscription/renew <span class="se">\</span>
+  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -d <span class="nv">subscription_id</span><span class="o">=</span>sub_58611e30ae9131
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscription renewed successfully"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cha_58612419c7e571"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sub_58611e30ae9131"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"expiry_date"</span><span class="p">:</span><span class="w"> </span><span class="mi">1485410400</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="w"> </span><span class="mi">36</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint allows you to renew subscription.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v2/subscription/renew</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>subscription_id [required]</td>
+<td>none</td>
+<td>The identifier of the subscription.</td>
+</tr>
+</tbody></table>
+
+<h2 id="cancel-subscription">Cancel Subscription</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/subscription/cancel <span class="se">\</span>
+  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -d <span class="nv">subscription_id</span><span class="o">=</span>sub_58611e30ae9131
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscription canceled successfully"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint allows you to cancel your subscription.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v2/subscription/cancel</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>subscription_id [required]</td>
+<td>none</td>
+<td>The identifier of the subscription.</td>
 </tr>
 </tbody></table>
 
