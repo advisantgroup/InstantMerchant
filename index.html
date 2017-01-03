@@ -91,7 +91,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;javascript&quot;]">
     <a href="/" id="nav-button">
       <span>
         <!-- NAV -->
@@ -102,6 +102,7 @@
       
         <div class="lang-selector">
               <a href="#" data-language-name="shell">cURL</a>
+              <a href="#" data-language-name="javascript">NodeJS</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -178,6 +179,42 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   -d <span class="nv">save_card</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
   -d <span class="nv">is_default</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
   -d <span class="nv">card_id</span><span class="o">=</span>card_585a3da60deae
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//Configuration</span>
+<span class="kd">var</span> <span class="nx">Imn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'instantmerchant-node'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">instant</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Imn</span><span class="p">({</span>
+    <span class="na">key</span> <span class="p">:</span> <span class="s2">"your api key"</span><span class="p">,</span>
+    <span class="na">secret</span> <span class="p">:</span> <span class="s2">"your api secret"</span>
+<span class="p">});</span>
+
+
+
+<span class="cm">/*Create Invoice*/</span>
+
+<span class="c1">//Request</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'customer'</span> <span class="p">:</span> <span class="mi">290</span><span class="p">,</span>
+    <span class="s1">'description'</span> <span class="p">:</span> <span class="s1">'test description'</span><span class="p">,</span>
+    <span class="s1">'date_due'</span> <span class="p">:</span> <span class="s1">'08/12/2017'</span><span class="p">,</span>
+    <span class="s1">'payment_type'</span> <span class="p">:</span> <span class="s1">'one_time'</span><span class="p">,</span>
+    <span class="s1">'items'</span> <span class="p">:</span> <span class="p">[</span><span class="s1">'apple'</span><span class="p">,</span><span class="s1">'test'</span><span class="p">],</span>
+    <span class="s1">'items_price'</span> <span class="p">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">],</span>
+    <span class="s1">'send_email'</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">'payment_mode'</span> <span class="p">:</span> <span class="s1">'auth_only'</span><span class="p">,</span>
+    <span class="s1">'cardholder_name'</span> <span class="p">:</span> <span class="s1">'Jim'</span><span class="p">,</span>
+    <span class="s1">'card_number'</span> <span class="p">:</span> <span class="mi">4242424242424242</span><span class="p">,</span>
+    <span class="s1">'exp_month'</span> <span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">'exp_year'</span> <span class="p">:</span> <span class="mi">2020</span><span class="p">,</span>
+    <span class="s1">'cvc'</span> <span class="p">:</span> <span class="mi">123</span>
+<span class="p">};</span>
+
+<span class="nx">instant</span><span class="p">.</span><span class="nx">invoice</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="c1">//success</span>
+<span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">})</span>
 </code></pre>
 
 <blockquote>
@@ -589,6 +626,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
   -d <span class="nv">name</span><span class="o">=</span><span class="s1">'Jim'</span> <span class="se">\</span>
+  -d <span class="nv">username</span><span class="o">=</span><span class="s1">'jim_test'</span> <span class="se">\</span>
   -d <span class="nv">email</span><span class="o">=</span><span class="s1">'jim@instantmerchant.io'</span> <span class="se">\</span>
   -d <span class="nv">amount</span><span class="o">=</span>100 <span class="se">\</span>
   -d <span class="nv">payment_mode</span><span class="o">=</span>auth_and_capture <span class="se">\</span>
@@ -600,7 +638,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   -d <span class="nv">country</span><span class="o">=</span><span class="s1">'US'</span> <span class="se">\</span>
   -d <span class="nv">description</span><span class="o">=</span><span class="s1">'first payment'</span> <span class="se">\</span>
   -d <span class="nv">cardholder_name</span><span class="o">=</span><span class="s1">'Jim'</span> <span class="se">\</span>
-  -d <span class="nv">card_number</span><span class="o">=</span>4242424242424242 <span class="se">\</span>
+  -d <span class="nv">card_number</span><span class="o">=</span>4111111111111111 <span class="se">\</span>
   -d <span class="nv">exp_month</span><span class="o">=</span>12 <span class="se">\</span>
   -d <span class="nv">exp_year</span><span class="o">=</span>2020 <span class="se">\</span>
   -d <span class="nv">cvc</span><span class="o">=</span>123 <span class="se">\</span>
@@ -1180,10 +1218,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 
 <h2 id="new-subscription">New Subscription</h2>
 
-<p>You can create subscription on Invoice creation or Direct payment.</p>
-
-<p><code class="prettyprint">POST</code> <a href='#create-invoice'>Create Invoice</a>
-<code class="prettyprint">POST</code> <a href='#create-charge'>Create Charge</a></p>
+<p>You can create subscription on <a href='#create-invoice'>Create Invoice</a> or <a href='#create-charge'>Direct Payment</a>.</p>
 
 <h2 id="renew-subscription">Renew Subscription</h2>
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/subscription/renew <span class="se">\</span>
@@ -1313,6 +1348,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">cURL</a>
+                <a href="#" data-language-name="javascript">NodeJS</a>
           </div>
       </div>
     </div>
