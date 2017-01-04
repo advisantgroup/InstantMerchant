@@ -61,7 +61,7 @@ curl https://api.instantmerchant.io/api/v2/invoice \
   -d items[]='orange' \
   -d items_price[]=18 \
   -d send_now=1 \
-  -d payment_mode=a'uth_and_capture' \
+  -d payment_mode='auth_and_capture' \
   -d cardholder_name='Jim' \
   -d card_number=4242424242424242 \
   -d exp_month=12 \
