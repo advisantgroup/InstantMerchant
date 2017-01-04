@@ -156,6 +156,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/invoice <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X POST <span class="se">\</span>
   -d <span class="nv">customer</span><span class="o">=</span>1 <span class="se">\</span>
   -d <span class="nv">description</span><span class="o">=</span><span class="s1">'test description'</span> <span class="se">\</span>
   -d <span class="nv">date_due</span><span class="o">=</span><span class="s1">'08/12/2017'</span> <span class="se">\</span>
@@ -392,6 +393,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/invoice/send <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X POST <span class="se">\</span>
   -d <span class="nv">invoice_num</span><span class="o">=</span>10
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">//Request</span>
@@ -446,6 +448,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/invoice/charge <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X POST <span class="se">\</span>
   -d <span class="nv">payment_mode</span><span class="o">=</span><span class="s1">'auth_and_capture'</span> <span class="se">\</span>
   -d <span class="nv">invoice_num</span><span class="o">=</span>30 <span class="se">\</span>
   -d <span class="nv">cardholder_name</span><span class="o">=</span><span class="s1">'Jim'</span> <span class="se">\</span>
@@ -574,6 +577,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/invoice/capture <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X POST <span class="se">\</span>
   -d <span class="nv">charge_id</span><span class="o">=</span><span class="s1">'cha_585d0bf93573f1'</span>
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">//Request</span>
@@ -631,6 +635,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/invoice/refund <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X POST <span class="se">\</span>
   -d <span class="nv">charge_id</span><span class="o">=</span><span class="s1">'cha_585d0bf93573f1'</span> <span class="se">\</span>
   -d <span class="nv">amount</span><span class="o">=</span>10
 </code></pre>
@@ -696,6 +701,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/charge <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X POST <span class="se">\</span>
   -d <span class="nv">name</span><span class="o">=</span><span class="s1">'Jim'</span> <span class="se">\</span>
   -d <span class="nv">username</span><span class="o">=</span><span class="s1">'jim_test'</span> <span class="se">\</span>
   -d <span class="nv">email</span><span class="o">=</span><span class="s1">'jim@instantmerchant.io'</span> <span class="se">\</span>
@@ -905,6 +911,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/capture <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X POST <span class="se">\</span>
   -d <span class="nv">charge_id</span><span class="o">=</span><span class="s1">'cha_585d0bf93573f1'</span>
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">//Request</span>
@@ -961,6 +968,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/refund <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X POST <span class="se">\</span>
   -d <span class="nv">charge_id</span><span class="o">=</span><span class="s1">'cha_585d0bf93573f1'</span> <span class="se">\</span>
   -d <span class="nv">amount</span><span class="o">=</span>10
 </code></pre>
@@ -1027,6 +1035,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/customer <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X GET
   -d <span class="nv">name</span><span class="o">=</span><span class="s1">'Jim'</span> <span class="se">\</span>
   -d <span class="nv">username</span><span class="o">=</span><span class="s1">'jim123'</span> <span class="se">\</span>
   -d <span class="nv">email</span><span class="o">=</span><span class="s1">'jim@instantmerchant.io'</span> <span class="se">\</span>
@@ -1129,7 +1138,8 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <h2 id="retrieve-customer">Retrieve Customer</h2>
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/customer/customer/?id<span class="o">=</span>22 <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
-  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X GET
 </code></pre>
 
 <blockquote>
@@ -1181,6 +1191,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/customer/update <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X POST <span class="se">\</span>
   -d id <span class="o">=</span>20 <span class="se">\</span>
   -d <span class="nv">name</span><span class="o">=</span><span class="s1">'Jim'</span> <span class="se">\</span>
   -d <span class="nv">password</span><span class="o">=</span><span class="s1">'bacabcdefgh'</span> <span class="se">\</span>
@@ -1257,6 +1268,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/customer <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X DELETE
   -d <span class="nv">customer_id</span><span class="o">=</span>22
 </code></pre>
 
@@ -1296,7 +1308,8 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <h2 id="list-all-customers">List all customers</h2>
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/customer/customer <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
-  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X GET
 </code></pre>
 
 <blockquote>
@@ -1392,6 +1405,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/card <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X POST <span class="se">\</span>
   -d <span class="nv">customer</span><span class="o">=</span>22 <span class="se">\</span>
   -d <span class="nv">description</span><span class="o">=</span><span class="s1">'newcard'</span> <span class="se">\</span>
   -d <span class="nv">cardholder_name</span><span class="o">=</span><span class="s1">'Jim'</span> <span class="se">\</span>
@@ -1506,6 +1520,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/card <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X GET
   -d <span class="nv">customer</span><span class="o">=</span>22 <span class="se">\</span>
   -d <span class="nv">card_id</span><span class="o">=</span><span class="s1">'card_585a3da60deae'</span>
 </code></pre>
@@ -1573,6 +1588,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/card <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X DELETE
   -d <span class="nv">customer</span><span class="o">=</span>22 <span class="se">\</span>
   -d <span class="nv">card_id</span><span class="o">=</span><span class="s1">'card_585a3da60deae'</span>
 </code></pre>
@@ -1619,6 +1635,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/card <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X GET <span class="se">\</span>
   -d <span class="nv">customer</span><span class="o">=</span>22
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">//Request</span>
@@ -1697,6 +1714,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/subscription/renew <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X POST <span class="se">\</span>
   -d <span class="nv">subscription_id</span><span class="o">=</span><span class="s1">'sub_58611e30ae9131'</span>
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">//Request</span>
@@ -1754,6 +1772,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/subscription/cancel <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X POST <span class="se">\</span>
   -d <span class="nv">subscription_id</span><span class="o">=</span><span class="s1">'sub_58611e30ae9131'</span>
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">//Request</span>
@@ -1807,6 +1826,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/subscription/update_card <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X POST <span class="se">\</span>
   -d <span class="nv">subscription_id</span><span class="o">=</span><span class="s1">'sub_58611e30ae9131'</span> <span class="se">\</span>
   -d <span class="nv">cardholder_name</span><span class="o">=</span><span class="s1">'JimTest'</span> <span class="se">\</span>
   -d <span class="nv">card_number</span><span class="o">=</span>4242424242424242 <span class="se">\</span>
