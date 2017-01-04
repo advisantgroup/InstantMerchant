@@ -159,26 +159,25 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   -d <span class="nv">customer</span><span class="o">=</span>1 <span class="se">\</span>
   -d <span class="nv">description</span><span class="o">=</span><span class="s1">'test description'</span> <span class="se">\</span>
   -d <span class="nv">date_due</span><span class="o">=</span><span class="s1">'08/12/2017'</span> <span class="se">\</span>
-  -d <span class="nv">payment_type</span><span class="o">=</span><span class="s1">'one_time'</span> <span class="se">\</span>
   -d items[]<span class="o">=</span><span class="s1">'apple'</span> <span class="se">\</span>
   -d items_price[]<span class="o">=</span>20 <span class="se">\</span>
   -d items[]<span class="o">=</span><span class="s1">'orange'</span> <span class="se">\</span>
   -d items_price[]<span class="o">=</span>18 <span class="se">\</span>
   -d <span class="nv">send_now</span><span class="o">=</span>1 <span class="se">\</span>
-  -d <span class="nv">payment_mode</span><span class="o">=</span>auth_and_capture <span class="se">\</span>
+  -d <span class="nv">payment_mode</span><span class="o">=</span>a<span class="s1">'uth_and_capture'</span> <span class="se">\</span>
   -d <span class="nv">cardholder_name</span><span class="o">=</span><span class="s1">'Jim'</span> <span class="se">\</span>
   -d <span class="nv">card_number</span><span class="o">=</span>4242424242424242 <span class="se">\</span>
   -d <span class="nv">exp_month</span><span class="o">=</span>12 <span class="se">\</span>
   -d <span class="nv">exp_year</span><span class="o">=</span>2020 <span class="se">\</span>
   -d <span class="nv">cvc</span><span class="o">=</span>123 <span class="se">\</span>
   -d invoice_to_staff <span class="o">=</span> 254 <span class="se">\</span>
-  -d send_invoice_to <span class="o">=</span> jim@instantmerchant.io <span class="se">\</span>
-  -d <span class="nv">payment_type</span><span class="o">=</span>recurring <span class="se">\</span>
-  -d <span class="nv">interval</span><span class="o">=</span>quarterly <span class="se">\</span>
-  -d <span class="nv">create_customer</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
-  -d <span class="nv">save_card</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
-  -d <span class="nv">is_default</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
-  -d <span class="nv">card_id</span><span class="o">=</span>card_585a3da60deae
+  -d send_invoice_to <span class="o">=</span> <span class="s1">'jim@instantmerchant.io'</span> <span class="se">\</span>
+  -d <span class="nv">payment_type</span><span class="o">=</span><span class="s1">'recurring'</span> <span class="se">\</span>
+  -d <span class="nv">interval</span><span class="o">=</span><span class="s1">'quarterly'</span> <span class="se">\</span>
+  -d <span class="nv">create_customer</span><span class="o">=</span><span class="s1">'true'</span> <span class="se">\</span>
+  -d <span class="nv">save_card</span><span class="o">=</span><span class="s1">'true'</span> <span class="se">\</span>
+  -d <span class="nv">is_default</span><span class="o">=</span><span class="s1">'true'</span> <span class="se">\</span>
+  -d <span class="nv">card_id</span><span class="o">=</span><span class="s1">'card_585a3da60deae'</span>
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">//Configuration</span>
 <span class="kd">var</span> <span class="nx">Imn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'instantmerchant-node'</span><span class="p">);</span>
@@ -193,19 +192,27 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 
 <span class="c1">//Request</span>
 <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'customer'</span> <span class="p">:</span> <span class="mi">290</span><span class="p">,</span>
+    <span class="s1">'customer'</span> <span class="p">:</span> <span class="mi">290</span><span class="p">,</span>
     <span class="s1">'description'</span> <span class="p">:</span> <span class="s1">'test description'</span><span class="p">,</span>
     <span class="s1">'date_due'</span> <span class="p">:</span> <span class="s1">'08/12/2017'</span><span class="p">,</span>
     <span class="s1">'payment_type'</span> <span class="p">:</span> <span class="s1">'one_time'</span><span class="p">,</span>
     <span class="s1">'items'</span> <span class="p">:</span> <span class="p">[</span><span class="s1">'apple'</span><span class="p">,</span><span class="s1">'test'</span><span class="p">],</span>
     <span class="s1">'items_price'</span> <span class="p">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">],</span>
     <span class="s1">'send_email'</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s1">'payment_mode'</span> <span class="p">:</span> <span class="s1">'auth_only'</span><span class="p">,</span>
+    <span class="s1">'payment_mode'</span> <span class="p">:</span> <span class="s1">'auth_and_capture'</span><span class="p">,</span>
     <span class="s1">'cardholder_name'</span> <span class="p">:</span> <span class="s1">'Jim'</span><span class="p">,</span>
     <span class="s1">'card_number'</span> <span class="p">:</span> <span class="mi">4242424242424242</span><span class="p">,</span>
     <span class="s1">'exp_month'</span> <span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
     <span class="s1">'exp_year'</span> <span class="p">:</span> <span class="mi">2020</span><span class="p">,</span>
-    <span class="s1">'cvc'</span> <span class="p">:</span> <span class="mi">123</span>
+    <span class="s1">'cvc'</span> <span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+    <span class="s1">'invoice_to_staff'</span> <span class="p">:</span> <span class="mi">254</span><span class="p">,</span>
+    <span class="s1">'send_invoice_to'</span> <span class="p">:</span> <span class="s1">'jim@instantmerchant.io'</span><span class="p">,</span>
+    <span class="s1">'payment_type'</span> <span class="p">:</span> <span class="s1">'recurring'</span><span class="p">,</span>
+    <span class="s1">'interval'</span> <span class="p">:</span> <span class="s1">'quarterly'</span><span class="p">,</span>
+    <span class="s1">'create_customer'</span> <span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
+    <span class="s1">'save_card'</span> <span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
+    <span class="s1">'is_default'</span> <span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
+    <span class="s1">'card_id'</span> <span class="p">:</span> <span class="s1">'card_585a3da60deae'</span>
 <span class="p">};</span>
 
 <span class="nx">instant</span><span class="p">.</span><span class="nx">invoice</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
@@ -387,6 +394,20 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
   -d <span class="nv">invoice_num</span><span class="o">=</span>10
 </code></pre>
+<pre class="highlight javascript"><code><span class="c1">//Request</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">invoice_num</span><span class="p">:</span> <span class="mi">10</span>
+<span class="p">};</span>
+
+<span class="nx">instant</span><span class="p">.</span><span class="nx">invoice</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="c1">//success</span>
+<span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">})</span>
+
+</code></pre>
 
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -425,7 +446,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/invoice/charge <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
-  -d <span class="nv">payment_mode</span><span class="o">=</span>auth_and_capture <span class="se">\</span>
+  -d <span class="nv">payment_mode</span><span class="o">=</span><span class="s1">'auth_and_capture'</span> <span class="se">\</span>
   -d <span class="nv">invoice_num</span><span class="o">=</span>30 <span class="se">\</span>
   -d <span class="nv">cardholder_name</span><span class="o">=</span><span class="s1">'Jim'</span> <span class="se">\</span>
   -d <span class="nv">card_number</span><span class="o">=</span>4242424242424242 <span class="se">\</span>
@@ -433,9 +454,32 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   -d <span class="nv">exp_year</span><span class="o">=</span>2019 <span class="se">\</span>
   -d <span class="nv">cvc</span><span class="o">=</span>123 <span class="se">\</span>
   -d <span class="nv">send_email</span><span class="o">=</span>1 <span class="se">\</span>
-  -d <span class="nv">save_card</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
-  -d <span class="nv">is_default</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
-  -d <span class="nv">card_id</span><span class="o">=</span>card_585d2a6c7c5d4
+  -d <span class="nv">save_card</span><span class="o">=</span><span class="s1">'true'</span> <span class="se">\</span>
+  -d <span class="nv">is_default</span><span class="o">=</span><span class="s1">'true'</span> <span class="se">\</span>
+  -d <span class="nv">card_id</span><span class="o">=</span><span class="s1">'card_585d2a6c7c5d4'</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//Request</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">payment_mode</span> <span class="p">:</span> <span class="s1">'auth_and_capture'</span><span class="p">,</span>
+    <span class="na">invoice_num</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="na">cardholder_name</span> <span class="p">:</span> <span class="s1">'Jim'</span><span class="p">,</span>
+    <span class="na">card_number</span> <span class="p">:</span> <span class="mi">4242424242424242</span><span class="p">,</span>
+    <span class="na">exp_month</span> <span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="na">exp_year</span> <span class="p">:</span> <span class="mi">2020</span><span class="p">,</span>
+    <span class="na">cvc</span> <span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+    <span class="na">send_email</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">save_card</span> <span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
+    <span class="na">is_default</span> <span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
+    <span class="na">card_id</span> <span class="p">:</span> <span class="s1">'card_585d2a6c7c5d4'</span>
+<span class="p">};</span>
+
+<span class="nx">instant</span><span class="p">.</span><span class="nx">invoice</span><span class="p">.</span><span class="nx">charge</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="c1">//success</span>
+<span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">})</span>
 </code></pre>
 
 <blockquote>
@@ -530,7 +574,20 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/invoice/capture <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
-  -d <span class="nv">charge_id</span><span class="o">=</span>cha_585d0bf93573f1
+  -d <span class="nv">charge_id</span><span class="o">=</span><span class="s1">'cha_585d0bf93573f1'</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//Request</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">charge_id</span><span class="p">:</span> <span class="s1">'cha_585d0bf93573f1'</span>
+<span class="p">};</span>
+
+<span class="nx">instant</span><span class="p">.</span><span class="nx">invoice</span><span class="p">.</span><span class="nx">capture</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="c1">//success</span>
+<span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">})</span>
 </code></pre>
 
 <blockquote>
@@ -576,6 +633,20 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
   -d <span class="nv">charge_id</span><span class="o">=</span><span class="s1">'cha_585d0bf93573f1'</span> <span class="se">\</span>
   -d <span class="nv">amount</span><span class="o">=</span>10
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//Request</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">charge_id</span> <span class="p">:</span> <span class="s1">'cha_585d0bf93573f1'</span><span class="p">,</span>
+    <span class="na">amount</span> <span class="p">:</span> <span class="mi">10</span>
+<span class="p">};</span>
+
+<span class="nx">instant</span><span class="p">.</span><span class="nx">invoice</span><span class="p">.</span><span class="nx">refund</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="c1">//success</span>
+<span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">})</span>
 </code></pre>
 
 <blockquote>
@@ -629,7 +700,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   -d <span class="nv">username</span><span class="o">=</span><span class="s1">'jim_test'</span> <span class="se">\</span>
   -d <span class="nv">email</span><span class="o">=</span><span class="s1">'jim@instantmerchant.io'</span> <span class="se">\</span>
   -d <span class="nv">amount</span><span class="o">=</span>100 <span class="se">\</span>
-  -d <span class="nv">payment_mode</span><span class="o">=</span>auth_and_capture <span class="se">\</span>
+  -d <span class="nv">payment_mode</span><span class="o">=</span><span class="s1">'auth_and_capture'</span> <span class="se">\</span>
   -d <span class="nv">currency</span><span class="o">=</span><span class="s1">'usd'</span> <span class="se">\</span>
   -d <span class="nv">address</span><span class="o">=</span><span class="s1">'my address here'</span> <span class="se">\</span>
   -d <span class="nv">city</span><span class="o">=</span><span class="s1">'nashville'</span> <span class="se">\</span>
@@ -638,17 +709,52 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   -d <span class="nv">country</span><span class="o">=</span><span class="s1">'US'</span> <span class="se">\</span>
   -d <span class="nv">description</span><span class="o">=</span><span class="s1">'first payment'</span> <span class="se">\</span>
   -d <span class="nv">cardholder_name</span><span class="o">=</span><span class="s1">'Jim'</span> <span class="se">\</span>
-  -d <span class="nv">card_number</span><span class="o">=</span>4111111111111111 <span class="se">\</span>
+  -d <span class="nv">card_number</span><span class="o">=</span>4242424242424242 <span class="se">\</span>
   -d <span class="nv">exp_month</span><span class="o">=</span>12 <span class="se">\</span>
   -d <span class="nv">exp_year</span><span class="o">=</span>2020 <span class="se">\</span>
   -d <span class="nv">cvc</span><span class="o">=</span>123 <span class="se">\</span>
   -d <span class="nv">send_email</span><span class="o">=</span>1 <span class="se">\</span>
-  -d <span class="nv">payment_type</span><span class="o">=</span>recurring <span class="se">\</span>
-  -d <span class="nv">interval</span><span class="o">=</span>quarterly <span class="se">\</span>
-  -d <span class="nv">create_customer</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
-  -d <span class="nv">save_card</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
-  -d <span class="nv">is_default</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
-  -d <span class="nv">card_id</span><span class="o">=</span>card_585a3da60deae
+  -d <span class="nv">payment_type</span><span class="o">=</span><span class="s1">'recurring'</span> <span class="se">\</span>
+  -d <span class="nv">interval</span><span class="o">=</span><span class="s1">'quarterly'</span> <span class="se">\</span>
+  -d <span class="nv">create_customer</span><span class="o">=</span><span class="s1">'true'</span> <span class="se">\</span>
+  -d <span class="nv">save_card</span><span class="o">=</span><span class="s1">'true'</span> <span class="se">\</span>
+  -d <span class="nv">is_default</span><span class="o">=</span><span class="s1">'true'</span> <span class="se">\</span>
+  -d <span class="nv">card_id</span><span class="o">=</span><span class="s1">'card_585a3da60deae'</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//Request</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="s1">'Jim'</span><span class="p">,</span>
+    <span class="na">username</span><span class="p">:</span> <span class="s1">'jim_test'</span><span class="p">,</span>
+    <span class="na">email</span><span class="p">:</span> <span class="s1">'jim@instantmerchant.io'</span><span class="p">,</span>
+    <span class="na">amount</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="na">payment_mode</span><span class="p">:</span> <span class="s1">'auth_and_capture'</span><span class="p">,</span>
+    <span class="na">payment_type</span><span class="p">:</span> <span class="s1">'recurring'</span><span class="p">,</span>
+    <span class="na">currency</span><span class="p">:</span> <span class="s1">'usd'</span><span class="p">,</span>
+    <span class="na">address</span><span class="p">:</span> <span class="s1">'my address here'</span><span class="p">,</span>
+    <span class="na">city</span><span class="p">:</span> <span class="s1">'nashville'</span><span class="p">,</span>
+    <span class="na">zip</span><span class="p">:</span> <span class="mi">37251</span><span class="p">,</span>
+    <span class="na">state</span><span class="p">:</span> <span class="s1">'TN'</span><span class="p">,</span>
+    <span class="na">country</span><span class="p">:</span> <span class="s1">'US'</span><span class="p">,</span>
+    <span class="na">description</span><span class="p">:</span> <span class="s1">'first payment'</span><span class="p">,</span>
+    <span class="na">cardholder_name</span><span class="p">:</span> <span class="s1">'Jim'</span><span class="p">,</span>
+    <span class="na">card_number</span><span class="p">:</span> <span class="mi">4242424242424242</span><span class="p">,</span>
+    <span class="na">exp_month</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="na">exp_year</span><span class="p">:</span> <span class="mi">2020</span><span class="p">,</span>
+    <span class="na">cvc</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+    <span class="na">interval</span><span class="p">:</span> <span class="s1">'quarterly'</span><span class="p">,</span>
+    <span class="na">create_customer</span><span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
+    <span class="na">save_card</span><span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
+    <span class="na">is_default</span><span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
+    <span class="na">card_id</span><span class="p">:</span> <span class="s1">'card_585a3da60deae'</span>
+<span class="p">};</span>
+
+<span class="nx">instant</span><span class="p">.</span><span class="nx">direct</span><span class="p">.</span><span class="nx">charge</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="c1">//success</span>
+<span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">})</span>
 </code></pre>
 
 <blockquote>
@@ -799,7 +905,20 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/capture <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
-  -d <span class="nv">charge_id</span><span class="o">=</span>cha_585d0bf93573f1
+  -d <span class="nv">charge_id</span><span class="o">=</span><span class="s1">'cha_585d0bf93573f1'</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//Request</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">charge_id</span><span class="p">:</span> <span class="s1">'cha_585d0bf93573f1'</span>
+<span class="p">};</span>
+
+<span class="nx">instant</span><span class="p">.</span><span class="nx">direct</span><span class="p">.</span><span class="nx">capture</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="c1">//success</span>
+<span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">})</span>
 </code></pre>
 
 <blockquote>
@@ -844,6 +963,21 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
   -d <span class="nv">charge_id</span><span class="o">=</span><span class="s1">'cha_585d0bf93573f1'</span> <span class="se">\</span>
   -d <span class="nv">amount</span><span class="o">=</span>10
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//Request</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">charge_id</span><span class="p">:</span> <span class="s1">'cha_585d0bf93573f1'</span><span class="p">,</span>
+    <span class="na">amount</span><span class="p">:</span> <span class="mi">10</span>
+<span class="p">};</span>
+
+<span class="nx">instant</span><span class="p">.</span><span class="nx">direct</span><span class="p">.</span><span class="nx">refund</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="c1">//success</span>
+<span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">})</span>
+
 </code></pre>
 
 <blockquote>
@@ -902,6 +1036,26 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   -d <span class="nv">state</span><span class="o">=</span><span class="s1">'TN'</span> <span class="se">\</span>
   -d <span class="nv">country</span><span class="o">=</span><span class="s1">'US'</span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="c1">//Request</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="s1">'Jim'</span><span class="p">,</span>
+    <span class="na">username</span><span class="p">:</span> <span class="s1">'jim123'</span><span class="p">,</span>
+    <span class="na">email</span><span class="p">:</span> <span class="s1">'jim@instantmerchant.io'</span><span class="p">,</span>
+    <span class="na">address</span><span class="p">:</span> <span class="s1">'my address here'</span><span class="p">,</span>
+    <span class="na">city</span><span class="p">:</span> <span class="s1">'nashville'</span><span class="p">,</span>
+    <span class="na">zip</span><span class="p">:</span> <span class="mi">37251</span><span class="p">,</span>
+    <span class="na">state</span><span class="p">:</span> <span class="s1">'TN'</span><span class="p">,</span>
+    <span class="na">country</span><span class="p">:</span> <span class="s1">'US'</span>
+<span class="p">};</span>
+
+<span class="nx">instant</span><span class="p">.</span><span class="nx">customer</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="c1">//success</span>
+<span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">})</span>
+</code></pre>
 
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -919,7 +1073,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v2/customer</code></p>
+<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/customer</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -972,6 +1126,266 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </tr>
 </tbody></table>
 
+<h2 id="retrieve-customer">Retrieve Customer</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/customer/customer/?id<span class="o">=</span>22 <span class="se">\</span>
+  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Customer data is retrieved successfully..!"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"customer"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer22"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer22_test"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer22@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer22 address"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer22 city"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Caerphilly"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9876543210"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"us"</span><span class="w">
+    </span><span class="p">}]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+
+<p>Retrieves the details of an existing customer. You need only supply the unique customer identifier that was returned upon customer creation.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/customer/customer/?id=22</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>customer_id [required]</td>
+<td>none</td>
+<td>The identifier of the customer to be retrieved.</td>
+</tr>
+</tbody></table>
+
+<h2 id="update-customer">Update Customer</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/customer/update <span class="se">\</span>
+  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -d id <span class="o">=</span>20 <span class="se">\</span>
+  -d <span class="nv">name</span><span class="o">=</span><span class="s1">'Jim'</span> <span class="se">\</span>
+  -d <span class="nv">password</span><span class="o">=</span><span class="s1">'bacabcdefgh'</span> <span class="se">\</span>
+  -d <span class="nv">address</span><span class="o">=</span><span class="s1">'new address here'</span>
+  -d <span class="nv">city</span><span class="o">=</span><span class="s1">'nashville'</span> <span class="se">\</span>
+  -d <span class="nv">zip</span><span class="o">=</span>37251 <span class="se">\</span>
+  -d <span class="nv">active</span><span class="o">=</span>1
+
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Customer data is updated successfully..!"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+
+<p>Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v2/customer/update</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id [required]</td>
+<td>none</td>
+<td>The identifier of the customer to be update.</td>
+</tr>
+<tr>
+<td>name [optional]</td>
+<td>none</td>
+<td>New name of the customer.</td>
+</tr>
+<tr>
+<td>password [optional]</td>
+<td>none</td>
+<td>New password of the customer.</td>
+</tr>
+<tr>
+<td>address [optional]</td>
+<td>none</td>
+<td>New address of the customer.</td>
+</tr>
+<tr>
+<td>city [optional]</td>
+<td>none</td>
+<td>New City/Suburb/Town/Village.</td>
+</tr>
+<tr>
+<td>zip [optional]</td>
+<td>none</td>
+<td>New Zip code or postal code.</td>
+</tr>
+<tr>
+<td>active [optional]</td>
+<td>1</td>
+<td>Active status of the customer.</td>
+</tr>
+</tbody></table>
+
+<h2 id="delete-customer">Delete Customer</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/customer <span class="se">\</span>
+  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -d <span class="nv">customer_id</span><span class="o">=</span>22
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Customer data is deleted successfully..!"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint allows you to delete a customer.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">DELETE https://api.instantmerchant.io/api/v2/customer</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>customer_id [required]</td>
+<td>none</td>
+<td>The identifier of the Customer.</td>
+</tr>
+</tbody></table>
+
+<h2 id="list-all-customers">List all customers</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/customer/customer <span class="se">\</span>
+  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Customer data is retrieved successfully..!"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"customer"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user10"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user10"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user10@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"09"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user09"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user09"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user09@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"08"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user08"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user08"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user08@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"07"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user07"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user07"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user07@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"06"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user06"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user072016-02"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"raja2612@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"05"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user05"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user05"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user05@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"04"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user04"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user04"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user04@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"03"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user03"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user03"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user03@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"02"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user02"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user02"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user02@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user01"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user01"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user01@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+    </span><span class="p">}]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+
+<p>Returns a list of your customers with a limit of 10. The customers are returned sorted by <code class="prettyprint">id</code>, with the most recent customers appearing first.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/customer/customer</code></p>
+
 <h1 id="card">Card</h1>
 
 <h2 id="create-card">Create Card</h2>
@@ -981,13 +1395,36 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   -d <span class="nv">customer</span><span class="o">=</span>22 <span class="se">\</span>
   -d <span class="nv">description</span><span class="o">=</span><span class="s1">'newcard'</span> <span class="se">\</span>
   -d <span class="nv">cardholder_name</span><span class="o">=</span><span class="s1">'Jim'</span> <span class="se">\</span>
-  -d <span class="nv">card_number</span><span class="o">=</span><span class="s1">'4111111111111111'</span> <span class="se">\</span>
+  -d <span class="nv">card_number</span><span class="o">=</span><span class="s1">'4242424242424242'</span> <span class="se">\</span>
   -d <span class="nv">exp_month</span><span class="o">=</span>03  <span class="se">\</span>
   -d <span class="nv">exp_year</span><span class="o">=</span>2018 <span class="se">\</span>
   -d <span class="nv">cvc</span><span class="o">=</span>123 <span class="se">\</span>
-  -d <span class="nv">currency</span><span class="o">=</span>usd <span class="se">\</span>
-  -d <span class="nv">save_card</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
-  -d <span class="nv">is_default</span><span class="o">=</span><span class="nb">true</span>
+  -d <span class="nv">currency</span><span class="o">=</span><span class="s1">'usd'</span> <span class="se">\</span>
+  -d <span class="nv">save_card</span><span class="o">=</span><span class="s1">'true'</span> <span class="se">\</span>
+  -d <span class="nv">is_default</span><span class="o">=</span><span class="s1">'true'</span>
+</code></pre>
+<pre class="highlight javascript"><code>
+<span class="c1">//Request</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">customer</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span>
+    <span class="na">description</span><span class="p">:</span> <span class="s1">'newcard'</span><span class="p">,</span>
+    <span class="na">cardholder_name</span><span class="p">:</span> <span class="s1">'Jim'</span><span class="p">,</span>
+    <span class="na">card_number</span><span class="p">:</span> <span class="mi">4242424242424242</span><span class="p">,</span>
+    <span class="na">exp_month</span><span class="p">:</span> <span class="mi">03</span><span class="p">,</span>
+    <span class="na">exp_year</span><span class="p">:</span> <span class="mi">2018</span><span class="p">,</span>
+    <span class="na">cvc</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+    <span class="na">currency</span><span class="p">:</span> <span class="s1">'usd'</span><span class="p">,</span>
+    <span class="na">save_card</span><span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
+    <span class="na">is_default</span><span class="p">:</span> <span class="s1">'true'</span>
+<span class="p">};</span>
+
+<span class="nx">instant</span><span class="p">.</span><span class="nx">card</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="c1">//success</span>
+<span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">})</span>
 </code></pre>
 
 <blockquote>
@@ -1066,11 +1503,136 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </tbody></table>
 
 <h2 id="retrieve-card">Retrieve Card</h2>
-<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/card/get <span class="se">\</span>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/card <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
   -d <span class="nv">customer</span><span class="o">=</span>22 <span class="se">\</span>
-  -d <span class="nv">card_id</span><span class="o">=</span>card_585a3da60deae
+  -d <span class="nv">card_id</span><span class="o">=</span><span class="s1">'card_585a3da60deae'</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//Request</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">customer</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span>
+    <span class="na">card_id</span><span class="p">:</span> <span class="s1">'card_585a3da60deae'</span>
+<span class="p">};</span>
+
+<span class="nx">instant</span><span class="p">.</span><span class="nx">card</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="c1">//success</span>
+<span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">})</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Credit card details retrieved successfully"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+        </span><span class="nt">"card_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card_585a3da60deae"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"is_default"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"card_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"cc_last_4"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4242"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"cc_valid_thru"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1/2017"</span><span class="w">
+    </span><span class="p">}]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint allows you to retrieve details about a specific card stored on the customer.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/card</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>customer [required]</td>
+<td>none</td>
+<td>Customer id if created already.</td>
+</tr>
+<tr>
+<td>card_id [required]</td>
+<td>none</td>
+<td>existing stored card id.</td>
+</tr>
+</tbody></table>
+
+<h2 id="delete-card">Delete Card</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/card <span class="se">\</span>
+  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -d <span class="nv">customer</span><span class="o">=</span>22 <span class="se">\</span>
+  -d <span class="nv">card_id</span><span class="o">=</span><span class="s1">'card_585a3da60deae'</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Card had been deleted successfully..!"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint allows you to delete cards from the customer.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">DELETE https://api.instantmerchant.io/api/v2/card</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>customer [required]</td>
+<td>none</td>
+<td>Customer id if created already</td>
+</tr>
+<tr>
+<td>card_id [optional]</td>
+<td>none</td>
+<td>Required, when card details are not present.</td>
+</tr>
+</tbody></table>
+
+<h2 id="list-all-cards">List all Cards</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/card <span class="se">\</span>
+  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -d <span class="nv">customer</span><span class="o">=</span>22
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//Request</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">customer</span><span class="p">:</span> <span class="mi">22</span>
+<span class="p">};</span>
+
+<span class="nx">instant</span><span class="p">.</span><span class="nx">card</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="c1">//success</span>
+<span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">})</span>
 </code></pre>
 
 <blockquote>
@@ -1103,11 +1665,11 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint allows you to retrieve details about a specific card stored on the customer.</p>
+<p>This endpoint allows you to list all the cards stored on the customer.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v2/card/get</code></p>
+<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/card</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -1121,12 +1683,123 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <tr>
 <td>customer [required]</td>
 <td>none</td>
-<td>Customer id if created already</td>
+<td>Customer id if created already.</td>
 </tr>
+</tbody></table>
+
+<h1 id="subscription">Subscription</h1>
+
+<h2 id="new-subscription">New Subscription</h2>
+
+<p>You can create subscription on <a href='#create-invoice'>Create Invoice</a> or <a href='#create-charge'>Direct Payment</a>.</p>
+
+<h2 id="renew-subscription">Renew Subscription</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/subscription/renew <span class="se">\</span>
+  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -d <span class="nv">subscription_id</span><span class="o">=</span><span class="s1">'sub_58611e30ae9131'</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//Request</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">subscription_id</span><span class="p">:</span> <span class="s1">'sub_58611e30ae9131'</span>
+<span class="p">};</span>
+
+<span class="nx">instant</span><span class="p">.</span><span class="nx">subscription</span><span class="p">.</span><span class="nx">renew</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="c1">//success</span>
+<span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">})</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscription renewed successfully"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cha_58612419c7e571"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sub_58611e30ae9131"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"expiry_date"</span><span class="p">:</span><span class="w"> </span><span class="mi">1485410400</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="w"> </span><span class="mi">36</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint allows you to renew subscription.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v2/subscription/renew</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
 <tr>
-<td>card_id [optional]</td>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>subscription_id [required]</td>
 <td>none</td>
-<td>Required, when card details are not present.</td>
+<td>The identifier of the subscription.</td>
+</tr>
+</tbody></table>
+
+<h2 id="cancel-subscription">Cancel Subscription</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/subscription/cancel <span class="se">\</span>
+  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -d <span class="nv">subscription_id</span><span class="o">=</span><span class="s1">'sub_58611e30ae9131'</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//Request</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">subscription_id</span><span class="p">:</span> <span class="s1">'sub_58611e30ae9131'</span>
+<span class="p">};</span>
+
+<span class="nx">instant</span><span class="p">.</span><span class="nx">subscription</span><span class="p">.</span><span class="nx">cancel</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="c1">//success</span>
+<span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">})</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscription canceled successfully"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint allows you to cancel your subscription.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v2/subscription/cancel</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>subscription_id [required]</td>
+<td>none</td>
+<td>The identifier of the subscription.</td>
 </tr>
 </tbody></table>
 
@@ -1134,14 +1807,34 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/subscription/update_card <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
-  -d <span class="nv">subscription_id</span><span class="o">=</span>sub_58611e30ae9131 <span class="se">\</span>
+  -d <span class="nv">subscription_id</span><span class="o">=</span><span class="s1">'sub_58611e30ae9131'</span> <span class="se">\</span>
   -d <span class="nv">cardholder_name</span><span class="o">=</span><span class="s1">'JimTest'</span> <span class="se">\</span>
-  -d <span class="nv">card_number</span><span class="o">=</span>4111111111111111 <span class="se">\</span>
+  -d <span class="nv">card_number</span><span class="o">=</span>4242424242424242 <span class="se">\</span>
   -d <span class="nv">exp_month</span><span class="o">=</span>11 <span class="se">\</span>
   -d <span class="nv">exp_year</span><span class="o">=</span>2019 <span class="se">\</span>
   -d <span class="nv">cvc</span><span class="o">=</span>999 <span class="se">\</span>
-  -d <span class="nv">save_card</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
-  -d <span class="nv">is_default</span><span class="o">=</span><span class="nb">true</span>
+  -d <span class="nv">save_card</span><span class="o">=</span><span class="s1">'true'</span> <span class="se">\</span>
+  -d <span class="nv">is_default</span><span class="o">=</span><span class="s1">'true'</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//Request</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">subscription_id</span><span class="p">:</span> <span class="s1">'sub_58611e30ae9131'</span><span class="p">,</span>
+    <span class="na">cardholder_name</span><span class="p">:</span> <span class="s1">'Jim'</span><span class="p">,</span>
+    <span class="na">card_number</span><span class="p">:</span> <span class="mi">4242424242424242</span><span class="p">,</span>
+    <span class="na">exp_month</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+    <span class="na">exp_year</span><span class="p">:</span> <span class="mi">2019</span><span class="p">,</span>
+    <span class="na">cvc</span><span class="p">:</span> <span class="mi">999</span><span class="p">,</span>
+    <span class="na">save_card</span><span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
+    <span class="na">is_default</span><span class="p">:</span> <span class="s1">'true'</span>
+<span class="p">};</span>
+
+<span class="nx">instant</span><span class="p">.</span><span class="nx">subscription</span><span class="p">.</span><span class="nx">updateCard</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="c1">//success</span>
+<span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">})</span>
 </code></pre>
 
 <blockquote>
@@ -1211,96 +1904,6 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <td>is_default [optional]</td>
 <td>false</td>
 <td>If set to <code class="prettyprint">true</code>. card details are saved and make it as default card.</td>
-</tr>
-</tbody></table>
-
-<h1 id="subscription">Subscription</h1>
-
-<h2 id="new-subscription">New Subscription</h2>
-
-<p>You can create subscription on <a href='#create-invoice'>Create Invoice</a> or <a href='#create-charge'>Direct Payment</a>.</p>
-
-<h2 id="renew-subscription">Renew Subscription</h2>
-<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/subscription/renew <span class="se">\</span>
-  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
-  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
-  -d <span class="nv">subscription_id</span><span class="o">=</span>sub_58611e30ae9131
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscription renewed successfully"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cha_58612419c7e571"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sub_58611e30ae9131"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"expiry_date"</span><span class="p">:</span><span class="w"> </span><span class="mi">1485410400</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="w"> </span><span class="mi">36</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-
-<p>This endpoint allows you to renew subscription.</p>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v2/subscription/renew</code></p>
-
-<h3 id="query-parameters">Query Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>subscription_id [required]</td>
-<td>none</td>
-<td>The identifier of the subscription.</td>
-</tr>
-</tbody></table>
-
-<h2 id="cancel-subscription">Cancel Subscription</h2>
-<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/subscription/cancel <span class="se">\</span>
-  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
-  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
-  -d <span class="nv">subscription_id</span><span class="o">=</span>sub_58611e30ae9131
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscription canceled successfully"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-
-<p>This endpoint allows you to cancel your subscription.</p>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v2/subscription/cancel</code></p>
-
-<h3 id="query-parameters">Query Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>subscription_id [required]</td>
-<td>none</td>
-<td>The identifier of the subscription.</td>
 </tr>
 </tbody></table>
 
