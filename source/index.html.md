@@ -52,6 +52,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 curl https://api.instantmerchant.io/api/v2/invoice \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
+  -X POST \
   -d customer=1 \
   -d description='test description' \
   -d date_due='08/12/2017' \
@@ -180,6 +181,7 @@ card_id [optional] | none | Required, when card details are not present.
 curl https://api.instantmerchant.io/api/v2/invoice/send \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
+  -X POST \
   -d invoice_num=10
 ```
 ```javascript
@@ -227,6 +229,7 @@ invoice_num [required] | none | The identifier of the invoice
 curl https://api.instantmerchant.io/api/v2/invoice/charge \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
+  -X POST \
   -d payment_mode='auth_and_capture' \
   -d invoice_num=30 \
   -d cardholder_name='Jim' \
@@ -307,6 +310,7 @@ card_id [optional] | none | Required, when card details are not present.
 curl https://api.instantmerchant.io/api/v2/invoice/capture \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
+  -X POST \
   -d charge_id='cha_585d0bf93573f1'
 ```
 ```javascript
@@ -357,6 +361,7 @@ charge_id [required] | none | the transaction id of the charge to capture
 curl https://api.instantmerchant.io/api/v2/invoice/refund \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
+  -X POST \
   -d charge_id='cha_585d0bf93573f1' \
   -d amount=10
 ```
@@ -411,6 +416,7 @@ amount [optional] | entire charge | A positive integer representing how much of 
 curl https://api.instantmerchant.io/api/v2/charge \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
+  -X POST \
   -d name='Jim' \
   -d username='jim_test' \
   -d email='jim@instantmerchant.io' \
@@ -528,6 +534,7 @@ card_id [optional] | none | Required, when card details are not present.
 curl https://api.instantmerchant.io/api/v2/capture \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
+  -X POST \
   -d charge_id='cha_585d0bf93573f1'
 ```
 ```javascript
@@ -577,6 +584,7 @@ charge_id [required] | none | The transaction id of the charge to capture
 curl https://api.instantmerchant.io/api/v2/refund \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
+  -X POST \
   -d charge_id='cha_585d0bf93573f1' \
   -d amount=10
 ```
@@ -631,6 +639,7 @@ amount [optional] | entire charge | A positive integer representing how much of 
 curl https://api.instantmerchant.io/api/v2/customer \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
   -d name='Jim' \
   -d username='jim123' \
   -d email='jim@instantmerchant.io' \
@@ -697,7 +706,8 @@ country [required] | none | 2-letter country code
 ```shell
 curl https://api.instantmerchant.io/api/v2/customer/customer/?id=22 \
   -H "X-Api-Key: meowmeowmeow" \
-  -H "X-Api-Secret: meowmeowmeow"
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
 ```
 
 > The above command returns JSON structured like this:
@@ -740,6 +750,7 @@ customer_id [required] | none | The identifier of the customer to be retrieved.
 curl https://api.instantmerchant.io/api/v2/customer/update \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
+  -X POST \
   -d id =20 \
   -d name='Jim' \
   -d password='bacabcdefgh' \
@@ -783,6 +794,7 @@ active [optional] | 1 | Active status of the customer.
 curl https://api.instantmerchant.io/api/v2/customer \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
+  -X DELETE
   -d customer_id=22
 ```
 
@@ -814,7 +826,8 @@ customer_id [required] | none | The identifier of the Customer.
 ```shell
 curl https://api.instantmerchant.io/api/v2/customer/customer \
   -H "X-Api-Key: meowmeowmeow" \
-  -H "X-Api-Secret: meowmeowmeow"
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
 ```
 
 > The above command returns JSON structured like this:
@@ -912,6 +925,7 @@ Returns a list of your customers with a limit of 10. The customers are returned 
 curl https://api.instantmerchant.io/api/v2/card \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
+  -X POST \
   -d customer=22 \
   -d description='newcard' \
   -d cardholder_name='Jim' \
@@ -986,6 +1000,7 @@ is_default [optional] | false | If set to `true`. card details are saved and mak
 curl https://api.instantmerchant.io/api/v2/card \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
   -d customer=22 \
   -d card_id='card_585a3da60deae'
 ```
@@ -1042,6 +1057,7 @@ card_id [required] | none | existing stored card id.
 curl https://api.instantmerchant.io/api/v2/card \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
+  -X DELETE
   -d customer=22 \
   -d card_id='card_585a3da60deae'
 ```
@@ -1076,6 +1092,7 @@ card_id [optional] | none | Required, when card details are not present.
 curl https://api.instantmerchant.io/api/v2/card \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
+  -X GET \
   -d customer=22
 ```
 ```javascript
@@ -1147,6 +1164,7 @@ You can create subscription on <a href='#create-invoice'>Create Invoice</a> or <
 curl https://api.instantmerchant.io/api/v2/subscription/renew \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
+  -X POST \
   -d subscription_id='sub_58611e30ae9131'
 ```
 ```javascript
@@ -1197,6 +1215,7 @@ subscription_id [required] | none | The identifier of the subscription.
 curl https://api.instantmerchant.io/api/v2/subscription/cancel \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
+  -X POST \
   -d subscription_id='sub_58611e30ae9131'
 ```
 ```javascript
@@ -1242,6 +1261,7 @@ subscription_id [required] | none | The identifier of the subscription.
 curl https://api.instantmerchant.io/api/v2/subscription/update_card \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
+  -X POST \
   -d subscription_id='sub_58611e30ae9131' \
   -d cardholder_name='JimTest' \
   -d card_number=4242424242424242 \
