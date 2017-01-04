@@ -639,7 +639,7 @@ amount [optional] | entire charge | A positive integer representing how much of 
 curl https://api.instantmerchant.io/api/v2/customer \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
-  -X GET
+  -X GET \
   -d name='Jim' \
   -d username='jim123' \
   -d email='jim@instantmerchant.io' \
@@ -794,7 +794,7 @@ active [optional] | 1 | Active status of the customer.
 curl https://api.instantmerchant.io/api/v2/customer \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
-  -X DELETE
+  -X DELETE \
   -d customer_id=22
 ```
 
@@ -1000,7 +1000,7 @@ is_default [optional] | false | If set to `true`. card details are saved and mak
 curl https://api.instantmerchant.io/api/v2/card \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
-  -X GET
+  -X GET \
   -d customer=22 \
   -d card_id='card_585a3da60deae'
 ```
@@ -1057,7 +1057,7 @@ card_id [required] | none | existing stored card id.
 curl https://api.instantmerchant.io/api/v2/card \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
-  -X DELETE
+  -X DELETE \
   -d customer=22 \
   -d card_id='card_585a3da60deae'
 ```
