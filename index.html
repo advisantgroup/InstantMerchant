@@ -175,7 +175,6 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   -d send_invoice_to <span class="o">=</span> <span class="s1">'jim@instantmerchant.io'</span> <span class="se">\</span>
   -d <span class="nv">payment_type</span><span class="o">=</span><span class="s1">'recurring'</span> <span class="se">\</span>
   -d <span class="nv">interval</span><span class="o">=</span><span class="s1">'quarterly'</span> <span class="se">\</span>
-  -d <span class="nv">create_customer</span><span class="o">=</span><span class="s1">'true'</span> <span class="se">\</span>
   -d <span class="nv">save_card</span><span class="o">=</span><span class="s1">'true'</span> <span class="se">\</span>
   -d <span class="nv">is_default</span><span class="o">=</span><span class="s1">'true'</span> <span class="se">\</span>
   -d <span class="nv">card_id</span><span class="o">=</span><span class="s1">'card_585a3da60deae'</span>
@@ -210,7 +209,6 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
     <span class="s1">'send_invoice_to'</span> <span class="p">:</span> <span class="s1">'jim@instantmerchant.io'</span><span class="p">,</span>
     <span class="s1">'payment_type'</span> <span class="p">:</span> <span class="s1">'recurring'</span><span class="p">,</span>
     <span class="s1">'interval'</span> <span class="p">:</span> <span class="s1">'quarterly'</span><span class="p">,</span>
-    <span class="s1">'create_customer'</span> <span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
     <span class="s1">'save_card'</span> <span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
     <span class="s1">'is_default'</span> <span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
     <span class="s1">'card_id'</span> <span class="p">:</span> <span class="s1">'card_585a3da60deae'</span>
@@ -258,9 +256,9 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </tr>
 </thead><tbody>
 <tr>
-<td>customer [required]</td>
+<td>customer [optional]</td>
 <td>none</td>
-<td>Customer id if created already</td>
+<td>Required <code class="prettyprint">customer</code>, only for existing customers.</td>
 </tr>
 <tr>
 <td>description [required]</td>
@@ -366,11 +364,6 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <td>interval [optional]</td>
 <td>false</td>
 <td>Required, when payment_type is set to <code class="prettyprint">recurring</code>.</td>
-</tr>
-<tr>
-<td>create_customer [optional]</td>
-<td>false</td>
-<td>If set to <code class="prettyprint">true</code>, Customer will be created.</td>
 </tr>
 <tr>
 <td>save_card [optional]</td>
@@ -722,7 +715,6 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   -d <span class="nv">send_email</span><span class="o">=</span>1 <span class="se">\</span>
   -d <span class="nv">payment_type</span><span class="o">=</span><span class="s1">'recurring'</span> <span class="se">\</span>
   -d <span class="nv">interval</span><span class="o">=</span><span class="s1">'quarterly'</span> <span class="se">\</span>
-  -d <span class="nv">create_customer</span><span class="o">=</span><span class="s1">'true'</span> <span class="se">\</span>
   -d <span class="nv">save_card</span><span class="o">=</span><span class="s1">'true'</span> <span class="se">\</span>
   -d <span class="nv">is_default</span><span class="o">=</span><span class="s1">'true'</span> <span class="se">\</span>
   -d <span class="nv">card_id</span><span class="o">=</span><span class="s1">'card_585a3da60deae'</span>
@@ -884,11 +876,6 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <td>interval [optional]</td>
 <td>false</td>
 <td>Required, when payment_type is set to <code class="prettyprint">recurring</code>.</td>
-</tr>
-<tr>
-<td>create_customer [optional]</td>
-<td>false</td>
-<td>If set to <code class="prettyprint">true</code>. Customer is created.</td>
 </tr>
 <tr>
 <td>save_card [optional]</td>
