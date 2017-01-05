@@ -1089,7 +1089,7 @@ card_id [optional] | none | Required, when card details are not present.
 curl https://api.instantmerchant.io/api/v2/card/?customer=22 \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
-  -X GET \
+  -X GET
 ```
 ```javascript
 //Request
