@@ -1035,7 +1035,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/customer <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
-  -X GET <span class="se">\</span>
+  -X POST <span class="se">\</span>
   -d <span class="nv">name</span><span class="o">=</span><span class="s1">'Jim'</span> <span class="se">\</span>
   -d <span class="nv">username</span><span class="o">=</span><span class="s1">'jim123'</span> <span class="se">\</span>
   -d <span class="nv">email</span><span class="o">=</span><span class="s1">'jim@instantmerchant.io'</span> <span class="se">\</span>
@@ -1517,12 +1517,10 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </tbody></table>
 
 <h2 id="retrieve-card">Retrieve Card</h2>
-<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/card <span class="se">\</span>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/card/?customer<span class="o">=</span>22&amp;card_id<span class="o">=</span>card_585a3da60deae <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
-  -X GET <span class="se">\</span>
-  -d <span class="nv">customer</span><span class="o">=</span>22 <span class="se">\</span>
-  -d <span class="nv">card_id</span><span class="o">=</span><span class="s1">'card_585a3da60deae'</span>
+  -X GET
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">//Request</span>
 <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
@@ -1561,7 +1559,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/card</code></p>
+<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/card/?customer=22&amp;card_id=card_585a3da60deae</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -1632,11 +1630,10 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </tbody></table>
 
 <h2 id="list-all-cards">List all Cards</h2>
-<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/card <span class="se">\</span>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/card/?customer<span class="o">=</span>22 <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
   -X GET <span class="se">\</span>
-  -d <span class="nv">customer</span><span class="o">=</span>22
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">//Request</span>
 <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
@@ -1686,7 +1683,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/card</code></p>
+<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/card/?customer=22</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
