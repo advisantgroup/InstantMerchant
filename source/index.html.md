@@ -639,7 +639,7 @@ amount [optional] | entire charge | A positive integer representing how much of 
 curl https://api.instantmerchant.io/api/v2/customer \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
-  -X GET \
+  -X POST \
   -d name='Jim' \
   -d username='jim123' \
   -d email='jim@instantmerchant.io' \
@@ -997,12 +997,10 @@ is_default [optional] | false | If set to `true`. card details are saved and mak
 ## Retrieve Card
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/card \
+curl https://api.instantmerchant.io/api/v2/card/?customer=22&card_id=card_585a3da60deae \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
-  -X GET \
-  -d customer=22 \
-  -d card_id='card_585a3da60deae'
+  -X GET
 ```
 ```javascript
 //Request
@@ -1041,8 +1039,7 @@ instant.card.get(params).then(function(res){
 This endpoint allows you to retrieve details about a specific card stored on the customer.
 
 ### HTTP Request
-
-`GET https://api.instantmerchant.io/api/v2/card`
+`GET https://api.instantmerchant.io/api/v2/card/?customer=22&card_id=card_585a3da60deae`
 
 ### Query Parameters
 
@@ -1089,11 +1086,10 @@ card_id [optional] | none | Required, when card details are not present.
 ## List all Cards
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/card \
+curl https://api.instantmerchant.io/api/v2/card/?customer=22 \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET \
-  -d customer=22
 ```
 ```javascript
 //Request
@@ -1143,8 +1139,7 @@ instant.card.get(params).then(function(res){
 This endpoint allows you to list all the cards stored on the customer.
 
 ### HTTP Request
-
-`GET https://api.instantmerchant.io/api/v2/card`
+`GET https://api.instantmerchant.io/api/v2/card/?customer=22`
 
 ### Query Parameters
 
