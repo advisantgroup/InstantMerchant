@@ -71,7 +71,6 @@ curl https://api.instantmerchant.io/api/v2/invoice \
   -d send_invoice_to = 'jim@instantmerchant.io' \
   -d payment_type='recurring' \
   -d interval='quarterly' \
-  -d create_customer='true' \
   -d save_card='true' \
   -d is_default='true' \
   -d card_id='card_585a3da60deae'
@@ -107,7 +106,6 @@ var params = {
     'send_invoice_to' : 'jim@instantmerchant.io',
     'payment_type' : 'recurring',
     'interval' : 'quarterly',
-    'create_customer' : 'true',
     'save_card' : 'true',
     'is_default' : 'true',
     'card_id' : 'card_585a3da60deae'
@@ -148,7 +146,7 @@ This endpoint creates invoice and optionally charges it immediately.
 
 Parameter | Default | Description
 --------- | ------- | -----------
-customer [required] | none | Customer id if created already
+customer [optional] | none | Required `customer`, only for existing customers.
 description [required] | none | Payment description
 date_due [required] | none | Invoice due date in format mm/dd/yyyy
 items[] [required] | none | Item name
@@ -170,7 +168,6 @@ zip [optional] | none | Required, when the customer is new.
 country [optional] | US | Only allowed country is `US`.
 payment_type [required] | one_time | If set to `recurring` , subscription will be added to the charge.
 interval [optional] | false | Required, when payment_type is set to `recurring`.
-create_customer [optional] | false | If set to `true`, Customer will be created.
 save_card [optional] | false | If set to `true`, card details will be stored.
 is_default [optional] | false | If set to `true`. card details are saved and make it as default card.
 card_id [optional] | none | Required, when card details are not present.
@@ -437,7 +434,6 @@ curl https://api.instantmerchant.io/api/v2/charge \
   -d send_email=1 \
   -d payment_type='recurring' \
   -d interval='quarterly' \
-  -d create_customer='true' \
   -d save_card='true' \
   -d is_default='true' \
   -d card_id='card_585a3da60deae'
@@ -523,7 +519,6 @@ cvc [required] | none | Card security code. when `card_id` is not present.
 send_email [optional] | 0 | If set to 1, customer will receive payment email
 currency [optional] | usd | Only allowed currency is usd
 interval [optional] | false | Required, when payment_type is set to `recurring`.
-create_customer [optional] | false | If set to `true`. Customer is created.
 save_card [optional] | false | If set to `true`, card details will be stored.
 is_default [optional] | false | If set to `true`. card details are saved and make it as default card.
 card_id [optional] | none | Required, when card details are not present.
