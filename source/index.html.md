@@ -72,8 +72,7 @@ curl https://api.instantmerchant.io/api/v2/invoice \
   -d payment_type='recurring' \
   -d interval='quarterly' \
   -d save_card='true' \
-  -d is_default='true' \
-  -d card_id='card_585a3da60deae'
+  -d is_default='true'
 ```
 ```javascript
 //Configuration
@@ -107,8 +106,7 @@ var params = {
     'payment_type' : 'recurring',
     'interval' : 'quarterly',
     'save_card' : 'true',
-    'is_default' : 'true',
-    'card_id' : 'card_585a3da60deae'
+    'is_default' : 'true'
 };
 
 instant.invoice.create(params).then(function(res){
@@ -236,8 +234,7 @@ curl https://api.instantmerchant.io/api/v2/invoice/charge \
   -d cvc=123 \
   -d send_email=1 \
   -d save_card='true' \
-  -d is_default='true' \
-  -d card_id='card_585d2a6c7c5d4'
+  -d is_default='true'
 ```
 ```javascript
 //Request
@@ -251,8 +248,7 @@ var params = {
     cvc : 123,
     send_email : 1,
     save_card : 'true',
-    is_default : 'true',
-    card_id : 'card_585d2a6c7c5d4'
+    is_default : 'true'
 };
 
 instant.invoice.charge(params).then(function(res){
@@ -435,8 +431,7 @@ curl https://api.instantmerchant.io/api/v2/charge \
   -d payment_type='recurring' \
   -d interval='quarterly' \
   -d save_card='true' \
-  -d is_default='true' \
-  -d card_id='card_585a3da60deae'
+  -d is_default='true'
 ```
 ```javascript
 //Request
@@ -462,8 +457,7 @@ var params = {
     interval: 'quarterly',
     create_customer: 'true',
     save_card: 'true',
-    is_default: 'true',
-    card_id: 'card_585a3da60deae'
+    is_default: 'true'
 };
 
 instant.direct.charge(params).then(function(res){
@@ -482,7 +476,7 @@ instant.direct.charge(params).then(function(res){
     "status": true,
     "message": "payment processed successfully",
     "card_id": "card_58626a702e23c",
-    "card_last_4": "1111",
+    "card_last_4": "4242",
     "subscription_id": "sub_58626a702eb9e1",
     "expiry_date": 1490590800,
     "customer_id": 363,
@@ -964,7 +958,7 @@ instant.card.add(params).then(function(res){
     "status": true,
     "message": "Card created successfully",
     "card_id": "card_585d4e7edcf93",
-    "card_last_4": "1111"
+    "card_last_4": "4242"
   }
 ]
 ```
