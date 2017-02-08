@@ -16,9 +16,24 @@ search: true
 
 # Introduction
 
+> API Endpoint:
+
+```shell
+  https://api.instantmerchant.io/
+```
+```javascript
+  https://api.instantmerchant.io/
+```
+> "A sample test API key/secret is included in all the examples on this page, so you can test any example right away. To test requests using your account, replace the sample API key/secret with your actual API key/secret."
+
 Welcome to the InstantMerchant API! You can use our API to access InstantMerchant payment endpoints, which you can use to develop mobile app or website that allow you to process payments.
 
 We have language bindings in curl. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+
+The InstantMerchant API is organized around REST. Our API has predictable, resource-oriented URLs, and uses HTTP response codes to indicate API errors. We use built-in HTTP features, like HTTP authentication and HTTP verbs, which are understood by off-the-shelf HTTP clients. 
+
+We support cross-origin resource sharing, allowing you to interact securely with our client-side web application API. JSON is returned by all API responses, including errors, although our API libraries convert responses to appropriate language-specific objects.
+
 
 # Authentication
 
@@ -33,12 +48,18 @@ curl "api_endpoint_here"
 
 > Make sure to replace `meowmeowmeow` with your API key and API secret.
 
-InstantMerchant uses API key/secret pair to allow access to the API. You can get a new InstantMerchant API key by emailing [developer support](mailto:support@instantmerchant.io).
+
+InstantMerchant API authenticate your API key/secret in the request. You can get a new InstantMerchant API key by emailing [developer support](mailto:support@instantmerchant.io).
+
+Your API key/secret pair carry many privileges, so be sure to keep them secret! Do not share your secret API key/secret in publicly accessible areas such GitHub, client-side code, and so forth.
 
 InstantMerchant expects the API key and secret to be included in all API requests to the server in a header that looks like the following:
 
 `X-Api-Key: meowmeowmeow`
 `X-Api-Secret: meowmeowmeow`
+
+All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.
+
 
 <aside class="notice">
 You must replace <code>meowmeowmeow</code> with your personal API key and API secret.
@@ -123,13 +144,13 @@ instant.invoice.create(params).then(function(res){
 [
   {
     "status": true,
-    "message": "invoice created successfully",
-    "card_id": "card_585a3da60deae",
-    "card_last_4": "4242",
-    "subscription_id": "sub_585d0bf69f5b21",
-    "expiry_date": 1485151200,
-    "invoice_num": 29,
-    "charge_id": "cha_585d0bf93573f1"
+    "message": " invoice created successfully ",
+    "invoice_num": 303,
+    "subscription_id": "sub_5893571433d8c1",
+    "expiry_date": 1493701200,
+    "charge_id": "cha_58935717308ee1",
+    "card_id": "card_589357173094d",
+    "card_last_4": "4242"
   }
 ]
 ```
@@ -218,7 +239,101 @@ Parameter | Default | Description
 --------- | ------- | -----------
 invoice_num [required] | none | The identifier of the invoice
 
-## Charge Invoice
+## Archive Invoice
+
+```shell
+curl https://api.instantmerchant.io/api/v2/invoice/10/archive \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+```javascript
+//Request
+var params = {
+    invoice_num: 10
+};
+
+instant.invoice.archive(params).then(function(res){
+    //success
+},function(err){
+    //error
+}).catch(function(err){
+    //error
+})
+  
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status":true,
+    "message":"Invoice archive have been updated successfully..!"
+  }
+]
+```
+
+This endpoint allows you to archive an invoice.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v2/invoice/{invoice_num}/archive`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+invoice_num [required] | none | The identifier of the invoice
+
+## Unarchive Invoice
+
+```shell
+curl https://api.instantmerchant.io/api/v2/invoice/10/unarchive \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+```javascript
+//Request
+var params = {
+    invoice_num: 10
+};
+
+instant.invoice.archive(params).then(function(res){
+    //success
+},function(err){
+    //error
+}).catch(function(err){
+    //error
+})
+  
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status":true,
+    "message":"Invoice unarchive have been updated successfully..!"
+  }
+]
+```
+
+This endpoint allows you to unarchive an invoice.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v2/invoice/{invoice_num}/unarchive`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+invoice_num [required] | none | The identifier of the invoice
+
+## Invoice Charge
 
 ```shell
 curl https://api.instantmerchant.io/api/v2/invoice/charge \
@@ -297,22 +412,22 @@ save_card [optional] | false | If set to `true`, card details will be stored.
 is_default [optional] | false | If set to `true`. card details are saved and make it as default card.
 card_id [optional] | none | Required, when card details are not present.
 
-## Capture Invoice
+
+## Retrieve an Invoice
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/invoice/capture \
+curl https://api.instantmerchant.io/api/v2/invoice/invoice?invoice_num=11 \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
-  -X POST \
-  -d charge_id='cha_585d0bf93573f1'
+  -X GET
 ```
 ```javascript
 //Request
 var params = {
-    charge_id: 'cha_585d0bf93573f1'
+    invoice_num: '11'
 };
 
-instant.invoice.capture(params).then(function(res){
+instant.invoice.retrieve(params).then(function(res){
     //success
 },function(err){
     //error
@@ -326,52 +441,43 @@ instant.invoice.capture(params).then(function(res){
 ```json
 [
   {
-    "status":true,
-    "message":"payment captured successfully",
-    "charge_id":"cha_585d0bf93573f1",
-    "invoice_num":145
-  }
+    "status": true,
+    "message": "Invoice data retrieved successfully..!",
+    "invoice_data": {
+        "id": "11",
+        "client_id": "1",
+        "customer_id": "20",
+        "customer_name": "customer.test1",
+        "email": "abc@test.com",
+        "invoice_num": "11",
+        "status": "Refund",
+        "amount": "55.00",
+        "archived": "0",
+        "date_created": "2016-12-21 04:28:38"
+    }
+}
 ]
 ```
 
-This endpoint allows you to capture the payment of an existing, uncaptured, charge.
-
-Uncaptured payments expire exactly seven days after they are created. If they are not captured by that point in time, they will be marked as refunded and will no longer be capturable.
+This endpoint allows you to retrieve an invoice.
 
 ### HTTP Request
 
-`POST https://api.instantmerchant.io/api/v2/invoice/capture`
+`GET https://api.instantmerchant.io/api/v2/invoice/invoice?invoice_num={invoice_num}`
 
 ### Query Parameters
 
 Parameter | Default | Description
 --------- | ------- | -----------
-charge_id [required] | none | the transaction id of the charge to capture
+invoice_num [required] | none | The Identifier of the Invoice.
 
-## Refund
+## List all Invoices
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/invoice/refund \
+curl https://api.instantmerchant.io/api/v2/invoice/invoice \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
-  -X POST \
-  -d charge_id='cha_585d0bf93573f1' \
-  -d amount=10
-```
-```javascript
-//Request
-var params = {
-    charge_id : 'cha_585d0bf93573f1',
-    amount : 10
-};
-
-instant.invoice.refund(params).then(function(res){
-    //success
-},function(err){
-    //error
-}).catch(function(err){
-    //error
-})
+  -X GET
 ```
 
 > The above command returns JSON structured like this:
@@ -379,29 +485,182 @@ instant.invoice.refund(params).then(function(res){
 ```json
 [
   {
-    "status":true,
-    "message":"Refund has been initiated successfully",
-    "refund_id":"ref_397d0me53575f3"
+    "status": true,
+    "message": "Invoice found successfully",
+    "total_rows": 33,
+    "invoices_data": [{
+        "id": "1",
+        "client_id": "1",
+        "customer_id": "20",
+        "created_by": null,
+        "customer_name": "customer1",
+        "email": "customer1@test.com",
+        "description": "charge1",
+        "date_paid": "2016-12-21 02:15:35",
+        "date_due": "2016-12-24",
+        "archived": "0",
+        "invoice_num": "1",
+        "status": "Paid",
+        "amount": "5.00",
+        "date_created": "2016-12-21 02:15:33",
+        "unique_id": "585a3a25d687c"
+    }, {
+        "id": "2",
+        "client_id": "1",
+        "customer_id": "20",
+        "created_by": "0",
+        "customer_name": "customer2",
+        "email": "customer2@test.com",
+        "description": "charge2",
+        "date_paid": "2016-12-20 02:18:38",
+        "date_due": "2016-12-30",
+        "archived": "0",
+        "invoice_num": "2",
+        "status": "Paid",
+        "amount": "1000.00",
+        "date_created": "2016-12-20 02:18:37",
+        "unique_id": "585a3add404af"
+    }, {
+        "id": "3",
+        "client_id": "1",
+        "customer_id": "333",
+        "created_by": null,
+        "customer_name": "customer3",
+        "email": "customer3@testl.com",
+        "description": "onetime paynow",
+        "date_paid": "2016-12-21 02:30:31",
+        "date_due": "2016-12-28",
+        "archived": "0",
+        "invoice_num": "3",
+        "status": "Paid",
+        "amount": "211.00",
+        "date_created": "2016-12-21 02:30:30",
+        "unique_id": "585a3da60ee2a"
+    }, {
+        "id": "4",
+        "client_id": "1",
+        "customer_id": "333",
+        "created_by": null,
+        "customer_name": "customer4",
+        "email": "customer4@testl.com",
+        "description": "charge4",
+        "date_paid": "2016-12-21 02:33:32",
+        "date_due": "2016-12-28",
+        "archived": "0",
+        "invoice_num": "4",
+        "status": "Paid",
+        "amount": "212.00",
+        "date_created": "2016-12-21 02:33:31",
+        "unique_id": "585a3e5b28cb3"
+    }, {
+        "id": "5",
+        "client_id": "1",
+        "customer_id": "334",
+        "created_by": "0",
+        "customer_name": "customer5",
+        "email": "customer5@test.com",
+        "description": "charge5 ",
+        "date_paid": "2016-12-21 02:37:36",
+        "date_due": "2016-12-28",
+        "archived": "0",
+        "invoice_num": "5",
+        "status": "Refund",
+        "amount": "213.00",
+        "date_created": "2016-12-21 02:37:34",
+        "unique_id": "585a3f4eb5743"
+    }, {
+        "id": "6",
+        "client_id": "1",
+        "customer_id": "333",
+        "created_by": null,
+        "customer_name": "customer6",
+        "email": "customer6@test.com",
+        "description": "charg6",
+        "date_paid": "2016-12-21 02:43:52",
+        "date_due": "2016-12-28",
+        "archived": "0",
+        "invoice_num": "6",
+        "status": "Paid",
+        "amount": "214.00",
+        "date_created": "2016-12-21 02:41:17",
+        "unique_id": "585a402d38634"
+    }, {
+        "id": "7",
+        "client_id": "1",
+        "customer_id": "334",
+        "created_by": null,
+        "customer_name": "customer7",
+        "email": "customer7@test.com",
+        "description": "charge7 ",
+        "date_paid": "2016-12-21 02:44:55",
+        "date_due": "2016-12-28",
+        "archived": "0",
+        "invoice_num": "7",
+        "status": "Paid",
+        "amount": "215.00",
+        "date_created": "2016-12-21 02:42:17",
+        "unique_id": "585a406948ad0"
+    }, {
+        "id": "8",
+        "client_id": "1",
+        "customer_id": "335",
+        "created_by": "0",
+        "customer_name": "customer8",
+        "email": "customer8@test.com",
+        "description": "charge8",
+        "date_paid": "2016-12-21 02:51:38",
+        "date_due": "2016-12-31",
+        "archived": "0",
+        "invoice_num": "8",
+        "status": "Refund",
+        "amount": "20.00",
+        "date_created": "2016-12-21 02:51:37",
+        "unique_id": "585a4299975e2"
+    }, {
+        "id": "9",
+        "client_id": "1",
+        "customer_id": "20",
+        "created_by": "0",
+        "customer_name": "customer9",
+        "email": "customer9@test.com",
+        "description": "ghghfg",
+        "date_paid": "2016-12-21 03:31:43",
+        "date_due": "2016-12-22",
+        "archived": "0",
+        "invoice_num": "9",
+        "status": "Paid",
+        "amount": "500.00",
+        "date_created": "2016-12-21 03:31:41",
+        "unique_id": "585a4bfde8c9d"
+    }, {
+        "id": "10",
+        "client_id": "1",
+        "customer_id": "20",
+        "created_by": "0",
+        "customer_name": "customer10",
+        "email": "customer10@test.com",
+        "description": "charge10",
+        "date_paid": "2016-12-21 03:43:13",
+        "date_due": "2016-12-22",
+        "archived": "0",
+        "invoice_num": "10",
+        "status": "Void",
+        "amount": "100.00",
+        "date_created": "2016-12-21 03:43:12",
+        "unique_id": "585a4eb024087"
+    }]
   }
 ]
 ```
 
-This endpoint allow you to refund a charge that has previously been created but not yet refunded. Funds will be refunded to the credit or debit card that was originally charged. The fees you were originally charged are also refunded.
-
-You can optionally refund only part of a charge. You can do so as many times as you wish until the entire charge has been refunded.
+This endpoint allows you to list all the invoices with the limit of 10.
 
 ### HTTP Request
 
-`POST https://api.instantmerchant.io/api/v2/invoice/refund`
+`GET https://api.instantmerchant.io/api/v2/invoice/invoice`
 
-### Query Parameters
 
-Parameter | Default | Description
---------- | ------- | -----------
-charge_id [required] | none | The transaction id of the charge to refund
-amount [optional] | entire charge | A positive integer representing how much of this charge to refund. Can only refund up to the un-refunded amount remaining of the charge.
-
-# Direct Payment
+# Charges
 
 ## Create Charge
 
@@ -430,6 +689,8 @@ curl https://api.instantmerchant.io/api/v2/charge \
   -d send_email=1 \
   -d payment_type='recurring' \
   -d interval='quarterly' \
+  -d customer=29
+  -d create_customer=true \
   -d save_card='true' \
   -d is_default='true'
 ```
@@ -454,6 +715,7 @@ var params = {
     exp_month: 12,
     exp_year: 2020,
     cvc: 123,
+    customer:29,
     interval: 'quarterly',
     create_customer: 'true',
     save_card: 'true',
@@ -495,15 +757,15 @@ Use this endpoint to charge a credit card.
 
 Parameter | Default | Description
 --------- | ------- | -----------
-name [required] | none | Customer name
-email [required] | none | Customer email address
+name [optional] | none | Customer name. Required, when `customer` is not set.
+email [optional] | none | Customer email address. Required, when `customer` is not set.
 description [required] | none | Payment description
 amount [required] | none | A positive integer representing how much to charge the card. The minimum amount is $1 USD
-address [required] | none | Customer address
-city [required] | none | City/Suburb/Town/Village
-zip [required] | none | Zip code or postal code
-state [required] | none | 2-letter state code
-country [required] | none | 2-letter country code
+address [optional] | none | Customer address. Required, when `customer` is not set.
+city [optional] | none | City/Suburb/Town/Village. Required, when `customer` is not set.
+zip [optional] | none | Zip code or postal code. Required, when `customer` is not set.
+state [optional] | none | 2-letter state code. Required, when `customer` is not set.
+country [optional] | none | 2-letter country code. Required, when `customer` is not set.
 payment_mode [required] | auth_and_capture | If set to `auth_and_capture`, given credit card will be charged immediately. if set to `auth_only` the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in **7 days**.
 cardholder_name [required] | none | Actual cardholder name. when `card_id` is not present.
 card_number [required] | none | The card number, as a string without any separators. when `card_id` is not present.
@@ -512,10 +774,106 @@ exp_year [required] | none | Two or four digit number representing the card's ex
 cvc [required] | none | Card security code. when `card_id` is not present.
 send_email [optional] | 0 | If set to 1, customer will receive payment email
 currency [optional] | usd | Only allowed currency is usd
+customer [optional] | new | Identifier of the customer.
 interval [optional] | false | Required, when payment_type is set to `recurring`.
 save_card [optional] | false | If set to `true`, card details will be stored.
 is_default [optional] | false | If set to `true`. card details are saved and make it as default card.
 card_id [optional] | none | Required, when card details are not present.
+
+
+## Archive Charge
+
+```shell
+curl https://api.instantmerchant.io/api/v2/customer/7/archive \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+```javascript
+//Request
+var params = {
+    payment_id: '7'
+};
+
+instant.direct.archive(params).then(function(res){
+    //success
+},function(err){
+    //error
+}).catch(function(err){
+    //error
+})
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status":true,
+    "message":"archive have been updated successfully..!"
+  }
+]
+```
+
+This endpoint allows you to archive the payment transaction.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v2/customer/{payment_id}/archive`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+payment_id [required] | none | The Identifier of the payment.
+
+
+## Unarchive Charge
+
+```shell
+curl https://api.instantmerchant.io/api/v2/customer/7/unarchive \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+```javascript
+//Request
+var params = {
+    payment_id: '7'
+};
+
+instant.direct.unarchive(params).then(function(res){
+    //success
+},function(err){
+    //error
+}).catch(function(err){
+    //error
+})
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status":true,
+    "message":"Unarchive have been updated successfully..!"
+  }
+]
+```
+
+This endpoint allows you to unarchive the payment transaction.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v2/customer/{payment_id}/unarchive`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+payment_id [required] | none | The Identifier of the payment.
+
 
 ## Capture Charge
 
@@ -565,7 +923,9 @@ Uncaptured payments expire exactly seven days after they are created. If they ar
 
 Parameter | Default | Description
 --------- | ------- | -----------
-charge_id [required] | none | The transaction id of the charge to capture
+charge_id [required] | none | The transaction id of the charge to capture.
+
+** If it is an Invoice capture, `invoice_num` will be returned along with JSON output.
 
 ## Refund
 
@@ -619,6 +979,267 @@ Parameter | Default | Description
 --------- | ------- | -----------
 charge_id [required] | none | The transaction id of the charge to refund
 amount [optional] | entire charge | A positive integer representing how much of this charge to refund. Can only refund up to the unrefunded amount remaining of the charge.
+
+
+** If it is an Invoice refund, `invoice_num` will be returned along with JSON output.
+
+
+## List all charges
+
+```shell
+curl https://api.instantmerchant.io/api/v2/customer/transactions \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status": true,
+    "message": "transaction data found successfully",
+    "total_rows": 323,
+    "transactions": [{
+        "invoice_id": "1",
+        "created_by": "1",
+        "uncaptured": "0",
+        "customer_id": "20",
+        "name": "customer1",
+        "email": "customer1@test.com",
+        "amount": "5.00",
+        "balance": "5.00",
+        "fee_charged": "0.15",
+        "stripe_fee": "0.45",
+        "description": "charge1",
+        "status": "Paid",
+        "client_id": "1",
+        "city": "city1",
+        "state": "Nashville",
+        "zip": "37221",
+        "charge_id": "ch_19T5G6CneoHSBp0PxZIkqIru",
+        "archived": "0",
+        "date_created": "2016-12-21 02:15:35",
+        "date_expired": null,
+        "id": "1",
+        "subscription_id": "0"
+    }, {
+        "invoice_id": "2",
+        "created_by": "1",
+        "uncaptured": "0",
+        "customer_id": "20",
+        "name": "customer2",
+        "email": "customer2@test.com",
+        "amount": "1000.00",
+        "balance": "895.00",
+        "fee_charged": "30.00",
+        "stripe_fee": "29.30",
+        "description": "charge2",
+        "status": "Paid",
+        "client_id": "1",
+        "city": "city1",
+        "state": "Nashville",
+        "zip": "37221",
+        "charge_id": "ch_19T5J4CneoHSBp0PYDiKx65M",
+        "archived": "0",
+        "date_created": "2016-12-20 02:18:38",
+        "date_expired": null,
+        "id": "2",
+        "subscription_id": "0"
+    }, {
+        "invoice_id": "3",
+        "created_by": "1",
+        "uncaptured": "0",
+        "customer_id": "333",
+        "name": "customer3",
+        "email": "customer3@test.com",
+        "amount": "211.00",
+        "balance": "211.00",
+        "fee_charged": "6.33",
+        "stripe_fee": "6.42",
+        "description": "charge3",
+        "status": "Paid",
+        "client_id": "1",
+        "city": "test-city01",
+        "state": "TN",
+        "zip": "125436",
+        "charge_id": "ch_19T5UZCneoHSBp0Pt2OzyCwz",
+        "archived": "0",
+        "date_created": "2016-12-21 02:30:31",
+        "date_expired": null,
+        "id": "3",
+        "subscription_id": "0"
+    }, {
+        "invoice_id": "4",
+        "created_by": "1",
+        "uncaptured": "0",
+        "customer_id": "333",
+        "name": "customer4",
+        "email": "customer4@test.com",
+        "amount": "212.00",
+        "balance": "212.00",
+        "fee_charged": "6.36",
+        "stripe_fee": "6.45",
+        "description": "test charge",
+        "status": "Paid",
+        "client_id": "1",
+        "city": "test-city01",
+        "state": "TN",
+        "zip": "125436",
+        "charge_id": "ch_19T5XUCneoHSBp0PjgaWK4pY",
+        "archived": "0",
+        "date_created": "2016-12-21 02:39:42",
+        "date_expired": null,
+        "id": "6",
+        "subscription_id": null
+    }, {
+        "invoice_id": "6",
+        "created_by": "1",
+        "uncaptured": "0",
+        "customer_id": "333",
+        "name": "customer22",
+        "email": "customer22@test.com",
+        "amount": "214.00",
+        "balance": "214.00",
+        "fee_charged": "6.42",
+        "stripe_fee": "6.51",
+        "description": "test payment",
+        "status": "Paid",
+        "client_id": "1",
+        "city": "test-city01",
+        "state": "TN",
+        "zip": "125436",
+        "charge_id": "ch_19T5hTCneoHSBp0P1TCrxiX2",
+        "archived": "0",
+        "date_created": "2016-12-21 02:43:52",
+        "date_expired": null,
+        "id": "7",
+        "subscription_id": "0"
+    }, {
+        "invoice_id": "7",
+        "created_by": "1",
+        "uncaptured": "0",
+        "customer_id": "334",
+        "name": "customer31",
+        "email": "customer31@test.com",
+        "amount": "215.00",
+        "balance": "215.00",
+        "fee_charged": "6.45",
+        "stripe_fee": "6.54",
+        "description": "charge12 ",
+        "status": "Paid",
+        "client_id": "1",
+        "city": "CBE",
+        "state": "CA",
+        "zip": "9845122",
+        "charge_id": "ch_19T5iVCneoHSBp0PussT5gmf",
+        "archived": "0",
+        "date_created": "2016-12-21 02:44:55",
+        "date_expired": null,
+        "id": "8",
+        "subscription_id": "2"
+    }, {
+        "invoice_id": "9",
+        "created_by": "1",
+        "uncaptured": "0",
+        "customer_id": "20",
+        "name": "customer23",
+        "email": "customer23@test.com",
+        "amount": "500.00",
+        "balance": "90.00",
+        "fee_charged": "15.00",
+        "stripe_fee": "14.80",
+        "description": "charge32",
+        "status": "Paid",
+        "client_id": "1",
+        "city": "city1",
+        "state": "Nashville",
+        "zip": "37221",
+        "charge_id": "ch_19T6RmCneoHSBp0PHoi79Svu",
+        "archived": "0",
+        "date_created": "2016-12-21 03:31:43",
+        "date_expired": null,
+        "id": "10",
+        "subscription_id": "0"
+    }, {
+        "invoice_id": "9",
+        "created_by": "1",
+        "uncaptured": "0",
+        "customer_id": "20",
+        "name": "customer36",
+        "email": "customer36@test.com",
+        "amount": "400.00",
+        "balance": null,
+        "fee_charged": null,
+        "stripe_fee": null,
+        "description": "charge 7",
+        "status": "Refund",
+        "client_id": "1",
+        "city": "city1",
+        "state": "Nashville",
+        "zip": "37221",
+        "charge_id": "ch_19T6RmCneoHSBp0PHoi79Svu",
+        "archived": "0",
+        "date_created": "2016-12-21 03:32:06",
+        "date_expired": null,
+        "id": "11",
+        "subscription_id": "0"
+    }, {
+        "invoice_id": "10",
+        "created_by": "1",
+        "uncaptured": "0",
+        "customer_id": "20",
+        "name": "customer11",
+        "email": "customer11@test.com",
+        "amount": "100.00",
+        "balance": null,
+        "fee_charged": null,
+        "stripe_fee": null,
+        "description": "charge45",
+        "status": "Void",
+        "client_id": "1",
+        "city": "city1",
+        "state": "Nashville",
+        "zip": "37221",
+        "charge_id": "ch_19T6cvCneoHSBp0PVEkY4Pra",
+        "archived": "0",
+        "date_created": "2016-12-21 03:43:39",
+        "date_expired": null,
+        "id": "13",
+        "subscription_id": "0"
+    }, {
+        "invoice_id": "11",
+        "created_by": "1",
+        "uncaptured": "0",
+        "customer_id": "20",
+        "name": "customer23",
+        "email": "customer23@test.com",
+        "amount": "55.00",
+        "balance": null,
+        "fee_charged": null,
+        "stripe_fee": null,
+        "description": "charge109",
+        "status": "Refund",
+        "client_id": "1",
+        "city": "city1",
+        "state": "Nashville",
+        "zip": "37221",
+        "charge_id": "nm_3413022421",
+        "archived": "0",
+        "date_created": "2016-12-21 04:30:44",
+        "date_expired": null,
+        "id": "15",
+        "subscription_id": "0"
+    }]
+  }
+]
+```
+This endpoint allow you to list all the transactions with the limit of 10.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v2/customer/transactions`
 
 # Customer
 
@@ -725,7 +1346,7 @@ Retrieves the details of an existing customer. You need only supply the unique c
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/customer/customer/?id=22`
+`GET https://api.instantmerchant.io/api/v2/customer/customer/?id={customer_id}`
 
 ### Query Parameters
 
@@ -1028,7 +1649,7 @@ instant.card.get(params).then(function(res){
 This endpoint allows you to retrieve details about a specific card stored on the customer.
 
 ### HTTP Request
-`GET https://api.instantmerchant.io/api/v2/card/?customer=22&card_id=card_585a3da60deae`
+`GET https://api.instantmerchant.io/api/v2/card/?customer={customer_id}&card_id={card_id}`
 
 ### Query Parameters
 
@@ -1128,7 +1749,7 @@ instant.card.get(params).then(function(res){
 This endpoint allows you to list all the cards stored on the customer.
 
 ### HTTP Request
-`GET https://api.instantmerchant.io/api/v2/card/?customer=22`
+`GET https://api.instantmerchant.io/api/v2/card/?customer={customer_id}`
 
 ### Query Parameters
 
@@ -1140,7 +1761,7 @@ customer [required] | none | Customer id if created already.
 
 ## New Subscription
 
-You can create subscription on <a href='#create-invoice'>Create Invoice</a> or <a href='#create-charge'>Direct Payment</a>.
+You can create subscription on <a href='#create-invoice'>Create Invoice</a> or <a href='#create-charge'> Charges </a>.
 
 ## Renew Subscription
 
@@ -1196,16 +1817,15 @@ subscription_id [required] | none | The identifier of the subscription.
 ## Cancel Subscription
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/subscription/cancel \
+curl https://api.instantmerchant.io/api/v2/subscription/sub_587616ba745ca1/cancel \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
-  -X POST \
-  -d subscription_id='sub_58611e30ae9131'
+  -X GET
 ```
 ```javascript
 //Request
 var params = {
-    subscription_id: 'sub_58611e30ae9131'
+    subscription_id: 'sub_587616ba745ca1'
 };
 
 instant.subscription.cancel(params).then(function(res){
@@ -1231,7 +1851,7 @@ This endpoint allows you to cancel your subscription.
 
 ### HTTP Request
 
-`POST https://api.instantmerchant.io/api/v2/subscription/cancel`
+`GET https://api.instantmerchant.io/api/v2/subscription/{subscription_id}/cancel`
 
 ### Query Parameters
 
@@ -1239,10 +1859,101 @@ Parameter | Default | Description
 --------- | ------- | -----------
 subscription_id [required] | none | The identifier of the subscription.
 
+## Suspend Subscription
+
+```shell
+curl https://api.instantmerchant.io/api/v2/subscription/sub_587616ba745ca1/suspend \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+```javascript
+//Request
+var params = {
+    subscription_id: 'sub_587616ba745ca1'
+};
+
+instant.subscription.cancel(params).then(function(res){
+    //success
+},function(err){
+    //error
+}).catch(function(err){
+    //error
+})
+```
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status": true,
+    "message": "subscription suspended successfully"
+  }
+]
+```
+
+This endpoint allows you to cancel your subscription.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v2/subscription/{subscription_id}/suspend`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+subscription_id [required] | none | The identifier of the subscription.
+
+## Resume Subscription
+
+```shell
+curl https://api.instantmerchant.io/api/v2/subscription/sub_587616ba745ca1/resume \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+```javascript
+//Request
+var params = {
+    subscription_id: 'sub_587616ba745ca1'
+};
+
+instant.subscription.cancel(params).then(function(res){
+    //success
+},function(err){
+    //error
+}).catch(function(err){
+    //error
+})
+```
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status": true,
+    "message": "subscription Resumed successfully"
+  }
+]
+```
+
+This endpoint allows you to cancel your subscription.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v2/subscription/{subscription_id}/resume`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+subscription_id [required] | none | The identifier of the subscription.
+
+
 ## Update Card
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/subscription/update_card \
+curl https://api.instantmerchant.io/api/v2/subscription/sub_58611e30ae9131/update_card \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X POST \
@@ -1293,7 +2004,7 @@ This endpoint allows you to update only card details, like the expiration date o
 
 ### HTTP Request
 
-`POST https://api.instantmerchant.io/api/v2/subscription/update_card`
+`POST https://api.instantmerchant.io/api/v2/subscription/{subscription_id}/update_card`
 
 
 
