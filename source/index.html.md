@@ -24,7 +24,6 @@ search: true
 ```javascript
   https://api.instantmerchant.io/
 ```
-> "A sample test API key/secret is included in all the examples on this page, so you can test any example right away. To test requests using your account, replace the sample API key/secret with your actual API key/secret."
 
 Welcome to the InstantMerchant API! You can use our API to access InstantMerchant payment endpoints, which you can use to develop mobile app or website that allow you to process payments.
 
