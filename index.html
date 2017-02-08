@@ -120,9 +120,25 @@
       <div class="content">
         <h1 id="introduction">Introduction</h1>
 
+<blockquote>
+<p>API Endpoint:</p>
+</blockquote>
+<pre class="highlight shell"><code>  https://api.instantmerchant.io/
+</code></pre>
+<pre class="highlight javascript"><code>  <span class="nx">https</span><span class="err">:</span><span class="c1">//api.instantmerchant.io/</span>
+</code></pre>
+
+<blockquote>
+<p>&ldquo;A sample test API key/secret is included in all the examples on this page, so you can test any example right away. To test requests using your account, replace the sample API key/secret with your actual API key/secret.&rdquo;</p>
+</blockquote>
+
 <p>Welcome to the InstantMerchant API! You can use our API to access InstantMerchant payment endpoints, which you can use to develop mobile app or website that allow you to process payments.</p>
 
 <p>We have language bindings in curl. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+
+<p>The InstantMerchant API is organized around REST. Our API has predictable, resource-oriented URLs, and uses HTTP response codes to indicate API errors. We use built-in HTTP features, like HTTP authentication and HTTP verbs, which are understood by off-the-shelf HTTP clients. </p>
+
+<p>We support cross-origin resource sharing, allowing you to interact securely with our client-side web application API. JSON is returned by all API responses, including errors, although our API libraries convert responses to appropriate language-specific objects.</p>
 
 <h1 id="authentication">Authentication</h1>
 
@@ -139,12 +155,16 @@ curl <span class="s2">"api_endpoint_here"</span>
 <p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key and API secret.</p>
 </blockquote>
 
-<p>InstantMerchant uses API key/secret pair to allow access to the API. You can get a new InstantMerchant API key by emailing <a href="mailto:support@instantmerchant.io">developer support</a>.</p>
+<p>InstantMerchant API authenticate your API key/secret in the request. You can get a new InstantMerchant API key by emailing <a href="mailto:support@instantmerchant.io">developer support</a>.</p>
+
+<p>Your API key/secret pair carry many privileges, so be sure to keep them secret! Do not share your secret API key/secret in publicly accessible areas such GitHub, client-side code, and so forth.</p>
 
 <p>InstantMerchant expects the API key and secret to be included in all API requests to the server in a header that looks like the following:</p>
 
 <p><code class="prettyprint">X-Api-Key: meowmeowmeow</code>
 <code class="prettyprint">X-Api-Secret: meowmeowmeow</code></p>
+
+<p>All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.</p>
 
 <aside class="notice">
 You must replace <code>meowmeowmeow</code> with your personal API key and API secret.
@@ -227,13 +247,13 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <pre class="highlight json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invoice created successfully"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"card_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card_585a3da60deae"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"card_last_4"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4242"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sub_585d0bf69f5b21"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"expiry_date"</span><span class="p">:</span><span class="w"> </span><span class="mi">1485151200</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="w"> </span><span class="mi">29</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cha_585d0bf93573f1"</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">" invoice created successfully "</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="w"> </span><span class="mi">303</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sub_5893571433d8c1"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"expiry_date"</span><span class="p">:</span><span class="w"> </span><span class="mi">1493701200</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cha_58935717308ee1"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"card_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card_589357173094d"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"card_last_4"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4242"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
@@ -435,7 +455,115 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </tr>
 </tbody></table>
 
-<h2 id="charge-invoice">Charge Invoice</h2>
+<h2 id="archive-invoice">Archive Invoice</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/invoice/10/archive <span class="se">\</span>
+  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X GET
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//Request</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">invoice_num</span><span class="p">:</span> <span class="mi">10</span>
+<span class="p">};</span>
+
+<span class="nx">instant</span><span class="p">.</span><span class="nx">invoice</span><span class="p">.</span><span class="nx">archive</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="c1">//success</span>
+<span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">})</span>
+
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"Invoice archive have been updated successfully..!"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint allows you to archive an invoice.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/invoice/{invoice_num}/archive</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>invoice_num [required]</td>
+<td>none</td>
+<td>The identifier of the invoice</td>
+</tr>
+</tbody></table>
+
+<h2 id="unarchive-invoice">Unarchive Invoice</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/invoice/10/unarchive <span class="se">\</span>
+  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X GET
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//Request</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">invoice_num</span><span class="p">:</span> <span class="mi">10</span>
+<span class="p">};</span>
+
+<span class="nx">instant</span><span class="p">.</span><span class="nx">invoice</span><span class="p">.</span><span class="nx">archive</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="c1">//success</span>
+<span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">})</span>
+
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"Invoice unarchive have been updated successfully..!"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint allows you to unarchive an invoice.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/invoice/{invoice_num}/unarchive</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>invoice_num [required]</td>
+<td>none</td>
+<td>The identifier of the invoice</td>
+</tr>
+</tbody></table>
+
+<h2 id="invoice-charge">Invoice Charge</h2>
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/invoice/charge <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
@@ -562,19 +690,18 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </tr>
 </tbody></table>
 
-<h2 id="capture-invoice">Capture Invoice</h2>
-<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/invoice/capture <span class="se">\</span>
+<h2 id="retrieve-an-invoice">Retrieve an Invoice</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/invoice/invoice?invoice_num<span class="o">=</span>11 <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
-  -X POST <span class="se">\</span>
-  -d <span class="nv">charge_id</span><span class="o">=</span><span class="s1">'cha_585d0bf93573f1'</span>
+  -X GET
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">//Request</span>
 <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="na">charge_id</span><span class="p">:</span> <span class="s1">'cha_585d0bf93573f1'</span>
+    <span class="na">invoice_num</span><span class="p">:</span> <span class="s1">'11'</span>
 <span class="p">};</span>
 
-<span class="nx">instant</span><span class="p">.</span><span class="nx">invoice</span><span class="p">.</span><span class="nx">capture</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+<span class="nx">instant</span><span class="p">.</span><span class="nx">invoice</span><span class="p">.</span><span class="nx">retrieve</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
     <span class="c1">//success</span>
 <span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
     <span class="c1">//error</span>
@@ -588,21 +715,29 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </blockquote>
 <pre class="highlight json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"status"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"payment captured successfully"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="s2">"cha_585d0bf93573f1"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="mi">145</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invoice data retrieved successfully..!"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"invoice_data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer.test1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abc@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Refund"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 04:28:38"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint allows you to capture the payment of an existing, uncaptured, charge.</p>
-
-<p>Uncaptured payments expire exactly seven days after they are created. If they are not captured by that point in time, they will be marked as refunded and will no longer be capturable.</p>
+<p>This endpoint allows you to retrieve an invoice.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v2/invoice/capture</code></p>
+<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/invoice/invoice?invoice_num={invoice_num}</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -614,33 +749,17 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </tr>
 </thead><tbody>
 <tr>
-<td>charge_id [required]</td>
+<td>invoice_num [required]</td>
 <td>none</td>
-<td>the transaction id of the charge to capture</td>
+<td>The Identifier of the Invoice.</td>
 </tr>
 </tbody></table>
 
-<h2 id="refund">Refund</h2>
-<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/invoice/refund <span class="se">\</span>
+<h2 id="list-all-invoices">List all Invoices</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/invoice/invoice <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
-  -X POST <span class="se">\</span>
-  -d <span class="nv">charge_id</span><span class="o">=</span><span class="s1">'cha_585d0bf93573f1'</span> <span class="se">\</span>
-  -d <span class="nv">amount</span><span class="o">=</span>10
-</code></pre>
-<pre class="highlight javascript"><code><span class="c1">//Request</span>
-<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="na">charge_id</span> <span class="p">:</span> <span class="s1">'cha_585d0bf93573f1'</span><span class="p">,</span>
-    <span class="na">amount</span> <span class="p">:</span> <span class="mi">10</span>
-<span class="p">};</span>
-
-<span class="nx">instant</span><span class="p">.</span><span class="nx">invoice</span><span class="p">.</span><span class="nx">refund</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
-    <span class="c1">//success</span>
-<span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
-    <span class="c1">//error</span>
-<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
-    <span class="c1">//error</span>
-<span class="p">})</span>
+  -X GET
 </code></pre>
 
 <blockquote>
@@ -648,43 +767,181 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </blockquote>
 <pre class="highlight json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"status"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"Refund has been initiated successfully"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"refund_id"</span><span class="p">:</span><span class="s2">"ref_397d0me53575f3"</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invoice found successfully"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"total_rows"</span><span class="p">:</span><span class="w"> </span><span class="mi">33</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"invoices_data"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer1@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"charge1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_paid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 02:15:35"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_due"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-24"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paid"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 02:15:33"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"unique_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"585a3a25d687c"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer2"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer2@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"charge2"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_paid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-20 02:18:38"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_due"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-30"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paid"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-20 02:18:37"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"unique_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"585a3add404af"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"333"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer3"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer3@testl.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"onetime paynow"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_paid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 02:30:31"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_due"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-28"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paid"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"211.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 02:30:30"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"unique_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"585a3da60ee2a"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"333"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer4"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer4@testl.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"charge4"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_paid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 02:33:32"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_due"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-28"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paid"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"212.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 02:33:31"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"unique_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"585a3e5b28cb3"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"334"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer5"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer5@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"charge5 "</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_paid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 02:37:36"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_due"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-28"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Refund"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"213.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 02:37:34"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"unique_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"585a3f4eb5743"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"333"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer6"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer6@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"charg6"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_paid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 02:43:52"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_due"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-28"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paid"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"214.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 02:41:17"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"unique_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"585a402d38634"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"334"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer7"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer7@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"charge7 "</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_paid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 02:44:55"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_due"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-28"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paid"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"215.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 02:42:17"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"unique_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"585a406948ad0"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"335"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer8"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer8@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"charge8"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_paid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 02:51:38"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_due"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-31"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Refund"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 02:51:37"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"unique_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"585a4299975e2"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer9"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer9@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ghghfg"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_paid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 03:31:43"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_due"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-22"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paid"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"500.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 03:31:41"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"unique_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"585a4bfde8c9d"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer10"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer10@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"charge10"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_paid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 03:43:13"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_due"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-22"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"invoice_num"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Void"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 03:43:12"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"unique_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"585a4eb024087"</span><span class="w">
+    </span><span class="p">}]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint allow you to refund a charge that has previously been created but not yet refunded. Funds will be refunded to the credit or debit card that was originally charged. The fees you were originally charged are also refunded.</p>
-
-<p>You can optionally refund only part of a charge. You can do so as many times as you wish until the entire charge has been refunded.</p>
+<p>This endpoint allows you to list all the invoices with the limit of 10.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v2/invoice/refund</code></p>
+<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/invoice/invoice</code></p>
 
-<h3 id="query-parameters">Query Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>charge_id [required]</td>
-<td>none</td>
-<td>The transaction id of the charge to refund</td>
-</tr>
-<tr>
-<td>amount [optional]</td>
-<td>entire charge</td>
-<td>A positive integer representing how much of this charge to refund. Can only refund up to the un-refunded amount remaining of the charge.</td>
-</tr>
-</tbody></table>
-
-<h1 id="direct-payment">Direct Payment</h1>
+<h1 id="charges">Charges</h1>
 
 <h2 id="create-charge">Create Charge</h2>
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/charge <span class="se">\</span>
@@ -711,6 +968,8 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   -d <span class="nv">send_email</span><span class="o">=</span>1 <span class="se">\</span>
   -d <span class="nv">payment_type</span><span class="o">=</span><span class="s1">'recurring'</span> <span class="se">\</span>
   -d <span class="nv">interval</span><span class="o">=</span><span class="s1">'quarterly'</span> <span class="se">\</span>
+  -d <span class="nv">customer</span><span class="o">=</span>29
+  -d <span class="nv">create_customer</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
   -d <span class="nv">save_card</span><span class="o">=</span><span class="s1">'true'</span> <span class="se">\</span>
   -d <span class="nv">is_default</span><span class="o">=</span><span class="s1">'true'</span>
 </code></pre>
@@ -734,6 +993,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
     <span class="na">exp_month</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
     <span class="na">exp_year</span><span class="p">:</span> <span class="mi">2020</span><span class="p">,</span>
     <span class="na">cvc</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+    <span class="na">customer</span><span class="p">:</span><span class="mi">29</span><span class="p">,</span>
     <span class="na">interval</span><span class="p">:</span> <span class="s1">'quarterly'</span><span class="p">,</span>
     <span class="na">create_customer</span><span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
     <span class="na">save_card</span><span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
@@ -782,14 +1042,14 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </tr>
 </thead><tbody>
 <tr>
-<td>name [required]</td>
+<td>name [optional]</td>
 <td>none</td>
-<td>Customer name</td>
+<td>Customer name. Required, when <code class="prettyprint">customer</code> is not set.</td>
 </tr>
 <tr>
-<td>email [required]</td>
+<td>email [optional]</td>
 <td>none</td>
-<td>Customer email address</td>
+<td>Customer email address. Required, when <code class="prettyprint">customer</code> is not set.</td>
 </tr>
 <tr>
 <td>description [required]</td>
@@ -802,29 +1062,29 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <td>A positive integer representing how much to charge the card. The minimum amount is $1 USD</td>
 </tr>
 <tr>
-<td>address [required]</td>
+<td>address [optional]</td>
 <td>none</td>
-<td>Customer address</td>
+<td>Customer address. Required, when <code class="prettyprint">customer</code> is not set.</td>
 </tr>
 <tr>
-<td>city [required]</td>
+<td>city [optional]</td>
 <td>none</td>
-<td>City/Suburb/Town/Village</td>
+<td>City/Suburb/Town/Village. Required, when <code class="prettyprint">customer</code> is not set.</td>
 </tr>
 <tr>
-<td>zip [required]</td>
+<td>zip [optional]</td>
 <td>none</td>
-<td>Zip code or postal code</td>
+<td>Zip code or postal code. Required, when <code class="prettyprint">customer</code> is not set.</td>
 </tr>
 <tr>
-<td>state [required]</td>
+<td>state [optional]</td>
 <td>none</td>
-<td>2-letter state code</td>
+<td>2-letter state code. Required, when <code class="prettyprint">customer</code> is not set.</td>
 </tr>
 <tr>
-<td>country [required]</td>
+<td>country [optional]</td>
 <td>none</td>
-<td>2-letter country code</td>
+<td>2-letter country code. Required, when <code class="prettyprint">customer</code> is not set.</td>
 </tr>
 <tr>
 <td>payment_mode [required]</td>
@@ -867,6 +1127,11 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <td>Only allowed currency is usd</td>
 </tr>
 <tr>
+<td>customer [optional]</td>
+<td>new</td>
+<td>Identifier of the customer.</td>
+</tr>
+<tr>
 <td>interval [optional]</td>
 <td>false</td>
 <td>Required, when payment_type is set to <code class="prettyprint">recurring</code>.</td>
@@ -885,6 +1150,112 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <td>card_id [optional]</td>
 <td>none</td>
 <td>Required, when card details are not present.</td>
+</tr>
+</tbody></table>
+
+<h2 id="archive-charge">Archive Charge</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/customer/7/archive <span class="se">\</span>
+  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X GET
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//Request</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">payment_id</span><span class="p">:</span> <span class="s1">'7'</span>
+<span class="p">};</span>
+
+<span class="nx">instant</span><span class="p">.</span><span class="nx">direct</span><span class="p">.</span><span class="nx">archive</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="c1">//success</span>
+<span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">})</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"archive have been updated successfully..!"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint allows you to archive the payment transaction.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/customer/{payment_id}/archive</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>payment_id [required]</td>
+<td>none</td>
+<td>The Identifier of the payment.</td>
+</tr>
+</tbody></table>
+
+<h2 id="unarchive-charge">Unarchive Charge</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/customer/7/unarchive <span class="se">\</span>
+  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X GET
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//Request</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">payment_id</span><span class="p">:</span> <span class="s1">'7'</span>
+<span class="p">};</span>
+
+<span class="nx">instant</span><span class="p">.</span><span class="nx">direct</span><span class="p">.</span><span class="nx">unarchive</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="c1">//success</span>
+<span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">})</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"Unarchive have been updated successfully..!"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint allows you to unarchive the payment transaction.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/customer/{payment_id}/unarchive</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>payment_id [required]</td>
+<td>none</td>
+<td>The Identifier of the payment.</td>
 </tr>
 </tbody></table>
 
@@ -941,9 +1312,11 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <tr>
 <td>charge_id [required]</td>
 <td>none</td>
-<td>The transaction id of the charge to capture</td>
+<td>The transaction id of the charge to capture.</td>
 </tr>
 </tbody></table>
+
+<p>** If it is an Invoice capture, <code class="prettyprint">invoice_num</code> will be returned along with JSON output.</p>
 
 <h2 id="refund">Refund</h2>
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/refund <span class="se">\</span>
@@ -1009,6 +1382,264 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <td>A positive integer representing how much of this charge to refund. Can only refund up to the unrefunded amount remaining of the charge.</td>
 </tr>
 </tbody></table>
+
+<p>** If it is an Invoice refund, <code class="prettyprint">invoice_num</code> will be returned along with JSON output.</p>
+
+<h2 id="list-all-charges">List all charges</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/customer/transactions <span class="se">\</span>
+  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X GET
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transaction data found successfully"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"total_rows"</span><span class="p">:</span><span class="w"> </span><span class="mi">323</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"transactions"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+        </span><span class="nt">"invoice_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"uncaptured"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer1@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"fee_charged"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.15"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"stripe_fee"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.45"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"charge1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paid"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"city1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Nashville"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"37221"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ch_19T5G6CneoHSBp0PxZIkqIru"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 02:15:35"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_expired"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"invoice_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"uncaptured"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer2"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer2@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"895.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"fee_charged"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"stripe_fee"</span><span class="p">:</span><span class="w"> </span><span class="s2">"29.30"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"charge2"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paid"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"city1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Nashville"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"37221"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ch_19T5J4CneoHSBp0PYDiKx65M"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-20 02:18:38"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_expired"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"invoice_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"uncaptured"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"333"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer3"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer3@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"211.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"211.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"fee_charged"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6.33"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"stripe_fee"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6.42"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"charge3"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paid"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test-city01"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TN"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"125436"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ch_19T5UZCneoHSBp0Pt2OzyCwz"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 02:30:31"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_expired"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"invoice_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"uncaptured"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"333"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer4"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer4@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"212.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"212.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"fee_charged"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6.36"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"stripe_fee"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6.45"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test charge"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paid"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test-city01"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TN"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"125436"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ch_19T5XUCneoHSBp0PjgaWK4pY"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 02:39:42"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_expired"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"invoice_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"uncaptured"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"333"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer22"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer22@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"214.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"214.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"fee_charged"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6.42"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"stripe_fee"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6.51"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test payment"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paid"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test-city01"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TN"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"125436"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ch_19T5hTCneoHSBp0P1TCrxiX2"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 02:43:52"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_expired"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"invoice_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"uncaptured"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"334"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer31"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer31@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"215.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"215.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"fee_charged"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6.45"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"stripe_fee"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6.54"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"charge12 "</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paid"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CBE"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CA"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9845122"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ch_19T5iVCneoHSBp0PussT5gmf"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 02:44:55"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_expired"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"invoice_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"uncaptured"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer23"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer23@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"500.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"90.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"fee_charged"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"stripe_fee"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14.80"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"charge32"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paid"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"city1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Nashville"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"37221"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ch_19T6RmCneoHSBp0PHoi79Svu"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 03:31:43"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_expired"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"invoice_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"uncaptured"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer36"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer36@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"400.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"fee_charged"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"stripe_fee"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"charge 7"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Refund"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"city1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Nashville"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"37221"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ch_19T6RmCneoHSBp0PHoi79Svu"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 03:32:06"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_expired"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"invoice_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"uncaptured"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer11"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer11@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"fee_charged"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"stripe_fee"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"charge45"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Void"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"city1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Nashville"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"37221"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ch_19T6cvCneoHSBp0PVEkY4Pra"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 03:43:39"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_expired"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"13"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"invoice_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"uncaptured"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer23"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer23@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"fee_charged"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"stripe_fee"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"charge109"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Refund"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"city1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Nashville"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"37221"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"charge_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nm_3413022421"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-21 04:30:44"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"date_expired"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"subscription_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
+    </span><span class="p">}]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint allow you to list all the transactions with the limit of 10.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/customer/transactions</code></p>
 
 <h1 id="customer">Customer</h1>
 
@@ -1150,7 +1781,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/customer/customer/?id=22</code></p>
+<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/customer/customer/?id={customer_id}</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -1540,7 +2171,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/card/?customer=22&amp;card_id=card_585a3da60deae</code></p>
+<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/card/?customer={customer_id}&amp;card_id={card_id}</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -1664,7 +2295,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/card/?customer=22</code></p>
+<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/card/?customer={customer_id}</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -1686,7 +2317,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 
 <h2 id="new-subscription">New Subscription</h2>
 
-<p>You can create subscription on <a href='#create-invoice'>Create Invoice</a> or <a href='#create-charge'>Direct Payment</a>.</p>
+<p>You can create subscription on <a href='#create-invoice'>Create Invoice</a> or <a href='#create-charge'> Charges </a>.</p>
 
 <h2 id="renew-subscription">Renew Subscription</h2>
 <pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/subscription/renew <span class="se">\</span>
@@ -1747,15 +2378,14 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </tbody></table>
 
 <h2 id="cancel-subscription">Cancel Subscription</h2>
-<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/subscription/cancel <span class="se">\</span>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/subscription/sub_587616ba745ca1/cancel <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
-  -X POST <span class="se">\</span>
-  -d <span class="nv">subscription_id</span><span class="o">=</span><span class="s1">'sub_58611e30ae9131'</span>
+  -X GET
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">//Request</span>
 <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="na">subscription_id</span><span class="p">:</span> <span class="s1">'sub_58611e30ae9131'</span>
+    <span class="na">subscription_id</span><span class="p">:</span> <span class="s1">'sub_587616ba745ca1'</span>
 <span class="p">};</span>
 
 <span class="nx">instant</span><span class="p">.</span><span class="nx">subscription</span><span class="p">.</span><span class="nx">cancel</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
@@ -1782,7 +2412,113 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v2/subscription/cancel</code></p>
+<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/subscription/{subscription_id}/cancel</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>subscription_id [required]</td>
+<td>none</td>
+<td>The identifier of the subscription.</td>
+</tr>
+</tbody></table>
+
+<h2 id="suspend-subscription">Suspend Subscription</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/subscription/sub_587616ba745ca1/suspend <span class="se">\</span>
+  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X GET
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//Request</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">subscription_id</span><span class="p">:</span> <span class="s1">'sub_587616ba745ca1'</span>
+<span class="p">};</span>
+
+<span class="nx">instant</span><span class="p">.</span><span class="nx">subscription</span><span class="p">.</span><span class="nx">cancel</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="c1">//success</span>
+<span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">})</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscription suspended successfully"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint allows you to cancel your subscription.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/subscription/{subscription_id}/suspend</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>subscription_id [required]</td>
+<td>none</td>
+<td>The identifier of the subscription.</td>
+</tr>
+</tbody></table>
+
+<h2 id="resume-subscription">Resume Subscription</h2>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/subscription/sub_587616ba745ca1/resume <span class="se">\</span>
+  -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
+  -X GET
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//Request</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">subscription_id</span><span class="p">:</span> <span class="s1">'sub_587616ba745ca1'</span>
+<span class="p">};</span>
+
+<span class="nx">instant</span><span class="p">.</span><span class="nx">subscription</span><span class="p">.</span><span class="nx">cancel</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="c1">//success</span>
+<span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="c1">//error</span>
+<span class="p">})</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscription Resumed successfully"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint allows you to cancel your subscription.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v2/subscription/{subscription_id}/resume</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -1801,7 +2537,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </tbody></table>
 
 <h2 id="update-card">Update Card</h2>
-<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/subscription/update_card <span class="se">\</span>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v2/subscription/sub_58611e30ae9131/update_card <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
   -X POST <span class="se">\</span>
@@ -1852,7 +2588,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v2/subscription/update_card</code></p>
+<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v2/subscription/{subscription_id}/update_card</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
