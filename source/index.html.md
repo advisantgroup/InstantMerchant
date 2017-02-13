@@ -87,8 +87,8 @@ curl https://api.instantmerchant.io/api/v2/invoice \
   -d exp_month=12 \
   -d exp_year=2020 \
   -d cvc=123 \
-  -d invoice_to_staff = 254 \
-  -d send_invoice_to = 'jim@instantmerchant.io' \
+  -d invoice_to_staff=254 \
+  -d send_invoice_to='jim@instantmerchant.io' \
   -d payment_type='recurring' \
   -d interval='quarterly' \
   -d save_card='true' \
@@ -179,11 +179,11 @@ cvc [optional] | none | Card security code. Required, when `card_id` is not pres
 currency [optional] | USD | Only allowed currency is `USD`.
 invoice_to_staff [optional] | none | The identifier of the staff.
 send_invoice_to [optional] | none | Email address to notify about the invoice
-address [optional] | none | Required, when the customer is new.
-city [optional] | none | Required, when the customer is new.
-state [optional] | none | Required, when the customer is new.
-zip [optional] | none | Required, when the customer is new.
-country [optional] | US | Only allowed country is `US`.
+address [optional] | none | Required, when the `customer` is new.
+city [optional] | none | Required, when the `customer` is new.
+state [optional] | none | Required, when the `customer` is new.
+zip [optional] | none | Required, when the `customer` is new.
+country [optional] | US | Only allowed country is `US`. Required, when the `customer` is new.
 payment_type [required] | one_time | If set to `recurring` , subscription will be added to the charge.
 interval [optional] | false | Required, when payment_type is set to `recurring`.
 save_card [optional] | false | If set to `true`, card details will be stored.
@@ -415,7 +415,7 @@ card_id [optional] | none | Required, when card details are not present.
 ## Retrieve an Invoice
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/invoice/invoice?invoice_num=11 \
+curl https://api.instantmerchant.io/api/v2/invoice?invoice_num=11 \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -462,7 +462,7 @@ This endpoint allows you to retrieve an invoice.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/invoice/invoice?invoice_num={invoice_num}`
+`GET https://api.instantmerchant.io/api/v2/invoice?invoice_num={invoice_num}`
 
 ### Query Parameters
 
@@ -473,7 +473,7 @@ invoice_num [required] | none | The Identifier of the Invoice.
 ## List all Invoices
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/invoice/invoice \
+curl https://api.instantmerchant.io/api/v2/invoice \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -656,8 +656,89 @@ This endpoint allows you to list all the invoices with the limit of 10.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/invoice/invoice`
+`GET https://api.instantmerchant.io/api/v2/invoice`
 
+## List all archived Invoices
+
+```shell
+curl https://api.instantmerchant.io/api/v2/invoice?archived=1 \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status": true,
+    "message": "Invoice found successfully",
+    "total_rows": 3,
+    "invoices_data": [{
+        "id": "1",
+        "client_id": "1",
+        "customer_id": "20",
+        "created_by": null,
+        "customer_name": "customer1",
+        "email": "customer1@test.com",
+        "description": "charge1",
+        "date_paid": "2016-12-21 02:15:35",
+        "date_due": "2016-12-24",
+        "archived": "1",
+        "invoice_num": "1",
+        "status": "Paid",
+        "amount": "5.00",
+        "date_created": "2016-12-21 02:15:33",
+        "unique_id": "585a3a25d687c"
+    }, {
+        "id": "2",
+        "client_id": "1",
+        "customer_id": "20",
+        "created_by": "0",
+        "customer_name": "customer2",
+        "email": "customer2@test.com",
+        "description": "charge2",
+        "date_paid": "2016-12-20 02:18:38",
+        "date_due": "2016-12-30",
+        "archived": "1",
+        "invoice_num": "2",
+        "status": "Paid",
+        "amount": "1000.00",
+        "date_created": "2016-12-20 02:18:37",
+        "unique_id": "585a3add404af"
+    }, {
+        "id": "10",
+        "client_id": "1",
+        "customer_id": "20",
+        "created_by": "0",
+        "customer_name": "customer10",
+        "email": "customer10@test.com",
+        "description": "charge10",
+        "date_paid": "2016-12-21 03:43:13",
+        "date_due": "2016-12-22",
+        "archived": "1",
+        "invoice_num": "10",
+        "status": "Void",
+        "amount": "100.00",
+        "date_created": "2016-12-21 03:43:12",
+        "unique_id": "585a4eb024087"
+    }]
+  }
+]
+```
+
+This endpoint allows you to list all the archived invoices with the limit of 10.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v2/invoice?archived={archived_status}`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+archived [required] | none | Archive status.
 
 # Charges
 
@@ -688,7 +769,7 @@ curl https://api.instantmerchant.io/api/v2/charge \
   -d send_email=1 \
   -d payment_type='recurring' \
   -d interval='quarterly' \
-  -d customer=29
+  -d customer=29 \
   -d create_customer=true \
   -d save_card='true' \
   -d is_default='true'
@@ -783,7 +864,7 @@ card_id [optional] | none | Required, when card details are not present.
 ## Archive Charge
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/customer/7/archive \
+curl https://api.instantmerchant.io/api/v2/charge/cha_689d0tf96536d1/archive \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -791,7 +872,7 @@ curl https://api.instantmerchant.io/api/v2/customer/7/archive \
 ```javascript
 //Request
 var params = {
-    payment_id: '7'
+    unique_id: 'cha_689d0tf96536d1'
 };
 
 instant.direct.archive(params).then(function(res){
@@ -818,19 +899,19 @@ This endpoint allows you to archive the payment transaction.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/customer/{payment_id}/archive`
+`GET https://api.instantmerchant.io/api/v2/charge/{unique_id}/archive`
 
 ### Query Parameters
 
 Parameter | Default | Description
 --------- | ------- | -----------
-payment_id [required] | none | The Identifier of the payment.
+unique_id [required] | none | The unique Identifier of the payment.
 
 
 ## Unarchive Charge
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/customer/7/unarchive \
+curl https://api.instantmerchant.io/api/v2/charge/cha_689d0tf96536d1/unarchive \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -838,7 +919,7 @@ curl https://api.instantmerchant.io/api/v2/customer/7/unarchive \
 ```javascript
 //Request
 var params = {
-    payment_id: '7'
+    unique_id: 'cha_689d0tf96536d1'
 };
 
 instant.direct.unarchive(params).then(function(res){
@@ -865,13 +946,13 @@ This endpoint allows you to unarchive the payment transaction.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/customer/{payment_id}/unarchive`
+`GET https://api.instantmerchant.io/api/v2/charge/{unique_id}/unarchive`
 
 ### Query Parameters
 
 Parameter | Default | Description
 --------- | ------- | -----------
-payment_id [required] | none | The Identifier of the payment.
+unique_id [required] | none | The Identifier of the payment.
 
 
 ## Capture Charge
@@ -922,7 +1003,7 @@ Uncaptured payments expire exactly seven days after they are created. If they ar
 
 Parameter | Default | Description
 --------- | ------- | -----------
-charge_id [required] | none | The transaction id of the charge to capture.
+charge_id [required] | none | The unique id of the transaction to capture.
 
 ** If it is an Invoice capture, `invoice_num` will be returned along with JSON output.
 
@@ -986,7 +1067,7 @@ amount [optional] | entire charge | A positive integer representing how much of 
 ## List all charges
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/customer/transactions \
+curl https://api.instantmerchant.io/api/v2/charge \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -1238,7 +1319,86 @@ This endpoint allow you to list all the transactions with the limit of 10.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/customer/transactions`
+`GET https://api.instantmerchant.io/api/v2/charge`
+
+## List all archived charges
+
+```shell
+curl https://api.instantmerchant.io/api/v2/charge?archived=1 \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status": true,
+    "message": "transaction data found successfully",
+    "total_rows": 2,
+    "transactions": [{
+        "invoice_id": "1",
+        "created_by": "1",
+        "uncaptured": "0",
+        "customer_id": "20",
+        "name": "customer1",
+        "email": "customer1@test.com",
+        "amount": "5.00",
+        "balance": "5.00",
+        "fee_charged": "0.15",
+        "stripe_fee": "0.45",
+        "description": "charge1",
+        "status": "Paid",
+        "client_id": "1",
+        "city": "city1",
+        "state": "Nashville",
+        "zip": "37221",
+        "charge_id": "ch_19T5G6CneoHSBp0PxZIkqIru",
+        "archived": "1",
+        "date_created": "2016-12-21 02:15:35",
+        "date_expired": null,
+        "id": "1",
+        "subscription_id": "0"
+    }, {
+        "invoice_id": "11",
+        "created_by": "1",
+        "uncaptured": "0",
+        "customer_id": "20",
+        "name": "customer23",
+        "email": "customer23@test.com",
+        "amount": "55.00",
+        "balance": null,
+        "fee_charged": null,
+        "stripe_fee": null,
+        "description": "charge109",
+        "status": "Refund",
+        "client_id": "1",
+        "city": "city1",
+        "state": "Nashville",
+        "zip": "37221",
+        "charge_id": "cha_3413022421",
+        "archived": "1",
+        "date_created": "2016-12-21 04:30:44",
+        "date_expired": null,
+        "id": "15",
+        "subscription_id": "0"
+    }]
+  }
+]
+```
+This endpoint allow you to list all the archived transactions with the limit of 10.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v2/charge?archived=1`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+archived [required] | none | Archived status
 
 # Customer
 
@@ -1313,7 +1473,7 @@ country [required] | none | 2-letter country code
 ## Retrieve Customer
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/customer/customer/?id=22 \
+curl https://api.instantmerchant.io/api/v2/customer?id=22 \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -1345,7 +1505,7 @@ Retrieves the details of an existing customer. You need only supply the unique c
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/customer/customer/?id={customer_id}`
+`GET https://api.instantmerchant.io/api/v2/customer?id={customer_id}`
 
 ### Query Parameters
 
@@ -1356,14 +1516,14 @@ customer_id [required] | none | The identifier of the customer to be retrieved.
 ## Update Customer
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/customer/update \
+curl https://api.instantmerchant.io/api/v2/customer \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
-  -X POST \
+  -X PUT \
   -d id =20 \
   -d name='Jim' \
   -d password='bacabcdefgh' \
-  -d address='new address here'
+  -d address='new address here' \
   -d city='nashville' \
   -d zip=37251 \
   -d active=1
@@ -1379,17 +1539,17 @@ curl https://api.instantmerchant.io/api/v2/customer/update \
 }
 
 ```
-Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+Updates the specified customer by setting the values of the parameters passed. Any one of the parameters needs to be given along with `id`. Any parameters not provided will be left unchanged.
 
 ### HTTP Request
 
-`POST https://api.instantmerchant.io/api/v2/customer/update`
+`PUT https://api.instantmerchant.io/api/v2/customer`
 
 ### Query Parameters
 
 Parameter | Default | Description
 --------- | ------- | -----------
-id [required] | none | The identifier of the customer to be update.
+id [required] | none | The Identifier of the customer to be update.
 name [optional] | none | New name of the customer.
 password [optional] | none | New password of the customer.
 address [optional] | none | New address of the customer.
@@ -1397,43 +1557,10 @@ city [optional] | none | New City/Suburb/Town/Village.
 zip [optional] | none | New Zip code or postal code.
 active [optional] | 1 | Active status of the customer.
 
-## Delete Customer
-
-```shell
-curl https://api.instantmerchant.io/api/v2/customer \
-  -H "X-Api-Key: meowmeowmeow" \
-  -H "X-Api-Secret: meowmeowmeow" \
-  -X DELETE \
-  -d customer_id=22
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "status": true,
-    "message": "Customer data is deleted successfully..!"
-  }
-]
-```
-
-This endpoint allows you to delete a customer.
-
-### HTTP Request
-
-`DELETE https://api.instantmerchant.io/api/v2/customer`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-customer_id [required] | none | The identifier of the Customer.
-
 ## List all customers
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/customer/customer \
+curl https://api.instantmerchant.io/api/v2/customer \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -1523,7 +1650,7 @@ Returns a list of your customers with a limit of 10. The customers are returned 
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/customer/customer`
+`GET https://api.instantmerchant.io/api/v2/customer`
 
 
 # Card
@@ -1962,6 +2089,7 @@ curl https://api.instantmerchant.io/api/v2/subscription/sub_58611e30ae9131/updat
   -d exp_month=11 \
   -d exp_year=2019 \
   -d cvc=999 \
+  -d amount=200 \
   -d save_card='true' \
   -d is_default='true'
 ```
@@ -1974,6 +2102,7 @@ var params = {
     exp_month: 11,
     exp_year: 2019,
     cvc: 999,
+    amount:200,
     save_card: 'true',
     is_default: 'true'
 };
@@ -2019,3 +2148,208 @@ exp_year [required] | none | Two or four digit number representing the card's ex
 cvc [required] | none | Card security code
 save_card [optional] | false | If set to `true`, card details will be stored.
 is_default [optional] | false | If set to `true`. card details are saved and make it as default card.
+
+## Update Amount
+
+```shell
+curl https://api.instantmerchant.io/api/v2/subscription/sub_58611e30ae9131
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X POST \
+  -d subscription_id='sub_58611e30ae9131' \
+  -d amount=250
+```
+```javascript
+//Request
+var params = {
+    subscription_id: 'sub_58611e30ae9131',
+    amount: 250
+};
+
+instant.subscription(params).then(function(res){
+    //success
+},function(err){
+    //error
+}).catch(function(err){
+    //error
+})
+```
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status": true,
+    "message": "Subscription and amount updated successfully"
+  }
+]
+```
+
+This endpoint allows you to update only amount details.
+
+### HTTP Request
+
+`POST https://api.instantmerchant.io/api/v2/subscription/{subscription_id}`
+
+
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+subscription_id [required] | none | The identifier of the subscription.
+amount [required] | none | amount to update for the subscription.
+
+## Retrieve Subscription
+
+```shell
+curl https://api.instantmerchant.io/api/v2/subscription?id=sub_587616ba745ca1 \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status": true,
+    "message": "Subscription retrieved successfully",
+    "amount": "213.00",
+    "active": 1,
+    "expires_at": "14823000001",
+    "subscription": {
+        "id": "1",
+        "customer_id": "334",
+        "client_id": "1",
+        "created_by": null,
+        "invoice_id": "5",
+        "payment_subscription_id": "sub_587616ba745ca1",
+        "payment_customer_id": "str_cus_9mevFsW1UDT7NL",
+        "admin_payment_account": "1",
+        "merchant_account_id": null,
+        "plan_interval": "monthly",
+        "plan_name": "$213.00 every 1 month(s)",
+        "plan_id": "$213.00 every 1 month(s)",
+        "name": "test21-03",
+        "email": "test21_03@test.com",
+        "address": null,
+        "city": null,
+        "state": null,
+        "zip": null,
+        "country": null,
+        "description": "test21-03 recurring paynow newcard save ",
+        "amount": "213.00",
+        "status": "Active",
+        "date_canceled": null,
+        "date_created": "2016-12-21 02:37:34",
+        "date_expired": "14823000001",
+        "renew_attempt": "0",
+        "standalone": "1",
+        "runmode": "1"
+    }
+  }
+]
+```
+
+This endpoint allows you to retrieve your subscription.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v2/subscription?id={subscription_id}`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+subscription_id [required] | none | The identifier of the subscription.
+
+## List all Subscriptions
+
+```shell
+curl https://api.instantmerchant.io/api/v2/subscription \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status": true,
+    "message": "Subscription retrieved successfully",
+    "subscription": [{
+        "id": "12",
+        "customer_id": "334",
+        "client_id": "1",
+        "created_by": null,
+        "invoice_id": "5",
+        "payment_subscription_id": "sub_585a3f4eb3b591",
+        "payment_customer_id": "str_cus_9mevFsW1UDT7NL",
+        "admin_payment_account": "1",
+        "merchant_account_id": null,
+        "plan_interval": "monthly",
+        "plan_name": "$213.00 every 1 month(s)",
+        "plan_id": "$213.00 every 1 month(s)",
+        "name": "test21-03",
+        "email": "test21_03@gmail.com",
+        "address": null,
+        "city": null,
+        "state": null,
+        "zip": null,
+        "country": null,
+        "description": "test21-03 recurring paynow newcard save ",
+        "amount": "213.00",
+        "status": "Active",
+        "date_canceled": null,
+        "date_created": "2016-12-21 02:37:34",
+        "date_expired": "14823000001",
+        "renew_attempt": "0",
+        "standalone": "1",
+        "runmode": "1"
+    }, {
+        "id": "13",
+        "customer_id": "20",
+        "client_id": "1",
+        "created_by": null,
+        "invoice_id": "40",
+        "payment_subscription_id": "sub_585bff2e27a091",
+        "payment_customer_id": "str_cus_9n9kovq1l4jYu3",
+        "admin_payment_account": "1",
+        "merchant_account_id": null,
+        "plan_interval": "monthly",
+        "plan_name": "$11.00 every 1 month(s)",
+        "plan_id": "$11.00 every 1 month(s)",
+        "name": "bps.somniumlabs",
+        "email": "bps@somniumlabs.com",
+        "address": null,
+        "city": null,
+        "state": null,
+        "zip": null,
+        "country": null,
+        "description": "test draft",
+        "amount": "11.00",
+        "status": "Active",
+        "date_canceled": null,
+        "date_created": "2016-12-22 10:28:49",
+        "date_expired": "1487743200",
+        "renew_attempt": "0",
+        "standalone": "1",
+        "runmode": "1"
+    }],
+    "total": 2
+  }
+]
+```
+
+This endpoint allows you to retrieve your subscription.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v2/subscription`
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+subscription_id [required] | none | The identifier of the subscription.
