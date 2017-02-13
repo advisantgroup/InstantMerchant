@@ -1416,7 +1416,14 @@ curl https://api.instantmerchant.io/api/v2/customer \
   -d city='nashville' \
   -d zip=37251 \
   -d state='TN' \
-  -d country='US'
+  -d country='US' \
+  -d cardholder_name='chris martin' \
+  -d card_number=4242424242424242 \
+  -d exp_month=12 \
+  -d exp_year=2022 \
+  -d cvc=111 \
+  -d save_card='true' \
+  -d is_default='true'
 ```
 ```javascript
 //Request
@@ -1428,7 +1435,14 @@ var params = {
     city: 'nashville',
     zip: 37251,
     state: 'TN',
-    country: 'US'
+    country: 'US',
+    cardholder_name: 'chris martin',
+    card_number: 4242424242424242,
+    exp_month: 12,
+    exp_year: 2022,
+    cvc: 111,
+    save_card:'true',
+    is_default:'true'
 };
 
 instant.customer.create(params).then(function(res){
@@ -1446,12 +1460,14 @@ instant.customer.create(params).then(function(res){
   {
     "status":true,
     "message":"Customer created successfully",
-    "customer_id":23
+    "customer_id":23,
+    "card_id": "card_58626a702e23c",
+    "card_last_4":4242
   }
 ]
 ```
 
-This endpoint allows you to create your customers.
+This endpoint allows you to create your customers as well as customer's card.
 
 ### HTTP Request
 
@@ -1469,6 +1485,13 @@ city [required] | none | City/Suburb/Town/Village
 zip [required] | none | Zip code or postal code
 state [required] | none | 2-letter state code
 country [required] | none | 2-letter country code
+cardholder_name [optional] | none | Actual cardholder name.
+card_number [optional] | none | The card number, as a string without any separators.
+exp_month [optional] | none | Two digit number representing the card's expiration month.
+exp_year [optional] | none | Two or four digit number representing the card's expiration year.
+cvc [optional] | none | Card security code
+save_card [optional] | false | If set to `true`, card details will be stored.
+is_default [optional] | false | If set to `true`. card details are saved and make it as default card.
 
 ## Retrieve Customer
 
