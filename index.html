@@ -1829,7 +1829,14 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   -d <span class="nv">city</span><span class="o">=</span><span class="s1">'nashville'</span> <span class="se">\</span>
   -d <span class="nv">zip</span><span class="o">=</span>37251 <span class="se">\</span>
   -d <span class="nv">state</span><span class="o">=</span><span class="s1">'TN'</span> <span class="se">\</span>
-  -d <span class="nv">country</span><span class="o">=</span><span class="s1">'US'</span>
+  -d <span class="nv">country</span><span class="o">=</span><span class="s1">'US'</span> <span class="se">\</span>
+  -d <span class="nv">cardholder_name</span><span class="o">=</span><span class="s1">'chris martin'</span> <span class="se">\</span>
+  -d <span class="nv">card_number</span><span class="o">=</span>4242424242424242 <span class="se">\</span>
+  -d <span class="nv">exp_month</span><span class="o">=</span>12 <span class="se">\</span>
+  -d <span class="nv">exp_year</span><span class="o">=</span>2022 <span class="se">\</span>
+  -d <span class="nv">cvc</span><span class="o">=</span>111 <span class="se">\</span>
+  -d <span class="nv">save_card</span><span class="o">=</span><span class="s1">'true'</span> <span class="se">\</span>
+  -d <span class="nv">is_default</span><span class="o">=</span><span class="s1">'true'</span>
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">//Request</span>
 <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
@@ -1840,7 +1847,14 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
     <span class="na">city</span><span class="p">:</span> <span class="s1">'nashville'</span><span class="p">,</span>
     <span class="na">zip</span><span class="p">:</span> <span class="mi">37251</span><span class="p">,</span>
     <span class="na">state</span><span class="p">:</span> <span class="s1">'TN'</span><span class="p">,</span>
-    <span class="na">country</span><span class="p">:</span> <span class="s1">'US'</span>
+    <span class="na">country</span><span class="p">:</span> <span class="s1">'US'</span><span class="p">,</span>
+    <span class="na">cardholder_name</span><span class="p">:</span> <span class="s1">'chris martin'</span><span class="p">,</span>
+    <span class="na">card_number</span><span class="p">:</span> <span class="mi">4242424242424242</span><span class="p">,</span>
+    <span class="na">exp_month</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="na">exp_year</span><span class="p">:</span> <span class="mi">2022</span><span class="p">,</span>
+    <span class="na">cvc</span><span class="p">:</span> <span class="mi">111</span><span class="p">,</span>
+    <span class="na">save_card</span><span class="p">:</span><span class="s1">'true'</span><span class="p">,</span>
+    <span class="na">is_default</span><span class="p">:</span><span class="s1">'true'</span>
 <span class="p">};</span>
 
 <span class="nx">instant</span><span class="p">.</span><span class="nx">customer</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
@@ -1859,12 +1873,14 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   </span><span class="p">{</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"Customer created successfully"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="mi">23</span><span class="w">
+    </span><span class="nt">"customer_id"</span><span class="p">:</span><span class="mi">23</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"card_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card_58626a702e23c"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"card_last_4"</span><span class="p">:</span><span class="mi">4242</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint allows you to create your customers.</p>
+<p>This endpoint allows you to create your customers as well as customer&rsquo;s card.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -1918,6 +1934,41 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <td>country [required]</td>
 <td>none</td>
 <td>2-letter country code</td>
+</tr>
+<tr>
+<td>cardholder_name [optional]</td>
+<td>none</td>
+<td>Actual cardholder name.</td>
+</tr>
+<tr>
+<td>card_number [optional]</td>
+<td>none</td>
+<td>The card number, as a string without any separators.</td>
+</tr>
+<tr>
+<td>exp_month [optional]</td>
+<td>none</td>
+<td>Two digit number representing the card&rsquo;s expiration month.</td>
+</tr>
+<tr>
+<td>exp_year [optional]</td>
+<td>none</td>
+<td>Two or four digit number representing the card&rsquo;s expiration year.</td>
+</tr>
+<tr>
+<td>cvc [optional]</td>
+<td>none</td>
+<td>Card security code</td>
+</tr>
+<tr>
+<td>save_card [optional]</td>
+<td>false</td>
+<td>If set to <code class="prettyprint">true</code>, card details will be stored.</td>
+</tr>
+<tr>
+<td>is_default [optional]</td>
+<td>false</td>
+<td>If set to <code class="prettyprint">true</code>. card details are saved and make it as default card.</td>
 </tr>
 </tbody></table>
 
