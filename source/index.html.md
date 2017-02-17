@@ -92,6 +92,7 @@ curl https://api.instantmerchant.io/api/v2/invoice \
   -d payment_type='recurring' \
   -d interval='quarterly' \
   -d save_card='true' \
+  -d currency=usd \
   -d is_default='true'
 ```
 ```javascript
@@ -126,6 +127,7 @@ var params = {
     'payment_type' : 'recurring',
     'interval' : 'quarterly',
     'save_card' : 'true',
+    'currency' : 'usd',
     'is_default' : 'true'
 };
 
@@ -176,7 +178,7 @@ card_number [optional] | none | The card number, as a string without any separat
 exp_month [optional] | none | Two digit number representing the card's expiration month. Required, when `card_id` is not present.
 exp_year [optional] | none | Two or four digit number representing the card's expiration year. Required, when `card_id` is not present.
 cvc [optional] | none | Card security code. Required, when `card_id` is not present.
-currency [optional] | USD | Only allowed currency is `USD`.
+currency [required] | none | Only allowed currency is `USD` or `usd`.
 invoice_to_staff [optional] | none | The identifier of the staff.
 send_invoice_to [optional] | none | Email address to notify about the invoice
 address [optional] | none | Required, when the `customer` is new.
@@ -332,84 +334,7 @@ Parameter | Default | Description
 --------- | ------- | -----------
 invoice_num [required] | none | The identifier of the invoice
 
-## Invoice Charge
 
-```shell
-curl https://api.instantmerchant.io/api/v2/invoice/charge \
-  -H "X-Api-Key: meowmeowmeow" \
-  -H "X-Api-Secret: meowmeowmeow" \
-  -X POST \
-  -d payment_mode='auth_and_capture' \
-  -d invoice_num=30 \
-  -d cardholder_name='Jim' \
-  -d card_number=4242424242424242 \
-  -d exp_month=11 \
-  -d exp_year=2019 \
-  -d cvc=123 \
-  -d send_email=1 \
-  -d save_card='true' \
-  -d is_default='true'
-```
-```javascript
-//Request
-var params = {
-    payment_mode : 'auth_and_capture',
-    invoice_num: 30,
-    cardholder_name : 'Jim',
-    card_number : 4242424242424242,
-    exp_month : 12,
-    exp_year : 2020,
-    cvc : 123,
-    send_email : 1,
-    save_card : 'true',
-    is_default : 'true'
-};
-
-instant.invoice.charge(params).then(function(res){
-    //success
-},function(err){
-    //error
-}).catch(function(err){
-    //error
-})
-```
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "status": true,
-    "message": "payment processed successfully",
-    "card_id": "card_585d2a6c7c5d4",
-    "card_last_4": "4242",
-    "charge_id": "cha_585d2a6f0e02f1",
-    "invoice_num": "31",
-    "subscription_id": "sub_585d2a6c7c5711"
-  }
-]
-```
-
-This endpoint allow you to charge a credit or a debit card against an invoice, that has previously been created but not yet paid.
-
-### HTTP Request
-
-`POST https://api.instantmerchant.io/api/v2/invoice/charge`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-invoice_num [required] | none | The id of the invoice to charge
-send_email [optional] | 0 | If set to 1, customer will receive invoice email
-payment_mode [optional] | auth_and_capture | If set to `auth_and_capture`, given credit card will be charged immediately. If set to `auth_only` the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in **7 days**.
-cardholder_name [required] | none | Actual cardholder name. Required, when `card_id` is not present.
-card_number [required] | none | The card number, as a string without any separators.Required, when `card_id` is not present.
-exp_month [required] | none | Two digit number representing the card’s expiration month. Required, when `card_id` is not present.
-exp_year [required] | none | Two or four digit number representing the card’s expiration year. Required, when `card_id` is not present.
-cvc [required] | none | Card security code. Required, when `card_id` is not present.
-save_card [optional] | false | If set to `true`, card details will be stored.
-is_default [optional] | false | If set to `true`. card details are saved and make it as default card.
-card_id [optional] | none | Required, when card details are not present.
 
 
 ## Retrieve an Invoice
@@ -766,6 +691,7 @@ curl https://api.instantmerchant.io/api/v2/charge \
   -d exp_month=12 \
   -d exp_year=2020 \
   -d cvc=123 \
+  -d invoice_num=26 \
   -d send_email=1 \
   -d payment_type='recurring' \
   -d interval='quarterly' \
@@ -795,6 +721,7 @@ var params = {
     exp_month: 12,
     exp_year: 2020,
     cvc: 123,
+    invoice_num:26,
     customer:29,
     interval: 'quarterly',
     create_customer: 'true',
@@ -846,6 +773,7 @@ city [optional] | none | City/Suburb/Town/Village. Required, when `customer` is 
 zip [optional] | none | Zip code or postal code. Required, when `customer` is not set.
 state [optional] | none | 2-letter state code. Required, when `customer` is not set.
 country [optional] | none | 2-letter country code. Required, when `customer` is not set.
+invoice_num [optional] | none | Required for the id of the invoice to charge
 payment_mode [required] | auth_and_capture | If set to `auth_and_capture`, given credit card will be charged immediately. if set to `auth_only` the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in **7 days**.
 cardholder_name [required] | none | Actual cardholder name. when `card_id` is not present.
 card_number [required] | none | The card number, as a string without any separators. when `card_id` is not present.
