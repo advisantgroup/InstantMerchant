@@ -783,6 +783,7 @@ cvc [required] | none | Card security code. when `card_id` is not present.
 send_email [optional] | 0 | If set to 1, customer will receive payment email
 currency [optional] | usd | Only allowed currency is usd
 customer [optional] | new | Identifier of the customer.
+create_customer [optional] | none | Required, when `customer` is not set.
 interval [optional] | false | Required, when payment_type is set to `recurring`.
 save_card [optional] | false | If set to `true`, card details will be stored.
 is_default [optional] | false | If set to `true`. card details are saved and make it as default card.
