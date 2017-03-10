@@ -69,17 +69,17 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 ## Create Invoice
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/invoice \
+curl https://api.instantmerchant.io/api/v1/invoices \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X POST \
-  -d customer=1 \
+  -d customer=209 \
   -d description='test description' \
   -d date_due='08/12/2017' \
   -d items[]='apple' \
   -d items_price[]=20 \
   -d items[]='orange' \
-  -d items_price[]=18 \
+  -d items_price[]=12 \
   -d send_now=1 \
   -d payment_mode='auth_and_capture' \
   -d cardholder_name='Jim' \
@@ -109,7 +109,7 @@ var instant = new Imn({
 
 //Request
 var params = {
-    'customer' : 290,
+    'customer' : 209,
     'description' : 'test description',
     'date_due' : '08/12/2017',
     'payment_type' : 'one_time',
@@ -160,7 +160,7 @@ This endpoint creates invoice and optionally charges it immediately.
 
 ### HTTP Request
 
-`POST https://api.instantmerchant.io/api/v2/invoice`
+`POST https://api.instantmerchant.io/api/v1/invoices`
 
 ### Query Parameters
 
@@ -195,7 +195,7 @@ card_id [optional] | none | Required, when card details are not present.
 ## Send Invoice
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/invoice/send \
+curl https://api.instantmerchant.io/api/v1/invoices/send \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X POST \
@@ -232,7 +232,7 @@ This endpoint allows you to email the invoice to customer.
 
 ### HTTP Request
 
-`POST https://api.instantmerchant.io/api/v2/invoice/send`
+`POST https://api.instantmerchant.io/api/v1/invoices/send`
 
 ### Query Parameters
 
@@ -243,7 +243,7 @@ invoice_num [required] | none | The identifier of the invoice
 ## Archive Invoice
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/invoice/10/archive \
+curl https://api.instantmerchant.io/api/v1/invoices/10/archive \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -279,7 +279,7 @@ This endpoint allows you to archive an invoice.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/invoice/{invoice_num}/archive`
+`GET https://api.instantmerchant.io/api/v1/invoices/{invoice_num}/archive`
 
 ### Query Parameters
 
@@ -290,7 +290,7 @@ invoice_num [required] | none | The identifier of the invoice
 ## Unarchive Invoice
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/invoice/10/unarchive \
+curl https://api.instantmerchant.io/api/v1/invoices/10/unarchive \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -326,7 +326,7 @@ This endpoint allows you to unarchive an invoice.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/invoice/{invoice_num}/unarchive`
+`GET https://api.instantmerchant.io/api/v1/invoices/{invoice_num}/unarchive`
 
 ### Query Parameters
 
@@ -335,12 +335,10 @@ Parameter | Default | Description
 invoice_num [required] | none | The identifier of the invoice
 
 
-
-
 ## Retrieve an Invoice
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/invoice?invoice_num=11 \
+curl https://api.instantmerchant.io/api/v1/invoices?invoice_num=11 \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -387,7 +385,7 @@ This endpoint allows you to retrieve an invoice.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/invoice?invoice_num={invoice_num}`
+`GET https://api.instantmerchant.io/api/v1/invoices?invoice_num={invoice_num}`
 
 ### Query Parameters
 
@@ -395,10 +393,11 @@ Parameter | Default | Description
 --------- | ------- | -----------
 invoice_num [required] | none | The Identifier of the Invoice.
 
-## List all Invoices
+
+## List all Paid Invoices
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/invoice \
+curl https://api.instantmerchant.io/api/v1/invoices/paid \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -410,169 +409,1075 @@ curl https://api.instantmerchant.io/api/v2/invoice \
 [
   {
     "status": true,
-    "message": "Invoice found successfully",
-    "total_rows": 33,
-    "invoices_data": [{
-        "id": "1",
-        "client_id": "1",
-        "customer_id": "20",
-        "created_by": null,
-        "customer_name": "customer1",
-        "email": "customer1@test.com",
-        "description": "charge1",
-        "date_paid": "2016-12-21 02:15:35",
-        "date_due": "2016-12-24",
-        "archived": "0",
-        "invoice_num": "1",
-        "status": "Paid",
-        "amount": "5.00",
-        "date_created": "2016-12-21 02:15:33",
-        "unique_id": "585a3a25d687c"
-    }, {
-        "id": "2",
-        "client_id": "1",
-        "customer_id": "20",
-        "created_by": "0",
-        "customer_name": "customer2",
-        "email": "customer2@test.com",
-        "description": "charge2",
-        "date_paid": "2016-12-20 02:18:38",
-        "date_due": "2016-12-30",
-        "archived": "0",
-        "invoice_num": "2",
-        "status": "Paid",
-        "amount": "1000.00",
-        "date_created": "2016-12-20 02:18:37",
-        "unique_id": "585a3add404af"
-    }, {
-        "id": "3",
-        "client_id": "1",
-        "customer_id": "333",
-        "created_by": null,
-        "customer_name": "customer3",
-        "email": "customer3@testl.com",
-        "description": "onetime paynow",
-        "date_paid": "2016-12-21 02:30:31",
-        "date_due": "2016-12-28",
-        "archived": "0",
-        "invoice_num": "3",
-        "status": "Paid",
-        "amount": "211.00",
-        "date_created": "2016-12-21 02:30:30",
-        "unique_id": "585a3da60ee2a"
-    }, {
-        "id": "4",
-        "client_id": "1",
-        "customer_id": "333",
-        "created_by": null,
-        "customer_name": "customer4",
-        "email": "customer4@testl.com",
-        "description": "charge4",
-        "date_paid": "2016-12-21 02:33:32",
-        "date_due": "2016-12-28",
-        "archived": "0",
-        "invoice_num": "4",
-        "status": "Paid",
-        "amount": "212.00",
-        "date_created": "2016-12-21 02:33:31",
-        "unique_id": "585a3e5b28cb3"
-    }, {
-        "id": "5",
-        "client_id": "1",
-        "customer_id": "334",
-        "created_by": "0",
-        "customer_name": "customer5",
-        "email": "customer5@test.com",
-        "description": "charge5 ",
-        "date_paid": "2016-12-21 02:37:36",
-        "date_due": "2016-12-28",
-        "archived": "0",
-        "invoice_num": "5",
-        "status": "Refund",
-        "amount": "213.00",
-        "date_created": "2016-12-21 02:37:34",
-        "unique_id": "585a3f4eb5743"
-    }, {
-        "id": "6",
-        "client_id": "1",
-        "customer_id": "333",
-        "created_by": null,
-        "customer_name": "customer6",
-        "email": "customer6@test.com",
-        "description": "charg6",
-        "date_paid": "2016-12-21 02:43:52",
-        "date_due": "2016-12-28",
-        "archived": "0",
-        "invoice_num": "6",
-        "status": "Paid",
-        "amount": "214.00",
-        "date_created": "2016-12-21 02:41:17",
-        "unique_id": "585a402d38634"
-    }, {
-        "id": "7",
-        "client_id": "1",
-        "customer_id": "334",
-        "created_by": null,
-        "customer_name": "customer7",
-        "email": "customer7@test.com",
-        "description": "charge7 ",
-        "date_paid": "2016-12-21 02:44:55",
-        "date_due": "2016-12-28",
-        "archived": "0",
-        "invoice_num": "7",
-        "status": "Paid",
-        "amount": "215.00",
-        "date_created": "2016-12-21 02:42:17",
-        "unique_id": "585a406948ad0"
-    }, {
-        "id": "8",
-        "client_id": "1",
-        "customer_id": "335",
-        "created_by": "0",
-        "customer_name": "customer8",
-        "email": "customer8@test.com",
-        "description": "charge8",
-        "date_paid": "2016-12-21 02:51:38",
-        "date_due": "2016-12-31",
-        "archived": "0",
-        "invoice_num": "8",
-        "status": "Refund",
-        "amount": "20.00",
-        "date_created": "2016-12-21 02:51:37",
-        "unique_id": "585a4299975e2"
-    }, {
-        "id": "9",
-        "client_id": "1",
-        "customer_id": "20",
-        "created_by": "0",
-        "customer_name": "customer9",
-        "email": "customer9@test.com",
-        "description": "ghghfg",
-        "date_paid": "2016-12-21 03:31:43",
-        "date_due": "2016-12-22",
-        "archived": "0",
-        "invoice_num": "9",
-        "status": "Paid",
-        "amount": "500.00",
-        "date_created": "2016-12-21 03:31:41",
-        "unique_id": "585a4bfde8c9d"
-    }, {
-        "id": "10",
-        "client_id": "1",
-        "customer_id": "20",
-        "created_by": "0",
-        "customer_name": "customer10",
-        "email": "customer10@test.com",
-        "description": "charge10",
-        "date_paid": "2016-12-21 03:43:13",
-        "date_due": "2016-12-22",
-        "archived": "0",
-        "invoice_num": "10",
-        "status": "Void",
-        "amount": "100.00",
-        "date_created": "2016-12-21 03:43:12",
-        "unique_id": "585a4eb024087"
-    }]
+    "message": "Invoice retrieved successfully. ",
+    "has_more": true,
+    "data": {
+        "total_count": 277,
+        "invoices": [{
+            "client_id": "1",
+            "customer_id": "20",
+            "created_by": null,
+            "customer_name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "description": "fghgfhfg",
+            "date_paid": "2016-12-21 02:15:35",
+            "invoice_num": "1",
+            "status": "Paid",
+            "amount": "5.00",
+            "date_created": "2016-12-21 02:15:33"
+        }, {
+            "client_id": "1",
+            "customer_id": "20",
+            "created_by": "0",
+            "customer_name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "description": "fgdfgfg",
+            "date_paid": "2016-12-20 02:18:38",
+            "invoice_num": "2",
+            "status": "Paid",
+            "amount": "1000.00",
+            "date_created": "2016-12-20 02:18:37"
+        }, {
+            "client_id": "1",
+            "customer_id": "333",
+            "created_by": null,
+            "customer_name": "test21-01",
+            "email": "test21-01@gmail.com",
+            "description": "test21-01 newcard save default onetime paynow",
+            "date_paid": "2016-12-21 02:30:31",
+            "invoice_num": "3",
+            "status": "Paid",
+            "amount": "211.00",
+            "date_created": "2016-12-21 02:30:30"
+        }, {
+            "client_id": "1",
+            "customer_id": "333",
+            "created_by": null,
+            "customer_name": "test21-01",
+            "email": "test21-01@gmail.com",
+            "description": "test21-01 onetime auth",
+            "date_paid": "2016-12-21 02:33:32",
+            "invoice_num": "4",
+            "status": "Paid",
+            "amount": "212.00",
+            "date_created": "2016-12-21 02:33:31"
+        }, {
+            "client_id": "1",
+            "customer_id": "333",
+            "created_by": null,
+            "customer_name": "test21-01",
+            "email": "test21-01@gmail.com",
+            "description": "test21-01 onetime paylater",
+            "date_paid": "2016-12-21 02:43:52",
+            "invoice_num": "6",
+            "status": "Paid",
+            "amount": "214.00",
+            "date_created": "2016-12-21 02:41:17"
+        }, {
+            "client_id": "1",
+            "customer_id": "334",
+            "created_by": null,
+            "customer_name": "test21-03",
+            "email": "test21_03@gmail.com",
+            "description": "test21-03 recurring paylater ",
+            "date_paid": "2016-12-21 02:44:55",
+            "invoice_num": "7",
+            "status": "Paid",
+            "amount": "215.00",
+            "date_created": "2016-12-21 02:42:17"
+        }, {
+            "client_id": "1",
+            "customer_id": "20",
+            "created_by": "0",
+            "customer_name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "description": "ghghfg",
+            "date_paid": "2016-12-21 03:31:43",
+            "invoice_num": "9",
+            "status": "Paid",
+            "amount": "500.00",
+            "date_created": "2016-12-21 03:31:41"
+        }, {
+            "client_id": "1",
+            "customer_id": "287",
+            "created_by": "2",
+            "customer_name": "saranya",
+            "email": "sarantest2@test.com",
+            "description": "testing",
+            "date_paid": "2017-01-30 05:24:06",
+            "invoice_num": "13",
+            "status": "Paid",
+            "amount": "34.00",
+            "date_created": "2016-12-21 05:25:58"
+        }, {
+            "client_id": "1",
+            "customer_id": "287",
+            "created_by": null,
+            "customer_name": "saranya",
+            "email": "sarantest2@test.com",
+            "description": "testing",
+            "date_paid": "2016-12-21 06:29:13",
+            "invoice_num": "16",
+            "status": "Paid",
+            "amount": "47.00",
+            "date_created": "2016-12-21 06:29:11"
+        }, {
+            "client_id": "1",
+            "customer_id": "334",
+            "created_by": null,
+            "customer_name": "test21-03",
+            "email": "test21_03@gmail.com",
+            "description": "test21-03 recurring paylater ",
+            "date_paid": "2016-12-21 02:44:55",
+            "invoice_num": "22",
+            "status": "Paid",
+            "amount": "215.00",
+            "date_created": "2016-12-21 02:42:17"
+        }]
+    }
+}
+]
+```
+
+This endpoint allows you to retrieves a paid invoices.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v1/invoices/paid`
+
+## List all Uncaptured Invoices
+
+```shell
+curl https://api.instantmerchant.io/api/v1/invoices/uncaptured \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status": true,
+    "message": "Invoice retrieved successfully. ",
+    "has_more": true,
+    "data": {
+        "total_count": 22,
+        "invoices": [{
+            "client_id": "1",
+            "customer_id": "259",
+            "created_by": null,
+            "customer_name": "client_123",
+            "email": "teclient_123@test.com",
+            "description": "test",
+            "date_paid": "2016-12-22 09:54:54",
+            "invoice_num": "28",
+            "status": "uncaptured",
+            "amount": "21.00",
+            "date_created": "2016-12-22 09:54:29"
+        }, {
+            "client_id": "1",
+            "customer_id": "19",
+            "created_by": null,
+            "customer_name": "Somnium Labs",
+            "email": "raja@somniumlabs.com",
+            "description": "test draft",
+            "date_paid": "2016-12-22 10:25:12",
+            "invoice_num": "32",
+            "status": "uncaptured",
+            "amount": "11.00",
+            "date_created": "2016-12-22 10:25:11"
+        }, {
+            "client_id": "1",
+            "customer_id": "347",
+            "created_by": null,
+            "customer_name": "test_customer13",
+            "email": "test_customer13@test.com",
+            "description": "test draft",
+            "date_paid": "2016-12-22 10:30:22",
+            "invoice_num": "36",
+            "status": "uncaptured",
+            "amount": "11.00",
+            "date_created": "2016-12-22 10:27:34"
+        }, {
+            "client_id": "1",
+            "customer_id": "20",
+            "created_by": null,
+            "customer_name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "description": "hfghfgh",
+            "date_paid": "2016-12-26 03:44:38",
+            "invoice_num": "50",
+            "status": "uncaptured",
+            "amount": "452.00",
+            "date_created": "2016-12-26 03:43:42"
+        }, {
+            "client_id": "1",
+            "customer_id": "20",
+            "created_by": null,
+            "customer_name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "description": "hgfghfghgfh",
+            "date_paid": "2016-12-26 04:11:10",
+            "invoice_num": "54",
+            "status": "uncaptured",
+            "amount": "16.00",
+            "date_created": "2016-12-26 04:11:09"
+        }, {
+            "client_id": "1",
+            "customer_id": "20",
+            "created_by": null,
+            "customer_name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "description": "dsgdsg",
+            "date_paid": "2016-12-26 04:13:41",
+            "invoice_num": "57",
+            "status": "uncaptured",
+            "amount": "24.00",
+            "date_created": "2016-12-26 04:13:40"
+        }, {
+            "client_id": "1",
+            "customer_id": "20",
+            "created_by": null,
+            "customer_name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "description": "jghjghjh",
+            "date_paid": "2016-12-26 04:14:46",
+            "invoice_num": "58",
+            "status": "uncaptured",
+            "amount": "18.00",
+            "date_created": "2016-12-26 04:13:45"
+        }, {
+            "client_id": "1",
+            "customer_id": "357",
+            "created_by": null,
+            "customer_name": "t002",
+            "email": "t002@gmail.com",
+            "description": "t002",
+            "date_paid": "2016-12-26 07:29:40",
+            "invoice_num": "61",
+            "status": "uncaptured",
+            "amount": "102.00",
+            "date_created": "2016-12-26 07:29:39"
+        }, {
+            "client_id": "1",
+            "customer_id": "335",
+            "created_by": "286",
+            "customer_name": "testing",
+            "email": "test@advisantgroup.com",
+            "description": "sadsaf",
+            "date_paid": "2017-01-25 07:56:03",
+            "invoice_num": "75",
+            "status": "uncaptured",
+            "amount": "45.00",
+            "date_created": "2016-12-28 06:31:49"
+        }, {
+            "client_id": "1",
+            "customer_id": "25",
+            "created_by": null,
+            "customer_name": "Newuser36 lastname",
+            "email": "Newuser36@test.com",
+            "description": "testing",
+            "date_paid": "2017-01-04 10:00:13",
+            "invoice_num": "90",
+            "status": "uncaptured",
+            "amount": "16.00",
+            "date_created": "2017-01-04 10:00:11"
+        }]
+    }
+  }
+]
+```
+
+This endpoint allows you to retrieves a uncaptured/pre-auth invoices.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v1/invoices/uncaptured`
+
+
+## List all Refunded Invoices
+
+```shell
+curl https://api.instantmerchant.io/api/v1/invoices/refunds \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status": true,
+    "message": "Invoice retrieved successfully. ",
+    "has_more": true,
+    "data": {
+        "total_count": 72,
+        "invoices": [{
+            "client_id": "1",
+            "customer_id": "334",
+            "created_by": "0",
+            "customer_name": "test21-03",
+            "email": "test21_03@gmail.com",
+            "description": "test21-03 recurring paynow newcard save ",
+            "date_paid": "2016-12-21 02:37:36",
+            "invoice_num": "5",
+            "status": "Refund",
+            "amount": "213.00",
+            "date_created": "2016-12-21 02:37:34"
+        }, {
+            "client_id": "1",
+            "customer_id": "335",
+            "created_by": "0",
+            "customer_name": "testing",
+            "email": "test@advisantgroup.com",
+            "description": "sdfdsf",
+            "date_paid": "2016-12-21 02:51:38",
+            "invoice_num": "8",
+            "status": "Refund",
+            "amount": "20.00",
+            "date_created": "2016-12-21 02:51:37"
+        }, {
+            "client_id": "1",
+            "customer_id": "20",
+            "created_by": "0",
+            "customer_name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "description": "ghfghfghg",
+            "date_paid": "2016-12-21 04:28:39",
+            "invoice_num": "11",
+            "status": "Refund",
+            "amount": "55.00",
+            "date_created": "2016-12-21 04:28:38"
+        }, {
+            "client_id": "1",
+            "customer_id": "287",
+            "created_by": "0",
+            "customer_name": "saranya",
+            "email": "saran@testing.com",
+            "description": "testing",
+            "date_paid": "2016-12-21 06:30:23",
+            "invoice_num": "18",
+            "status": "Refund",
+            "amount": "40.00",
+            "date_created": "2016-12-21 06:30:22"
+        }, {
+            "client_id": "1",
+            "customer_id": "287",
+            "created_by": "0",
+            "customer_name": "saranya",
+            "email": "saran@testing.com",
+            "description": "testing",
+            "date_paid": "2016-12-21 06:32:55",
+            "invoice_num": "20",
+            "status": "Refund",
+            "amount": "20.00",
+            "date_created": "2016-12-21 06:32:52"
+        }, {
+            "client_id": "1",
+            "customer_id": "343",
+            "created_by": "0",
+            "customer_name": "raja01",
+            "email": "raja@gmail.com",
+            "description": "test-renewal",
+            "date_paid": "2016-12-21 09:57:16",
+            "invoice_num": "23",
+            "status": "Refund",
+            "amount": "123.00",
+            "date_created": "2016-12-21 09:52:57"
+        }, {
+            "client_id": "1",
+            "customer_id": "259",
+            "created_by": "254",
+            "customer_name": "client_123",
+            "email": "teclient_123@test.com",
+            "description": "test",
+            "date_paid": "2016-12-22 09:53:58",
+            "invoice_num": "26",
+            "status": "Refund",
+            "amount": "12.00",
+            "date_created": "2016-12-22 09:38:36"
+        }, {
+            "client_id": "1",
+            "customer_id": "256",
+            "created_by": "254",
+            "customer_name": "client_staff1",
+            "email": "uclient_staff1@test.com",
+            "description": "test",
+            "date_paid": "2016-12-22 09:40:13",
+            "invoice_num": "27",
+            "status": "Refund",
+            "amount": "21.00",
+            "date_created": "2016-12-22 09:40:12"
+        }, {
+            "client_id": "1",
+            "customer_id": "348",
+            "created_by": "0",
+            "customer_name": "test_customer14",
+            "email": "test_customer14@test.com",
+            "description": "test draft",
+            "date_paid": "2016-12-22 11:15:23",
+            "invoice_num": "37",
+            "status": "Refund",
+            "amount": "11.00",
+            "date_created": "2016-12-22 10:27:50"
+        }, {
+            "client_id": "1",
+            "customer_id": "20",
+            "created_by": "0",
+            "customer_name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "description": "fgffgfg",
+            "date_paid": "2016-12-22 11:07:11",
+            "invoice_num": "42",
+            "status": "Refund",
+            "amount": "15.00",
+            "date_created": "2016-12-22 11:07:10"
+        }]
+    }
+  }
+]
+```
+
+This endpoint allows you to retrieves refunded invoices.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v1/invoices/refunds`
+
+
+## List all Chargeback Invoices
+
+```shell
+curl https://api.instantmerchant.io/api/v1/invoices/chargebacks \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status": true,
+    "message": "Invoice retrieved successfully. ",
+    "has_more": false,
+    "data": {
+        "total_count": 2,
+        "invoices": [{
+            "client_id": "1",
+            "customer_id": "20",
+            "created_by": null,
+            "customer_name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "description": "fghgfhfg",
+            "date_paid": "2016-12-21 02:15:35",
+            "invoice_num": "1",
+            "status": "Chargeback",
+            "amount": "5.00",
+            "date_created": "2016-12-21 02:15:33"
+        }, {
+            "client_id": "1",
+            "customer_id": "24",
+            "created_by": null,
+            "customer_name": "bps1.somniumlabs",
+            "email": "bps1@somniumlabs.com",
+            "description": "newdesc",
+            "date_paid": "2016-12-21 02:19:25",
+            "invoice_num": "3",
+            "status": "Chargeback",
+            "amount": "52.00",
+            "date_created": "2016-12-21 02:19:23"
+        }]
+  
+    }
+  }
+]
+```
+
+This endpoint allows you to retrieves chargedback invoices.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v1/invoices/chargebacks`
+
+## List all Void Invoices
+
+```shell
+curl https://api.instantmerchant.io/api/v1/invoices/voids \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status": true,
+    "message": "Invoice retrieved successfully. ",
+    "has_more": true,
+    "data": {
+        "total_count": 22,
+        "invoices": [{
+            "client_id": "1",
+            "customer_id": "20",
+            "created_by": "0",
+            "customer_name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "description": "ghfhfghg",
+            "date_paid": "2016-12-21 03:43:13",
+            "invoice_num": "10",
+            "status": "Void",
+            "amount": "100.00",
+            "date_created": "2016-12-21 03:43:12"
+        }, {
+            "client_id": "1",
+            "customer_id": "385",
+            "created_by": "1",
+            "customer_name": "api_cus01",
+            "email": "api_cus01@test.com",
+            "description": "authcharge",
+            "date_paid": "2017-01-30 05:25:38",
+            "invoice_num": "86",
+            "status": "Void",
+            "amount": "12.00",
+            "date_created": "2017-01-04 08:21:10"
+        }, {
+            "client_id": "1",
+            "customer_id": "385",
+            "created_by": "384",
+            "customer_name": "api_cus01",
+            "email": "api_cus01@test.com",
+            "description": "authcharge",
+            "date_paid": "2017-01-04 08:21:20",
+            "invoice_num": "87",
+            "status": "Void",
+            "amount": "13.00",
+            "date_created": "2017-01-04 08:21:18"
+        }, {
+            "client_id": "1",
+            "customer_id": "20",
+            "created_by": "1",
+            "customer_name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "description": "test",
+            "date_paid": "2017-01-07 01:37:54",
+            "invoice_num": "162",
+            "status": "Void",
+            "amount": "25.00",
+            "date_created": "2017-01-07 01:37:14"
+        }, {
+            "client_id": "1",
+            "customer_id": "256",
+            "created_by": "2",
+            "customer_name": "client_staff1",
+            "email": "uclient_staff1@test.com",
+            "description": "test",
+            "date_paid": "2017-01-30 03:44:18",
+            "invoice_num": "270",
+            "status": "Void",
+            "amount": "12.00",
+            "date_created": "2017-01-30 03:44:16"
+        }, {
+            "client_id": "1",
+            "customer_id": "20",
+            "created_by": "1",
+            "customer_name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "description": "test",
+            "date_paid": "2017-01-30 04:16:19",
+            "invoice_num": "277",
+            "status": "Void",
+            "amount": "12.00",
+            "date_created": "2017-01-30 04:16:18"
+        }, {
+            "client_id": "1",
+            "customer_id": "335",
+            "created_by": "1",
+            "customer_name": "testing",
+            "email": "test@advisantgroup.com",
+            "description": "fdmhf",
+            "date_paid": "2017-01-30 04:25:30",
+            "invoice_num": "283",
+            "status": "Void",
+            "amount": "34.00",
+            "date_created": "2017-01-30 04:25:29"
+        }, {
+            "client_id": "1",
+            "customer_id": "21",
+            "created_by": "2",
+            "customer_name": "Jim test",
+            "email": "jim@test.com",
+            "description": "asda",
+            "date_paid": "2017-01-31 04:24:25",
+            "invoice_num": "318",
+            "status": "Void",
+            "amount": "23.00",
+            "date_created": "2017-01-31 04:24:23"
+        }, {
+            "client_id": "1",
+            "customer_id": "21",
+            "created_by": "2",
+            "customer_name": "Jim test",
+            "email": "jim@test.com",
+            "description": "asda",
+            "date_paid": "2017-01-31 04:26:09",
+            "invoice_num": "319",
+            "status": "Void",
+            "amount": "400.00",
+            "date_created": "2017-01-31 04:25:28"
+        }, {
+            "client_id": "1",
+            "customer_id": "23",
+            "created_by": "1",
+            "customer_name": "Newuser36 lastname",
+            "email": "Newuser36@test.com",
+            "description": "erwerw",
+            "date_paid": "2017-01-31 04:29:55",
+            "invoice_num": "320",
+            "status": "Void",
+            "amount": "235.00",
+            "date_created": "2017-01-31 04:29:53"
+        }]
+    }
+  }
+]
+```
+
+This endpoint allows you to retrieves void invoices.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v1/invoices/voids`
+
+
+## List all Pending Invoices
+
+```shell
+curl https://api.instantmerchant.io/api/v1/invoices/pending \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[ 
+    {
+    "status": true,
+    "message": "Invoice retrieved successfully. ",
+    "has_more": true,
+    "data": {
+        "total_count": 25,
+        "invoices": [{
+            "client_id": "1",
+            "customer_id": "287",
+            "created_by": null,
+            "customer_name": "saranya",
+            "email": "test3@testing.com",
+            "description": "testing",
+            "date_paid": null,
+            "invoice_num": "12",
+            "status": "Pending",
+            "amount": "34.00",
+            "date_created": "2016-12-21 05:24:15"
+        }, {
+            "client_id": "1",
+            "customer_id": "287",
+            "created_by": null,
+            "customer_name": "saranya",
+            "email": "test3@testing.com",
+            "description": "testing",
+            "date_paid": null,
+            "invoice_num": "17",
+            "status": "Pending",
+            "amount": "47.00",
+            "date_created": "2016-12-21 06:30:09"
+        }, {
+            "client_id": "1",
+            "customer_id": "287",
+            "created_by": null,
+            "customer_name": "saranya",
+            "email": "test3@testing.com",
+            "description": "testing",
+            "date_paid": null,
+            "invoice_num": "19",
+            "status": "Pending",
+            "amount": "40.00",
+            "date_created": "2016-12-21 06:32:41"
+        }, {
+            "client_id": "1",
+            "customer_id": "22",
+            "created_by": null,
+            "customer_name": "Newuser35 test",
+            "email": "Newuser35@test.com",
+            "description": "refb",
+            "date_paid": null,
+            "invoice_num": "21",
+            "status": "Pending",
+            "amount": "7.00",
+            "date_created": "2016-12-21 07:14:00"
+        }, {
+            "client_id": "1",
+            "customer_id": "394",
+            "created_by": null,
+            "customer_name": "test06-01",
+            "email": "test06_01@gmail.com",
+            "description": "t-10",
+            "date_paid": null,
+            "invoice_num": "195",
+            "status": "Pending",
+            "amount": "41.00",
+            "date_created": "2017-01-10 04:28:01"
+        }, {
+            "client_id": "1",
+            "customer_id": "20",
+            "created_by": null,
+            "customer_name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "description": "test draft",
+            "date_paid": null,
+            "invoice_num": "244",
+            "status": "Pending",
+            "amount": "11.00",
+            "date_created": "2017-01-22 03:00:05"
+        }, {
+            "client_id": "1",
+            "customer_id": "20",
+            "created_by": null,
+            "customer_name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "description": "test draft",
+            "date_paid": null,
+            "invoice_num": "245",
+            "status": "Pending",
+            "amount": "11.00",
+            "date_created": "2017-01-23 03:00:02"
+        }, {
+            "client_id": "1",
+            "customer_id": "20",
+            "created_by": null,
+            "customer_name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "description": "test",
+            "date_paid": null,
+            "invoice_num": "327",
+            "status": "Pending",
+            "amount": "55.00",
+            "date_created": "2017-01-31 08:10:52"
+        }, {
+            "client_id": "1",
+            "customer_id": "20",
+            "created_by": null,
+            "customer_name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "description": "test",
+            "date_paid": null,
+            "invoice_num": "328",
+            "status": "Pending",
+            "amount": "56.00",
+            "date_created": "2017-01-31 08:13:45"
+        }, {
+            "client_id": "1",
+            "customer_id": "20",
+            "created_by": null,
+            "customer_name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "description": "test",
+            "date_paid": null,
+            "invoice_num": "329",
+            "status": "Pending",
+            "amount": "56.00",
+            "date_created": "2017-01-31 08:14:27"
+        }]
+    }
+  }
+]
+```
+
+This endpoint allows you to retrieves pending invoices.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v1/invoices/pending`
+
+## List all Draft Invoices
+
+```shell
+curl https://api.instantmerchant.io/api/v1/invoices/draft \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[ 
+   {
+    "status": true,
+    "message": "Invoice retrieved successfully. ",
+    "has_more": true,
+    "data": {
+        "total_count": 53,
+        "invoices": [{
+            "client_id": "1",
+            "customer_id": "287",
+            "created_by": null,
+            "customer_name": "saranya",
+            "email": "saranya.v@test.com",
+            "description": "testing",
+            "date_paid": null,
+            "invoice_num": "14",
+            "status": "draft",
+            "amount": "47.00",
+            "date_created": "2016-12-21 06:28:23"
+        }, {
+            "client_id": "1",
+            "customer_id": "287",
+            "created_by": null,
+            "customer_name": "saranya",
+            "email": "saranya.v@test.com",
+            "description": "testing",
+            "date_paid": null,
+            "invoice_num": "15",
+            "status": "draft",
+            "amount": "47.00",
+            "date_created": "2016-12-21 06:28:46"
+        }, {
+            "client_id": "1",
+            "customer_id": "19",
+            "created_by": null,
+            "customer_name": "Somnium Labs",
+            "email": "raja@somniumlabs.com",
+            "description": "test draft",
+            "date_paid": null,
+            "invoice_num": "29",
+            "status": "draft",
+            "amount": "11.00",
+            "date_created": "2016-12-22 10:23:19"
+        }, {
+            "client_id": "1",
+            "customer_id": "19",
+            "created_by": null,
+            "customer_name": "Somnium Labs",
+            "email": "raja@somniumlabs.com",
+            "description": "test draft",
+            "date_paid": null,
+            "invoice_num": "30",
+            "status": "draft",
+            "amount": "11.00",
+            "date_created": "2016-12-22 10:23:49"
+        }, {
+            "client_id": "1",
+            "customer_id": "345",
+            "created_by": null,
+            "customer_name": "test_customer11",
+            "email": "test_customer11@test.com",
+            "description": "test draft",
+            "date_paid": null,
+            "invoice_num": "34",
+            "status": "draft",
+            "amount": "11.00",
+            "date_created": "2016-12-22 10:26:27"
+        }, {
+            "client_id": "1",
+            "customer_id": "358",
+            "created_by": null,
+            "customer_name": "t003",
+            "email": "t003@gmail.com",
+            "description": "t003",
+            "date_paid": null,
+            "invoice_num": "62",
+            "status": "draft",
+            "amount": "103.00",
+            "date_created": "2016-12-26 07:30:47"
+        }, {
+            "client_id": "1",
+            "customer_id": "22",
+            "created_by": null,
+            "customer_name": "Newuser35 test",
+            "email": "Newuser35@test.com",
+            "description": "testing data",
+            "date_paid": null,
+            "invoice_num": "76",
+            "status": "draft",
+            "amount": "14.00",
+            "date_created": "2016-12-29 05:46:43"
+        }, {
+            "client_id": "1",
+            "customer_id": "20",
+            "created_by": null,
+            "customer_name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "description": "test",
+            "date_paid": null,
+            "invoice_num": "81",
+            "status": "draft",
+            "amount": "33.00",
+            "date_created": "2017-01-03 08:19:32"
+        }, {
+            "client_id": "1",
+            "customer_id": "387",
+            "created_by": null,
+            "customer_name": "Jim",
+            "email": "jimr@instantmerchant.io",
+            "description": "test description",
+            "date_paid": null,
+            "invoice_num": "92",
+            "status": "draft",
+            "amount": "38.00",
+            "date_created": "2017-01-05 03:47:57"
+        }, {
+            "client_id": "1",
+            "customer_id": "388",
+            "created_by": null,
+            "customer_name": "Jim",
+            "email": "rashi@instantmerchant.io",
+            "description": "test description",
+            "date_paid": null,
+            "invoice_num": "93",
+            "status": "draft",
+            "amount": "38.00",
+            "date_created": "2017-01-05 03:49:17"
+        }]
+    }
+  }
+]
+```
+
+This endpoint allows you to retrieves draft invoices.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v1/invoices/draft`
+
+
+## List all Invoices
+
+```shell
+curl https://api.instantmerchant.io/api/v1/invoices \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status": true,
+    "message":"Invoice data retrieved successfully",
+    "has_more":true,
+    "data": {
+          "total_count":8,
+          "invoices": [
+          {
+              "client_id": "1",
+              "customer_id": "20",
+              "created_by": null,
+              "customer_name": "customer1",
+              "email": "customer1@test.com",
+              "description": "charge1",
+              "date_paid": "2016-12-21 02:15:35",
+              "invoice_num": "1",
+              "status": "Paid",
+              "amount": "5.00",
+              "date_created": "2016-12-21 02:15:33"
+          }, {
+              "client_id": "1",
+              "customer_id": "20",
+              "created_by": "0",
+              "customer_name": "customer2",
+              "email": "customer2@test.com",
+              "description": "charge2",
+              "date_paid": "2016-12-20 02:18:38",
+              "invoice_num": "2",
+              "status": "Paid",
+              "amount": "1000.00",
+              "date_created": "2016-12-20 02:18:37"
+          }, {
+              "client_id": "1",
+              "customer_id": "333",
+              "created_by": null,
+              "customer_name": "customer3",
+              "email": "customer3@testl.com",
+              "description": "onetime paynow",
+              "date_paid": "2016-12-21 02:30:31",
+              "invoice_num": "3",
+              "status": "Paid",
+              "amount": "211.00",
+              "date_created": "2016-12-21 02:30:30"
+          }, {
+              "client_id": "1",
+              "customer_id": "333",
+              "created_by": null,
+              "customer_name": "customer4",
+              "email": "customer4@testl.com",
+              "description": "charge4",
+              "date_paid": "2016-12-21 02:33:32",
+              "invoice_num": "4",
+              "status": "Paid",
+              "amount": "212.00",
+              "date_created": "2016-12-21 02:33:31"
+          }, {
+              "client_id": "1",
+              "customer_id": "334",
+              "created_by": "0",
+              "customer_name": "customer5",
+              "email": "customer5@test.com",
+              "description": "charge5 ",
+              "date_paid": "2016-12-21 02:37:36",
+              "invoice_num": "5",
+              "status": "Refund",
+              "amount": "213.00",
+              "date_created": "2016-12-21 02:37:34"
+          }, {
+              "client_id": "1",
+              "customer_id": "333",
+              "created_by": null,
+              "customer_name": "customer6",
+              "email": "customer6@test.com",
+              "description": "charg6",
+              "date_paid": "2016-12-21 02:43:52",
+              "invoice_num": "6",
+              "status": "Paid",
+              "amount": "214.00",
+              "date_created": "2016-12-21 02:41:17"
+          }, {
+              "client_id": "1",
+              "customer_id": "334",
+              "created_by": null,
+              "customer_name": "customer7",
+              "email": "customer7@test.com",
+              "description": "charge7 ",
+              "date_paid": "2016-12-21 02:44:55",
+              "invoice_num": "7",
+              "status": "Paid",
+              "amount": "215.00",
+              "date_created": "2016-12-21 02:42:17"
+          }, {
+              "client_id": "1",
+              "customer_id": "335",
+              "created_by": "0",
+              "customer_name": "customer8",
+              "email": "customer8@test.com",
+              "description": "charge8",
+              "date_paid": "2016-12-21 02:51:38",
+              "invoice_num": "8",
+              "status": "Refund",
+              "amount": "20.00",
+              "date_created": "2016-12-21 02:51:37"
+          }]
+    }
   }
 ]
 ```
@@ -581,12 +1486,12 @@ This endpoint allows you to list all the invoices with the limit of 10.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/invoice`
+`GET https://api.instantmerchant.io/api/v1/invoices`
 
 ## List all archived Invoices
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/invoice?archived=1 \
+curl https://api.instantmerchant.io/api/v1/invoices?archived=1 \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -595,69 +1500,46 @@ curl https://api.instantmerchant.io/api/v2/invoice?archived=1 \
 > The above command returns JSON structured like this:
 
 ```json
-[
-  {
+{
     "status": true,
-    "message": "Invoice found successfully",
-    "total_rows": 3,
-    "invoices_data": [{
-        "id": "1",
-        "client_id": "1",
-        "customer_id": "20",
-        "created_by": null,
-        "customer_name": "customer1",
-        "email": "customer1@test.com",
-        "description": "charge1",
-        "date_paid": "2016-12-21 02:15:35",
-        "date_due": "2016-12-24",
-        "archived": "1",
-        "invoice_num": "1",
-        "status": "Paid",
-        "amount": "5.00",
-        "date_created": "2016-12-21 02:15:33",
-        "unique_id": "585a3a25d687c"
-    }, {
-        "id": "2",
-        "client_id": "1",
-        "customer_id": "20",
-        "created_by": "0",
-        "customer_name": "customer2",
-        "email": "customer2@test.com",
-        "description": "charge2",
-        "date_paid": "2016-12-20 02:18:38",
-        "date_due": "2016-12-30",
-        "archived": "1",
-        "invoice_num": "2",
-        "status": "Paid",
-        "amount": "1000.00",
-        "date_created": "2016-12-20 02:18:37",
-        "unique_id": "585a3add404af"
-    }, {
-        "id": "10",
-        "client_id": "1",
-        "customer_id": "20",
-        "created_by": "0",
-        "customer_name": "customer10",
-        "email": "customer10@test.com",
-        "description": "charge10",
-        "date_paid": "2016-12-21 03:43:13",
-        "date_due": "2016-12-22",
-        "archived": "1",
-        "invoice_num": "10",
-        "status": "Void",
-        "amount": "100.00",
-        "date_created": "2016-12-21 03:43:12",
-        "unique_id": "585a4eb024087"
-    }]
-  }
-]
+    "message": "Invoice data retrieved successfully",
+    "has_more": false,
+    "data": {
+        "total_count": 2,
+        "invoices": [{
+            "client_id": "1",
+            "customer_id": "256",
+            "created_by": "254",
+            "customer_name": "client_staff1",
+            "email": "uclient_staff1@test.com",
+            "description": "manojj",
+            "date_paid": "2017-02-17 08:06:44",
+            "invoice_num": "396",
+            "status": "Refund",
+            "amount": "11.00",
+            "date_created": "2017-02-17 08:06:42"
+        }, {
+            "client_id": "1",
+            "customer_id": "471",
+            "created_by": "1",
+            "customer_name": "ustomer3",
+            "email": "customer3@yahoo.com",
+            "description": "invoice testing",
+            "date_paid": "2017-03-03 16:56:23",
+            "invoice_num": "424",
+            "status": "Paid",
+            "amount": "10.56",
+            "date_created": "2017-03-03 16:56:21"
+        }]
+    }
+}
 ```
 
 This endpoint allows you to list all the archived invoices with the limit of 10.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/invoice?archived={archived_status}`
+`GET https://api.instantmerchant.io/api/v1/invoices?archived={archived_status}`
 
 ### Query Parameters
 
@@ -670,7 +1552,7 @@ archived [required] | none | Archive status.
 ## Create Charge
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/charge \
+curl https://api.instantmerchant.io/api/v1/charges \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X POST \
@@ -744,12 +1626,12 @@ instant.direct.charge(params).then(function(res){
   {
     "status": true,
     "message": "payment processed successfully",
+    "customer_id": 363,
     "card_id": "card_58626a702e23c",
-    "card_last_4": "4242",
     "subscription_id": "sub_58626a702eb9e1",
     "expiry_date": 1490590800,
-    "customer_id": 363,
-    "charge_id": "cha_689d0tf96536d1"
+    "charge_id": "cha_689d0tf96536d1",
+    "card_last_4": "4242",
   }
 ]
 ```
@@ -758,7 +1640,7 @@ Use this endpoint to charge a credit card.
 
 ### HTTP Request
 
-`POST https://api.instantmerchant.io/api/v2/charge`
+`POST https://api.instantmerchant.io/api/v1/charges`
 
 ### Query Parameters
 
@@ -793,7 +1675,7 @@ card_id [optional] | none | Required, when card details are not present.
 ## Archive Charge
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/charge/cha_689d0tf96536d1/archive \
+curl https://api.instantmerchant.io/api/v1/charges/cha_689d0tf96536d1/archive \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -819,7 +1701,7 @@ instant.direct.archive(params).then(function(res){
 [
   {
     "status":true,
-    "message":"archive have been updated successfully..!"
+    "message":"Archive have been updated successfully..!"
   }
 ]
 ```
@@ -828,7 +1710,7 @@ This endpoint allows you to archive the payment transaction.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/charge/{unique_id}/archive`
+`GET https://api.instantmerchant.io/api/v1/charges/{unique_id}/archive`
 
 ### Query Parameters
 
@@ -840,7 +1722,7 @@ unique_id [required] | none | The unique Identifier of the payment.
 ## Unarchive Charge
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/charge/cha_689d0tf96536d1/unarchive \
+curl https://api.instantmerchant.io/api/v1/charges/cha_689d0tf96536d1/unarchive \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -875,7 +1757,7 @@ This endpoint allows you to unarchive the payment transaction.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/charge/{unique_id}/unarchive`
+`GET https://api.instantmerchant.io/api/v1/charges/{unique_id}/unarchive`
 
 ### Query Parameters
 
@@ -883,15 +1765,799 @@ Parameter | Default | Description
 --------- | ------- | -----------
 unique_id [required] | none | The Identifier of the payment.
 
+## Paid Charges
+
+```shell
+curl https://api.instantmerchant.io/api/v1/charges/paid \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "status": true,
+    "message": "Charge data is retrieved successfully. ",
+    "has_more": true,
+    "data": {
+        "total_count": 47,
+        "transactions": [{
+            "invoice_id": null,
+            "created_by": "1",
+            "customer_id": null,
+            "name": "test",
+            "email": "test@test.com",
+            "amount": "2.00",
+            "balance": "2.00",
+            "subscription_id": "0",
+            "description": "desc",
+            "status": "Paid",
+            "city": "city",
+            "state": "sttae",
+            "zip": "56456464",
+            "date_created": "2017-03-01 09:50:18",
+            "expiry_date": null,
+            "transaction_id": "cha_58b6edba0bebe1"
+        }, {
+            "invoice_id": null,
+            "created_by": "1",
+            "customer_id": null,
+            "name": "Raja",
+            "email": "rajacse10@gmail.com",
+            "amount": "10.00",
+            "balance": "10.00",
+            "subscription_id": "0",
+            "description": "test",
+            "status": "Paid",
+            "city": "city here",
+            "state": "state here",
+            "zip": "1234567890",
+            "date_created": "2017-03-01 11:47:52",
+            "expiry_date": null,
+            "transaction_id": "cha_58b709480baad1"
+        }, {
+            "invoice_id": "386",
+            "created_by": "1",
+            "customer_id": "19",
+            "name": "Somnium Labs",
+            "email": "raja@somniumlabs.com",
+            "amount": "12.00",
+            "balance": "12.00",
+            "subscription_id": "133",
+            "description": "test draft",
+            "status": "Paid",
+            "city": "my city",
+            "state": "my state",
+            "zip": "9898",
+            "date_created": "2017-03-08 10:39:40",
+            "expiry_date": null,
+            "transaction_id": "cha_58c033c8525f11"
+        }, {
+            "invoice_id": "400",
+            "created_by": "1",
+            "customer_id": "287",
+            "name": "saranya",
+            "email": "saranya.v@advisantgroup.com",
+            "amount": "40.00",
+            "balance": "40.00",
+            "subscription_id": "0",
+            "description": "testing",
+            "status": "Paid",
+            "city": "Brentwood",
+            "state": "TN",
+            "zip": "37027",
+            "date_created": "2017-02-28 03:43:59",
+            "expiry_date": null,
+            "transaction_id": "cha_58b5465dae1a31"
+        }, {
+            "invoice_id": "402",
+            "created_by": "1",
+            "customer_id": "279",
+            "name": "saran",
+            "email": "saran@test.com",
+            "amount": "56.00",
+            "balance": "56.00",
+            "subscription_id": "0",
+            "description": "test",
+            "status": "Paid",
+            "city": "Brentwood",
+            "state": "TN",
+            "zip": "37027",
+            "date_created": "2017-03-01 05:48:42",
+            "expiry_date": null,
+            "transaction_id": "cha_58b6b51af226d1"
+        }, {
+            "invoice_id": "408",
+            "created_by": "1",
+            "customer_id": "466",
+            "name": "saran1",
+            "email": "saranktvr@gmail.com",
+            "amount": "12.00",
+            "balance": "12.00",
+            "subscription_id": "0",
+            "description": "test",
+            "status": "Paid",
+            "city": "city",
+            "state": "KY",
+            "zip": "654321",
+            "date_created": "2017-03-08 08:58:12",
+            "expiry_date": null,
+            "transaction_id": "cha_58c01c046efa11"
+        }, {
+            "invoice_id": "411",
+            "created_by": "1",
+            "customer_id": "20",
+            "name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "amount": "12.00",
+            "balance": "12.00",
+            "subscription_id": "0",
+            "description": "test",
+            "status": "Paid",
+            "city": "city1",
+            "state": "Nashville",
+            "zip": "37221",
+            "date_created": "2017-03-02 10:59:38",
+            "expiry_date": null,
+            "transaction_id": "cha_58b84f78e58c11"
+        }, {
+            "invoice_id": "412",
+            "created_by": "1",
+            "customer_id": "20",
+            "name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "amount": "14.00",
+            "balance": "14.00",
+            "subscription_id": "0",
+            "description": "test",
+            "status": "Paid",
+            "city": "city1",
+            "state": "Nashville",
+            "zip": "37221",
+            "date_created": "2017-03-02 11:00:00",
+            "expiry_date": null,
+            "transaction_id": "cha_58b84f8f264fd1"
+        }, {
+            "invoice_id": "413",
+            "created_by": "1",
+            "customer_id": "19",
+            "name": "Somnium Labs",
+            "email": "raja@somniumlabs.com",
+            "amount": "10.00",
+            "balance": "10.00",
+            "subscription_id": "0",
+            "description": "testing",
+            "status": "Paid",
+            "city": "my city",
+            "state": "my state",
+            "zip": "9898",
+            "date_created": "2017-03-02 11:02:23",
+            "expiry_date": null,
+            "transaction_id": "cha_58b8501d080541"
+        }, {
+            "invoice_id": "414",
+            "created_by": "1",
+            "customer_id": "20",
+            "name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "amount": "12.00",
+            "balance": "12.00",
+            "subscription_id": "0",
+            "description": "test",
+            "status": "Paid",
+            "city": "city1",
+            "state": "Nashville",
+            "zip": "37221",
+            "date_created": "2017-03-03 05:21:47",
+            "expiry_date": null,
+            "transaction_id": "cha_58b951c8ef8f61"
+        }]
+    }
+  }
+]
+```
+
+This endpoint allows you to list paid transactions.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v1/charges/paid`
+
+
+## Pre-auth Charges
+
+```shell
+curl https://api.instantmerchant.io/api/v1/charges/uncaptured \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+    {
+    "status": true,
+    "message": "Charge data is retrieved successfully. ",
+    "has_more": true,
+    "data": {
+        "total_count": 38,
+        "transactions": [{
+            "invoice_id": null,
+            "created_by": null,
+            "customer_id": "338",
+            "name": "rashika",
+            "email": "rashikak.r@advisantgroup.com",
+            "amount": "120.00",
+            "balance": "0.00",
+            "subscription_id": "0",
+            "description": "wordpress video - Order #127",
+            "status": null,
+            "city": "sfdg",
+            "state": "sdafg",
+            "zip": "641030",
+            "date_created": "2016-12-21 05:48:35",
+            "expiry_date": "2016-12-28 05:48:33",
+            "transaction_id": "cha_585a6c137bfbf1"
+        }, {
+            "invoice_id": null,
+            "created_by": null,
+            "customer_id": "338",
+            "name": "rashika",
+            "email": "rashikak.r@advisantgroup.com",
+            "amount": "120.00",
+            "balance": "120.00",
+            "subscription_id": "0",
+            "description": "wordpress video - Order #174",
+            "status": null,
+            "city": "sfdg",
+            "state": "sdafg",
+            "zip": "641030",
+            "date_created": "2016-12-23 04:14:14",
+            "expiry_date": "2016-12-30 04:14:12",
+            "transaction_id": "cha_585cf8f69ff521"
+        }, {
+            "invoice_id": null,
+            "created_by": null,
+            "customer_id": "338",
+            "name": "rashika",
+            "email": "rashikak.r@advisantgroup.com",
+            "amount": "30.00",
+            "balance": "30.00",
+            "subscription_id": "0",
+            "description": "wordpress video - Order #264",
+            "status": null,
+            "city": "sfdg",
+            "state": "sdafg",
+            "zip": "641030",
+            "date_created": "2016-12-26 04:03:12",
+            "expiry_date": "2017-01-02 04:03:11",
+            "transaction_id": "cha_5860eae0a8a141"
+        }, {
+            "invoice_id": null,
+            "created_by": "1",
+            "customer_id": null,
+            "name": "test",
+            "email": "test@test.com",
+            "amount": "3.00",
+            "balance": "3.00",
+            "subscription_id": "0",
+            "description": "desc",
+            "status": "uncaptured",
+            "city": "city",
+            "state": "sttae",
+            "zip": "56456464",
+            "date_created": "2017-03-01 09:43:17",
+            "expiry_date": "2017-03-08 09:43:17",
+            "transaction_id": "cha_58b6ec134e2351"
+        }, {
+            "invoice_id": null,
+            "created_by": "1",
+            "customer_id": null,
+            "name": "test",
+            "email": "test@test.com",
+            "amount": "3.00",
+            "balance": "3.00",
+            "subscription_id": "0",
+            "description": "desc",
+            "status": "uncaptured",
+            "city": "city",
+            "state": "sttae",
+            "zip": "56456464",
+            "date_created": "2017-03-01 09:46:38",
+            "expiry_date": "2017-03-08 09:46:38",
+            "transaction_id": "cha_58b6ecdbc245e1"
+        }, {
+            "invoice_id": null,
+            "created_by": "1",
+            "customer_id": null,
+            "name": "Raja",
+            "email": "rajacse10@gmail.com",
+            "amount": "10.00",
+            "balance": "10.00",
+            "subscription_id": "0",
+            "description": "test",
+            "status": "uncaptured",
+            "city": "city here",
+            "state": "state here",
+            "zip": "1234567890",
+            "date_created": "2017-03-01 11:47:17",
+            "expiry_date": "2017-03-08 11:47:17",
+            "transaction_id": "cha_58b7092402e491"
+        }, {
+            "invoice_id": null,
+            "created_by": null,
+            "customer_id": "338",
+            "name": "rashika",
+            "email": "rashikak.r@advisantgroup.com",
+            "amount": "40.00",
+            "balance": "40.00",
+            "subscription_id": "0",
+            "description": "wordpress video - Order #287",
+            "status": null,
+            "city": "sfdg",
+            "state": "sdafg",
+            "zip": "641030",
+            "date_created": "2016-12-28 04:28:15",
+            "expiry_date": "2017-01-04 04:28:15",
+            "transaction_id": "cha_586393bf396481"
+        }, {
+            "invoice_id": null,
+            "created_by": null,
+            "customer_id": "338",
+            "name": "rashika",
+            "email": "rashikak.r@advisantgroup.com",
+            "amount": "10.00",
+            "balance": "10.00",
+            "subscription_id": "0",
+            "description": "wordpress video - Order #292",
+            "status": null,
+            "city": "sfdg",
+            "state": "sdafg",
+            "zip": "641030",
+            "date_created": "2016-12-28 05:27:22",
+            "expiry_date": "2017-01-04 05:27:22",
+            "transaction_id": "cha_5863a19a24ab21"
+        }, {
+            "invoice_id": null,
+            "created_by": null,
+            "customer_id": "338",
+            "name": "rashika",
+            "email": "rashikak.r@advisantgroup.com",
+            "amount": "30.00",
+            "balance": "30.00",
+            "subscription_id": "0",
+            "description": "wordpress video - Order #300",
+            "status": null,
+            "city": "sfdg",
+            "state": "sdafg",
+            "zip": "641030",
+            "date_created": "2016-12-28 06:36:37",
+            "expiry_date": "2017-01-04 06:36:37",
+            "transaction_id": "cha_5863b1d516bfb1"
+        }, {
+            "invoice_id": null,
+            "created_by": null,
+            "customer_id": "363",
+            "name": "saran v",
+            "email": "saran@gmail.com",
+            "amount": "10.00",
+            "balance": "10.00",
+            "subscription_id": "0",
+            "description": "wordpress video - Order #309",
+            "status": null,
+            "city": "asfdcgbfvb",
+            "state": "CA",
+            "zip": "90002",
+            "date_created": "2016-12-28 07:32:29",
+            "expiry_date": "2017-01-04 07:32:29",
+            "transaction_id": "cha_5863beed279911"
+        }]
+    }
+  }
+]
+```
+
+This endpoint allows you to list pre-auth transactions.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v1/charges/uncaptured`
+
+
+## Chargeback Charges
+
+```shell
+curl https://api.instantmerchant.io/api/v1/chargebacks \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+    {
+    "status": true,
+    "message": "Chargeback data is retrieved successfully. ",
+    "has_more": false,
+    "data": {
+        "total_count": 1,
+        "transactions": [{
+            "invoice_id": "1",
+            "created_by": null,
+            "customer_id": "20",
+            "name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "amount": "5.00",
+            "balance": "5.00",
+            "subscription_id": "0",
+            "description": "fghgfhfg",
+            "status": "Chargeback",
+            "city": "city1",
+            "state": "Nashville",
+            "zip": "37221",
+            "date_created": "2016-12-21 02:15:35",
+            "expiry_date": null,
+            "transaction_id": "cha_585a3a274aae31"
+        }]
+      }
+    }
+]
+```
+
+This endpoint allows you to list chargeback transactions.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v1/chargebacks`
+
+
+## Void Charges
+
+```shell
+curl https://api.instantmerchant.io/api/v1/voids \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+    {
+    "status": true,
+    "message": "void data is retrieved successfully. ",
+    "has_more": true,
+    "data": {
+        "total_count": 23,
+        "transactions": [{
+            "invoice_id": null,
+            "created_by": null,
+            "customer_id": "338",
+            "name": "rashika",
+            "email": "rashikak.r@test.com",
+            "amount": "120.00",
+            "balance": null,
+            "subscription_id": "0",
+            "description": "wordpress video - Order #127",
+            "status": null,
+            "city": "sfdg",
+            "state": "sdafg",
+            "zip": "641030",
+            "date_created": "2016-12-21 07:33:44",
+            "expiry_date": null,
+            "transaction_id": "ref_585a84b8936171"
+        }, {
+            "invoice_id": "10",
+            "created_by": null,
+            "customer_id": "20",
+            "name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "amount": "100.00",
+            "balance": null,
+            "subscription_id": "0",
+            "description": "ghfhfghg",
+            "status": null,
+            "city": "city1",
+            "state": "Nashville",
+            "zip": "37221",
+            "date_created": "2016-12-21 03:43:39",
+            "expiry_date": null,
+            "transaction_id": "ref_585a4ecb556941"
+        }, {
+            "invoice_id": "86",
+            "created_by": "1",
+            "customer_id": "385",
+            "name": "api_cus01",
+            "email": "api_cus01@test.com",
+            "amount": "12.00",
+            "balance": null,
+            "subscription_id": "0",
+            "description": "authcharge",
+            "status": null,
+            "city": "Bangalore",
+            "state": "TN",
+            "zip": "37252",
+            "date_created": "2017-02-07 09:00:02",
+            "expiry_date": null,
+            "transaction_id": "ref_5899e0f207b4f1"
+        }, {
+            "invoice_id": "87",
+            "created_by": "384",
+            "customer_id": "385",
+            "name": "api_cus01",
+            "email": "api_cus01@test.com",
+            "amount": "13.00",
+            "balance": null,
+            "subscription_id": "0",
+            "description": "authcharge",
+            "status": null,
+            "city": "Bangalore",
+            "state": "TN",
+            "zip": "37252",
+            "date_created": "2017-01-04 09:12:16",
+            "expiry_date": null,
+            "transaction_id": "ref_586d10d03c6d01"
+        }, {
+            "invoice_id": "162",
+            "created_by": "1",
+            "customer_id": "20",
+            "name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "amount": "25.00",
+            "balance": null,
+            "subscription_id": "0",
+            "description": "test",
+            "status": null,
+            "city": "city1",
+            "state": "Nashville",
+            "zip": "37221",
+            "date_created": "2017-01-07 01:38:03",
+            "expiry_date": null,
+            "transaction_id": "ref_58709adb6d1a41"
+        }, {
+            "invoice_id": "270",
+            "created_by": "2",
+            "customer_id": "256",
+            "name": "client_staff1",
+            "email": "uclient_staff1@test.com",
+            "amount": "12.00",
+            "balance": null,
+            "subscription_id": "0",
+            "description": "test",
+            "status": null,
+            "city": "bangalore",
+            "state": "PA",
+            "zip": "37251",
+            "date_created": "2017-01-30 04:21:34",
+            "expiry_date": null,
+            "transaction_id": "ref_588f13ae8875e1"
+        }, {
+            "invoice_id": "277",
+            "created_by": "1",
+            "customer_id": "20",
+            "name": "bps.somniumlabs",
+            "email": "bps@somniumlabs.com",
+            "amount": "12.00",
+            "balance": null,
+            "subscription_id": "0",
+            "description": "test",
+            "status": null,
+            "city": "city1",
+            "state": "Nashville",
+            "zip": "37221",
+            "date_created": "2017-01-30 04:18:25",
+            "expiry_date": null,
+            "transaction_id": "ref_588f12f1a5abc1"
+        }, {
+            "invoice_id": "283",
+            "created_by": "1",
+            "customer_id": "335",
+            "name": "testing",
+            "email": "test@advisantgroup.com",
+            "amount": "34.00",
+            "balance": null,
+            "subscription_id": "0",
+            "description": "fdmhf",
+            "status": null,
+            "city": "Brentwood",
+            "state": "TN",
+            "zip": "37027",
+            "date_created": "2017-01-30 04:39:19",
+            "expiry_date": null,
+            "transaction_id": "ref_588f17d7df34b1"
+        }, {
+            "invoice_id": "318",
+            "created_by": "2",
+            "customer_id": "21",
+            "name": "Jim test",
+            "email": "jim@test.com",
+            "amount": "23.00",
+            "balance": null,
+            "subscription_id": "0",
+            "description": "asda",
+            "status": null,
+            "city": "Test city",
+            "state": "Tennessee",
+            "zip": "987654321",
+            "date_created": "2017-01-31 04:28:28",
+            "expiry_date": null,
+            "transaction_id": "ref_589066ccbdb481"
+        }, {
+            "invoice_id": "319",
+            "created_by": "2",
+            "customer_id": "21",
+            "name": "Jim test",
+            "email": "jim@test.com",
+            "amount": "400.00",
+            "balance": null,
+            "subscription_id": "0",
+            "description": "asda",
+            "status": null,
+            "city": "Test city",
+            "state": "Tennessee",
+            "zip": "987654321",
+            "date_created": "2017-01-31 04:27:03",
+            "expiry_date": null,
+            "transaction_id": "ref_58906677eb13d1"
+        }]
+    }
+  }
+]
+```
+
+This endpoint allows you to list void transactions.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v1/voids`
+
+## Partial Refund Charges
+
+```shell
+curl https://api.instantmerchant.io/api/v1/charges/partial_refund \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+    {
+    "status": true,
+    "message": "Charge data is retrieved successfully. ",
+    "has_more": false,
+    "data": {
+        "total_count": 1,
+        "transactions": [{
+            "invoice_id": "1",
+            "created_by": "1",
+            "customer_id": "242",
+            "name": "raja",
+            "email": "rajacse10@gmail.com",
+            "amount": "17.00",
+            "balance": "15.00",
+            "subscription_id": "0",
+            "description": "client2",
+            "status": "Partial_refund",
+            "city": "city",
+            "state": "TN",
+            "zip": "37251",
+            "date_created": "2017-03-10 07:36:20",
+            "expiry_date": null,
+            "transaction_id": "cha_58c2abceaed369"
+        }]
+    }
+  }
+]
+```
+
+This endpoint allows you to list partial refund transactions.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v1/charges/partial_refund`
+
+
+## List all refunds for the Charge
+
+```shell
+curl https://api.instantmerchant.io/api/v1/charges/cha_58c2abceaed369/refunds \
+  -H "X-Api-Key: meowmeowmeow" \
+  -H "X-Api-Secret: meowmeowmeow" \
+  -X GET
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+    {
+    "status": true,
+    "message": "Refunds are retrieved successfully. ",
+    "charge_id": "cha_58c2abceaed369",
+    "data": {
+        "total_count": 3,
+        "refunds": [{
+            "invoice_id": "1",
+            "created_by": "9",
+            "customer_id": "242",
+            "name": "raja",
+            "email": "rajacse10@gmail.com",
+            "amount": "2.00",
+            "balance": null,
+            "subscription_id": "0",
+            "description": "client2",
+            "status": "Refund",
+            "city": "city",
+            "state": "TN",
+            "zip": "37251",
+            "date_created": "2017-03-10 07:36:53",
+            "expiry_date": null,
+            "transaction_id": "ref_58c2abf516e419"
+        }, {
+            "invoice_id": "1",
+            "created_by": "9",
+            "customer_id": "242",
+            "name": "raja",
+            "email": "rajacse10@gmail.com",
+            "amount": "3.00",
+            "balance": null,
+            "subscription_id": "0",
+            "description": "client2",
+            "status": "Refund",
+            "city": "city",
+            "state": "TN",
+            "zip": "37251",
+            "date_created": "2017-03-10 07:51:48",
+            "expiry_date": null,
+            "transaction_id": "ref_58c2af7491dae9"
+        }, {
+            "invoice_id": "1",
+            "created_by": "9",
+            "customer_id": "242",
+            "name": "raja",
+            "email": "rajacse10@gmail.com",
+            "amount": "2.00",
+            "balance": null,
+            "subscription_id": "0",
+            "description": "client2",
+            "status": "Refund",
+            "city": "city",
+            "state": "TN",
+            "zip": "37251",
+            "date_created": "2017-03-10 07:51:59",
+            "expiry_date": null,
+            "transaction_id": "ref_58c2af7f50e0d9"
+        }]
+    }
+  }
+]
+```
+
+This endpoint allows you to list of partial refunds for the particular charge.
+
+### HTTP Request
+
+`GET https://api.instantmerchant.io/api/v1/charges/{charge_id}/refunds`
+
 
 ## Capture Charge
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/capture \
+curl https://api.instantmerchant.io/api/v1/charges/cha_585d0bf93573f1/capture \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X POST \
-  -d charge_id='cha_585d0bf93573f1'
 ```
 ```javascript
 //Request
@@ -915,7 +2581,8 @@ instant.direct.capture(params).then(function(res){
   {
     "status":true,
     "message":"payment captured successfully",
-    "charge_id":"cha_585d0bf93573f1"
+    "charge_id":"cha_585d0bf93573f1",
+    "invoice_num":"408"
   }
 ]
 ```
@@ -926,7 +2593,7 @@ Uncaptured payments expire exactly seven days after they are created. If they ar
 
 ### HTTP Request
 
-`POST https://api.instantmerchant.io/api/v2/capture`
+`POST https://api.instantmerchant.io/api/v1/charges/cha_585d0bf93573f1/capture`
 
 ### Query Parameters
 
@@ -939,7 +2606,7 @@ charge_id [required] | none | The unique id of the transaction to capture.
 ## Refund
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/refund \
+curl https://api.instantmerchant.io/api/v1/refunds \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X POST \
@@ -968,7 +2635,7 @@ instant.direct.refund(params).then(function(res){
 [
   {
     "status":true,
-    "message":"Refund has been initiated successfully",
+    "message":"Refund initiated successfully",
     "refund_id":"ref_397d0me53575f3"
   }
 ]
@@ -980,7 +2647,7 @@ You can optionally refund only part of a charge. You can do so as many times as 
 
 ### HTTP Request
 
-`POST https://api.instantmerchant.io/api/v2/refund`
+`POST https://api.instantmerchant.io/api/v1/refunds`
 
 ### Query Parameters
 
@@ -996,7 +2663,7 @@ amount [optional] | entire charge | A positive integer representing how much of 
 ## List all charges
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/charge \
+curl https://api.instantmerchant.io/api/v1/charges \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -1005,255 +2672,196 @@ curl https://api.instantmerchant.io/api/v2/charge \
 > The above command returns JSON structured like this:
 
 ```json
-[
-  {
+{
     "status": true,
-    "message": "transaction data found successfully",
-    "total_rows": 323,
-    "transactions": [{
-        "invoice_id": "1",
-        "created_by": "1",
-        "uncaptured": "0",
-        "customer_id": "20",
-        "name": "customer1",
-        "email": "customer1@test.com",
-        "amount": "5.00",
-        "balance": "5.00",
-        "fee_charged": "0.15",
-        "stripe_fee": "0.45",
-        "description": "charge1",
-        "status": "Paid",
-        "client_id": "1",
-        "city": "city1",
-        "state": "Nashville",
-        "zip": "37221",
-        "charge_id": "ch_19T5G6CneoHSBp0PxZIkqIru",
-        "archived": "0",
-        "date_created": "2016-12-21 02:15:35",
-        "date_expired": null,
-        "id": "1",
-        "subscription_id": "0"
-    }, {
-        "invoice_id": "2",
-        "created_by": "1",
-        "uncaptured": "0",
-        "customer_id": "20",
-        "name": "customer2",
-        "email": "customer2@test.com",
-        "amount": "1000.00",
-        "balance": "895.00",
-        "fee_charged": "30.00",
-        "stripe_fee": "29.30",
-        "description": "charge2",
-        "status": "Paid",
-        "client_id": "1",
-        "city": "city1",
-        "state": "Nashville",
-        "zip": "37221",
-        "charge_id": "ch_19T5J4CneoHSBp0PYDiKx65M",
-        "archived": "0",
-        "date_created": "2016-12-20 02:18:38",
-        "date_expired": null,
-        "id": "2",
-        "subscription_id": "0"
-    }, {
-        "invoice_id": "3",
-        "created_by": "1",
-        "uncaptured": "0",
-        "customer_id": "333",
-        "name": "customer3",
-        "email": "customer3@test.com",
-        "amount": "211.00",
-        "balance": "211.00",
-        "fee_charged": "6.33",
-        "stripe_fee": "6.42",
-        "description": "charge3",
-        "status": "Paid",
-        "client_id": "1",
-        "city": "test-city01",
-        "state": "TN",
-        "zip": "125436",
-        "charge_id": "ch_19T5UZCneoHSBp0Pt2OzyCwz",
-        "archived": "0",
-        "date_created": "2016-12-21 02:30:31",
-        "date_expired": null,
-        "id": "3",
-        "subscription_id": "0"
-    }, {
-        "invoice_id": "4",
-        "created_by": "1",
-        "uncaptured": "0",
-        "customer_id": "333",
-        "name": "customer4",
-        "email": "customer4@test.com",
-        "amount": "212.00",
-        "balance": "212.00",
-        "fee_charged": "6.36",
-        "stripe_fee": "6.45",
-        "description": "test charge",
-        "status": "Paid",
-        "client_id": "1",
-        "city": "test-city01",
-        "state": "TN",
-        "zip": "125436",
-        "charge_id": "ch_19T5XUCneoHSBp0PjgaWK4pY",
-        "archived": "0",
-        "date_created": "2016-12-21 02:39:42",
-        "date_expired": null,
-        "id": "6",
-        "subscription_id": null
-    }, {
-        "invoice_id": "6",
-        "created_by": "1",
-        "uncaptured": "0",
-        "customer_id": "333",
-        "name": "customer22",
-        "email": "customer22@test.com",
-        "amount": "214.00",
-        "balance": "214.00",
-        "fee_charged": "6.42",
-        "stripe_fee": "6.51",
-        "description": "test payment",
-        "status": "Paid",
-        "client_id": "1",
-        "city": "test-city01",
-        "state": "TN",
-        "zip": "125436",
-        "charge_id": "ch_19T5hTCneoHSBp0P1TCrxiX2",
-        "archived": "0",
-        "date_created": "2016-12-21 02:43:52",
-        "date_expired": null,
-        "id": "7",
-        "subscription_id": "0"
-    }, {
-        "invoice_id": "7",
-        "created_by": "1",
-        "uncaptured": "0",
-        "customer_id": "334",
-        "name": "customer31",
-        "email": "customer31@test.com",
-        "amount": "215.00",
-        "balance": "215.00",
-        "fee_charged": "6.45",
-        "stripe_fee": "6.54",
-        "description": "charge12 ",
-        "status": "Paid",
-        "client_id": "1",
-        "city": "CBE",
-        "state": "CA",
-        "zip": "9845122",
-        "charge_id": "ch_19T5iVCneoHSBp0PussT5gmf",
-        "archived": "0",
-        "date_created": "2016-12-21 02:44:55",
-        "date_expired": null,
-        "id": "8",
-        "subscription_id": "2"
-    }, {
-        "invoice_id": "9",
-        "created_by": "1",
-        "uncaptured": "0",
-        "customer_id": "20",
-        "name": "customer23",
-        "email": "customer23@test.com",
-        "amount": "500.00",
-        "balance": "90.00",
-        "fee_charged": "15.00",
-        "stripe_fee": "14.80",
-        "description": "charge32",
-        "status": "Paid",
-        "client_id": "1",
-        "city": "city1",
-        "state": "Nashville",
-        "zip": "37221",
-        "charge_id": "ch_19T6RmCneoHSBp0PHoi79Svu",
-        "archived": "0",
-        "date_created": "2016-12-21 03:31:43",
-        "date_expired": null,
-        "id": "10",
-        "subscription_id": "0"
-    }, {
-        "invoice_id": "9",
-        "created_by": "1",
-        "uncaptured": "0",
-        "customer_id": "20",
-        "name": "customer36",
-        "email": "customer36@test.com",
-        "amount": "400.00",
-        "balance": null,
-        "fee_charged": null,
-        "stripe_fee": null,
-        "description": "charge 7",
-        "status": "Refund",
-        "client_id": "1",
-        "city": "city1",
-        "state": "Nashville",
-        "zip": "37221",
-        "charge_id": "ch_19T6RmCneoHSBp0PHoi79Svu",
-        "archived": "0",
-        "date_created": "2016-12-21 03:32:06",
-        "date_expired": null,
-        "id": "11",
-        "subscription_id": "0"
-    }, {
-        "invoice_id": "10",
-        "created_by": "1",
-        "uncaptured": "0",
-        "customer_id": "20",
-        "name": "customer11",
-        "email": "customer11@test.com",
-        "amount": "100.00",
-        "balance": null,
-        "fee_charged": null,
-        "stripe_fee": null,
-        "description": "charge45",
-        "status": "Void",
-        "client_id": "1",
-        "city": "city1",
-        "state": "Nashville",
-        "zip": "37221",
-        "charge_id": "ch_19T6cvCneoHSBp0PVEkY4Pra",
-        "archived": "0",
-        "date_created": "2016-12-21 03:43:39",
-        "date_expired": null,
-        "id": "13",
-        "subscription_id": "0"
-    }, {
-        "invoice_id": "11",
-        "created_by": "1",
-        "uncaptured": "0",
-        "customer_id": "20",
-        "name": "customer23",
-        "email": "customer23@test.com",
-        "amount": "55.00",
-        "balance": null,
-        "fee_charged": null,
-        "stripe_fee": null,
-        "description": "charge109",
-        "status": "Refund",
-        "client_id": "1",
-        "city": "city1",
-        "state": "Nashville",
-        "zip": "37221",
-        "charge_id": "nm_3413022421",
-        "archived": "0",
-        "date_created": "2016-12-21 04:30:44",
-        "date_expired": null,
-        "id": "15",
-        "subscription_id": "0"
-    }]
-  }
-]
+    "message": "Charge data is retrieved successfully. ",
+    "has_more": true,
+    "data": {
+        "total_count": 431,
+        "transactions": [{
+            "invoice_id": null,
+            "created_by": null,
+            "customer_id": "393",
+            "name": "sai",
+            "email": "sai9178213@test.com",
+            "amount": "390.00",
+            "balance": "390.00",
+            "subscription_id": "0",
+            "description": "jdhgfs",
+            "status": null,
+            "city": "cbe",
+            "state": "tn",
+            "zip": "641030",
+            "date_created": "2017-01-05 04:25:28",
+            "expiry_date": null,
+            "transaction_id": "cha_586e1f18242f31"
+        }, {
+            "invoice_id": null,
+            "created_by": null,
+            "customer_id": "338",
+            "name": "rashika",
+            "email": "rashikak.r@test.com",
+            "amount": "100.00",
+            "balance": "100.00",
+            "subscription_id": "0",
+            "description": "sfdsf",
+            "status": null,
+            "city": "sfdg",
+            "state": "sdafg",
+            "zip": "641030",
+            "date_created": "2016-12-21 05:08:09",
+            "expiry_date": null,
+            "transaction_id": "cha_585a6299875b51"
+        }, {
+            "invoice_id": null,
+            "created_by": null,
+            "customer_id": "338",
+            "name": "rashika",
+            "email": "rashikak.r@test.com",
+            "amount": "120.00",
+            "balance": null,
+            "subscription_id": "0",
+            "description": "wordpress video - Order #127",
+            "status": null,
+            "city": "sfdg",
+            "state": "sdafg",
+            "zip": "641030",
+            "date_created": "2016-12-21 07:33:44",
+            "expiry_date": null,
+            "transaction_id": "ref_585a84b8936171"
+        }, {
+            "invoice_id": null,
+            "created_by": null,
+            "customer_id": "299",
+            "name": "test",
+            "email": "rettline@gmail.comssasssss",
+            "amount": "10.00",
+            "balance": "0.00",
+            "subscription_id": "0",
+            "description": "Payment for Kryptobit Wallet",
+            "status": null,
+            "city": "ewew",
+            "state": "wew",
+            "zip": "1232",
+            "date_created": "2016-12-21 09:58:35",
+            "expiry_date": null,
+            "transaction_id": "cha_585aa6ab83d381"
+        }, {
+            "invoice_id": null,
+            "created_by": null,
+            "customer_id": "373",
+            "name": "Manoj tendulkar",
+            "email": "jim@tester.io",
+            "amount": "46.00",
+            "balance": "46.00",
+            "subscription_id": "31",
+            "description": "new payment",
+            "status": null,
+            "city": null,
+            "state": null,
+            "zip": null,
+            "date_created": "2017-01-06 09:28:08",
+            "expiry_date": null,
+            "transaction_id": "cha_586fb7888f5171"
+        }, {
+            "invoice_id": null,
+            "created_by": null,
+            "customer_id": null,
+            "name": "rashika",
+            "email": "rashikak.r@test.com",
+            "amount": "100.00",
+            "balance": "0.00",
+            "subscription_id": "0",
+            "description": "sfdsf",
+            "status": null,
+            "city": "sfdg",
+            "state": "sdafg",
+            "zip": "641030",
+            "date_created": "2016-12-22 03:05:01",
+            "expiry_date": null,
+            "transaction_id": "cha_585b973d5e6051"
+        }, {
+            "invoice_id": null,
+            "created_by": "1",
+            "customer_id": "299",
+            "name": "test",
+            "email": "rettline@gmail.comssasssss",
+            "amount": "1.00",
+            "balance": "0.00",
+            "subscription_id": "0",
+            "description": "Payment for Kryptobit Wallet",
+            "status": null,
+            "city": "ewew",
+            "state": "wew",
+            "zip": "1232",
+            "date_created": "2017-01-31 16:40:26",
+            "expiry_date": null,
+            "transaction_id": "cha_5891125a1b4471"
+        }, {
+            "invoice_id": null,
+            "created_by": "1",
+            "customer_id": "299",
+            "name": "test",
+            "email": "rettline@gmail.comssasssss",
+            "amount": "12.00",
+            "balance": "12.00",
+            "subscription_id": "0",
+            "description": "Payment for Kryptobit Wallet",
+            "status": null,
+            "city": "ewew",
+            "state": "wew",
+            "zip": "1232",
+            "date_created": "2017-02-07 08:09:44",
+            "expiry_date": null,
+            "transaction_id": "cha_5899d528ac58d1"
+        }, {
+            "invoice_id": null,
+            "created_by": "1",
+            "customer_id": "26",
+            "name": "Newuser37 Newuser37",
+            "email": "Newuser37@test.com",
+            "amount": "100.00",
+            "balance": "100.00",
+            "subscription_id": "0",
+            "description": "first payment",
+            "status": null,
+            "city": "Newuser37",
+            "state": "Blaenau Gwent",
+            "zip": "98765463",
+            "date_created": "2017-02-13 05:22:24",
+            "expiry_date": null,
+            "transaction_id": "cha_58a196eed04761"
+        }, {
+            "invoice_id": null,
+            "created_by": null,
+            "customer_id": null,
+            "name": "Manojkumar02",
+            "email": "manoj02@merchant.io",
+            "amount": "12.00",
+            "balance": "12.00",
+            "subscription_id": "0",
+            "description": "test description",
+            "status": null,
+            "city": "newyork",
+            "state": "tamilnadu",
+            "zip": "12345",
+            "date_created": "2016-12-22 11:57:43",
+            "expiry_date": null,
+            "transaction_id": "cha_585c1417678391"
+        }]
+    }
+}
 ```
 This endpoint allow you to list all the transactions with the limit of 10.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/charge`
+`GET https://api.instantmerchant.io/api/v1/charges`
 
 ## List all archived charges
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/charge?archived=1 \
+curl https://api.instantmerchant.io/api/v1/charges?archived=1 \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -1262,66 +2870,89 @@ curl https://api.instantmerchant.io/api/v2/charge?archived=1 \
 > The above command returns JSON structured like this:
 
 ```json
-[
-  {
+{
     "status": true,
-    "message": "transaction data found successfully",
-    "total_rows": 2,
-    "transactions": [{
-        "invoice_id": "1",
-        "created_by": "1",
-        "uncaptured": "0",
-        "customer_id": "20",
-        "name": "customer1",
-        "email": "customer1@test.com",
-        "amount": "5.00",
-        "balance": "5.00",
-        "fee_charged": "0.15",
-        "stripe_fee": "0.45",
-        "description": "charge1",
-        "status": "Paid",
-        "client_id": "1",
-        "city": "city1",
-        "state": "Nashville",
-        "zip": "37221",
-        "charge_id": "ch_19T5G6CneoHSBp0PxZIkqIru",
-        "archived": "1",
-        "date_created": "2016-12-21 02:15:35",
-        "date_expired": null,
-        "id": "1",
-        "subscription_id": "0"
-    }, {
-        "invoice_id": "11",
-        "created_by": "1",
-        "uncaptured": "0",
-        "customer_id": "20",
-        "name": "customer23",
-        "email": "customer23@test.com",
-        "amount": "55.00",
-        "balance": null,
-        "fee_charged": null,
-        "stripe_fee": null,
-        "description": "charge109",
-        "status": "Refund",
-        "client_id": "1",
-        "city": "city1",
-        "state": "Nashville",
-        "zip": "37221",
-        "charge_id": "cha_3413022421",
-        "archived": "1",
-        "date_created": "2016-12-21 04:30:44",
-        "date_expired": null,
-        "id": "15",
-        "subscription_id": "0"
-    }]
-  }
-]
+    "message": "Charge data is retrieved successfully. ",
+    "has_more": false,
+    "data": {
+        "total_count": 4,
+        "transactions": [{
+            "invoice_id": null,
+            "created_by": null,
+            "customer_id": "373",
+            "name": "Manoj tendulkar",
+            "email": "jim@tester.io",
+            "amount": "46.00",
+            "balance": "46.00",
+            "subscription_id": "31",
+            "description": "new payment",
+            "status": null,
+            "city": null,
+            "state": null,
+            "zip": null,
+            "date_created": "2017-01-06 09:28:08",
+            "expiry_date": null,
+            "transaction_id": "cha_586fb7888f5171"
+        }, {
+            "invoice_id": null,
+            "created_by": null,
+            "customer_id": "373",
+            "name": "Manoj tendulkar",
+            "email": "jim@tester.io",
+            "amount": "13.00",
+            "balance": "0.00",
+            "subscription_id": "31",
+            "description": "new payment",
+            "status": null,
+            "city": "nashville",
+            "state": "TN",
+            "zip": "37251",
+            "date_created": "2017-01-03 08:07:03",
+            "expiry_date": null,
+            "transaction_id": "cha_586bb007b0bd71"
+        }, {
+            "invoice_id": "269",
+            "created_by": "254",
+            "customer_id": "256",
+            "name": "client_staff1",
+            "email": "uclient_staff1@test.com",
+            "amount": "11.00",
+            "balance": "11.00",
+            "subscription_id": "0",
+            "description": "test",
+            "status": null,
+            "city": "bangalore",
+            "state": "PA",
+            "zip": "37251",
+            "date_created": "2017-01-30 03:44:07",
+            "expiry_date": null,
+            "transaction_id": "cha_588f0ae77e0411"
+        }, {
+            "invoice_id": "270",
+            "created_by": "2",
+            "customer_id": "256",
+            "name": "client_staff1",
+            "email": "uclient_staff1@test.com",
+            "amount": "12.00",
+            "balance": null,
+            "subscription_id": "0",
+            "description": "test",
+            "status": null,
+            "city": "bangalore",
+            "state": "PA",
+            "zip": "37251",
+            "date_created": "2017-01-30 04:21:34",
+            "expiry_date": null,
+            "transaction_id": "ref_588f13ae8875e1"
+        }]
+    }
+}
 ```
 This endpoint allow you to list all the archived transactions with the limit of 10.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/charge?archived=1`
+`GET https://api.instantmerchant.io/api/v1/charges?archived=1`
 
 ### Query Parameters
 
@@ -1334,7 +2965,7 @@ archived [required] | none | Archived status
 ## Create Customer
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/customer \
+curl https://api.instantmerchant.io/api/v1/customers \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X POST \
@@ -1388,7 +3019,7 @@ instant.customer.create(params).then(function(res){
 [
   {
     "status":true,
-    "message":"Customer created successfully",
+    "message":"Customer created successfully and card saved successfully.",
     "customer_id":23,
     "card_id": "card_58626a702e23c",
     "card_last_4":4242
@@ -1400,7 +3031,7 @@ This endpoint allows you to create your customers as well as customer's card.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/customer`
+`GET https://api.instantmerchant.io/api/v1/customers`
 
 ### Query Parameters
 
@@ -1425,7 +3056,7 @@ is_default [optional] | false | If set to `true`. card details are saved and mak
 ## Retrieve Customer
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/customer?id=22 \
+curl https://api.instantmerchant.io/api/v1/customers?id=22 \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -1457,7 +3088,7 @@ Retrieves the details of an existing customer. You need only supply the unique c
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/customer?id={customer_id}`
+`GET https://api.instantmerchant.io/api/v1/customers?id={customer_id}`
 
 ### Query Parameters
 
@@ -1468,11 +3099,11 @@ customer_id [required] | none | The identifier of the customer to be retrieved.
 ## Update Customer
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/customer \
+curl https://api.instantmerchant.io/api/v1/customers \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X PUT \
-  -d id =20 \
+  -d id=20 \
   -d name='Jim' \
   -d password='bacabcdefgh' \
   -d address='new address here' \
@@ -1495,7 +3126,7 @@ Updates the specified customer by setting the values of the parameters passed. A
 
 ### HTTP Request
 
-`PUT https://api.instantmerchant.io/api/v2/customer`
+`PUT https://api.instantmerchant.io/api/v1/customers`
 
 ### Query Parameters
 
@@ -1512,7 +3143,7 @@ active [optional] | 1 | Active status of the customer.
 ## List all customers
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/customer \
+curl https://api.instantmerchant.io/api/v1/customers \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -1525,76 +3156,77 @@ curl https://api.instantmerchant.io/api/v2/customer \
     "status": true,
     "message": "Customer data is retrieved successfully..!",
     "customer": [{
-        "id": "10",
-        "client_id": "20",
-        "username": "user10",
-        "name": "user10",
-        "email": "user10@test.com",
+        "id": "494",
+        "client_id": "1",
+        "username": "jim123495",
+        "name": "Jim",
+        "email": "jim@stantmerchant.io",
         "active": "1"
     }, {
-        "id": "09",
-        "client_id": "20",
-        "username": "user09",
-        "name": "user09",
-        "email": "user09@test.com",
+        "id": "493",
+        "client_id": "1",
+        "username": "jim_test120",
+        "name": "Jim",
+        "email": "jim@chandt.io",
         "active": "1"
     }, {
-        "id": "08",
-        "client_id": "20",
-        "username": "user08",
-        "name": "user08",
-        "email": "user08@test.com",
+        "id": "492",
+        "client_id": "1",
+        "username": "jim_test",
+        "name": "Jim",
+        "email": "jim@chant.io",
         "active": "1"
     }, {
-        "id": "07",
-        "client_id": "20",
-        "username": "user07",
-        "name": "user07",
-        "email": "user07@test.com",
+        "id": "491",
+        "client_id": "1",
+        "username": "r",
+        "name": "t",
+        "email": "r@yahoo.com",
         "active": "1"
     }, {
-        "id": "06",
-        "client_id": "20",
-        "username": "user06",
-        "name": "user072016-02",
-        "email": "raja2612@test.com",
+        "id": "490",
+        "client_id": "1",
+        "username": "Customer28",
+        "name": "Customer28",
+        "email": "customer28@yahoo.com",
         "active": "1"
     }, {
-        "id": "05",
-        "client_id": "20",
-        "username": "user05",
-        "name": "user05",
-        "email": "user05@test.com",
+        "id": "487",
+        "client_id": "1",
+        "username": "staffname1",
+        "name": "0703_s01",
+        "email": "staffemail1@gmail.com",
         "active": "1"
     }, {
-        "id": "04",
-        "client_id": "20",
-        "username": "user04",
-        "name": "user04",
-        "email": "user04@test.com",
+        "id": "486",
+        "client_id": "1",
+        "username": "username7",
+        "name": "0703_07",
+        "email": "useremail7@gmail.com",
         "active": "1"
     }, {
-        "id": "03",
-        "client_id": "20",
-        "username": "user03",
-        "name": "user03",
-        "email": "user03@test.com",
+        "id": "485",
+        "client_id": "1",
+        "username": "username6",
+        "name": "0703_06",
+        "email": "useremail6@gmail.com",
         "active": "1"
     }, {
-        "id": "02",
-        "client_id": "20",
-        "username": "user02",
-        "name": "user02",
-        "email": "user02@test.com",
+        "id": "484",
+        "client_id": "1",
+        "username": "username5",
+        "name": "0703_05",
+        "email": "useremail5@gmail.com",
         "active": "1"
     }, {
-        "id": "01",
-        "client_id": "20",
-        "username": "user01",
-        "name": "user01",
-        "email": "user01@test.com",
+        "id": "483",
+        "client_id": "1",
+        "username": "username4",
+        "name": "0703_04",
+        "email": "useremail4@gmail.com",
         "active": "1"
-    }]
+    }],
+    "total": 332
 }
 
 ```
@@ -1602,7 +3234,7 @@ Returns a list of your customers with a limit of 10. The customers are returned 
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/customer`
+`GET https://api.instantmerchant.io/api/v1/customers`
 
 
 # Card
@@ -1610,7 +3242,7 @@ Returns a list of your customers with a limit of 10. The customers are returned 
 ## Create Card
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/card \
+curl https://api.instantmerchant.io/api/v1/card \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X POST \
@@ -1666,7 +3298,7 @@ This endpoint allows you to store multiple cards on a customer in order to charg
 
 ### HTTP Request
 
-`POST https://api.instantmerchant.io/api/v2/card`
+`POST https://api.instantmerchant.io/api/v1/card`
 
 ### Query Parameters
 
@@ -1685,7 +3317,7 @@ is_default [optional] | false | If set to `true`. card details are saved and mak
 ## Retrieve Card
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/card/?customer=22&card_id=card_585a3da60deae \
+curl https://api.instantmerchant.io/api/v1/card/?customer=22&card_id=card_585a3da60deae \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -1727,7 +3359,7 @@ instant.card.get(params).then(function(res){
 This endpoint allows you to retrieve details about a specific card stored on the customer.
 
 ### HTTP Request
-`GET https://api.instantmerchant.io/api/v2/card/?customer={customer_id}&card_id={card_id}`
+`GET https://api.instantmerchant.io/api/v1/card/?customer={customer_id}&card_id={card_id}`
 
 ### Query Parameters
 
@@ -1739,7 +3371,7 @@ card_id [required] | none | existing stored card id.
 ## Delete Card
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/card \
+curl https://api.instantmerchant.io/api/v1/card \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X DELETE \
@@ -1761,7 +3393,7 @@ This endpoint allows you to delete cards from the customer.
 
 ### HTTP Request
 
-`DELETE https://api.instantmerchant.io/api/v2/card`
+`DELETE https://api.instantmerchant.io/api/v1/card`
 
 ### Query Parameters
 
@@ -1774,7 +3406,7 @@ card_id [optional] | none | Required, when card details are not present.
 ## List all Cards
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/card/?customer=22 \
+curl https://api.instantmerchant.io/api/v1/card/?customer=22 \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -1827,7 +3459,7 @@ instant.card.get(params).then(function(res){
 This endpoint allows you to list all the cards stored on the customer.
 
 ### HTTP Request
-`GET https://api.instantmerchant.io/api/v2/card/?customer={customer_id}`
+`GET https://api.instantmerchant.io/api/v1/card/?customer={customer_id}`
 
 ### Query Parameters
 
@@ -1844,7 +3476,7 @@ You can create subscription on <a href='#create-invoice'>Create Invoice</a> or <
 ## Renew Subscription
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/subscription/renew \
+curl https://api.instantmerchant.io/api/v1/subscriptions/renew \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X POST \
@@ -1884,7 +3516,7 @@ This endpoint allows you to renew subscription.
 
 ### HTTP Request
 
-`POST https://api.instantmerchant.io/api/v2/subscription/renew`
+`POST https://api.instantmerchant.io/api/v1/subscriptions/renew`
 
 ### Query Parameters
 
@@ -1895,7 +3527,7 @@ subscription_id [required] | none | The identifier of the subscription.
 ## Cancel Subscription
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/subscription/sub_587616ba745ca1/cancel \
+curl https://api.instantmerchant.io/api/v1/subscription/sub_587616ba745ca1/cancel \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -1929,7 +3561,7 @@ This endpoint allows you to cancel your subscription.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/subscription/{subscription_id}/cancel`
+`GET https://api.instantmerchant.io/api/v1/subscription/{subscription_id}/cancel`
 
 ### Query Parameters
 
@@ -1940,7 +3572,7 @@ subscription_id [required] | none | The identifier of the subscription.
 ## Suspend Subscription
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/subscription/sub_587616ba745ca1/suspend \
+curl https://api.instantmerchant.io/api/v1/subscription/sub_587616ba745ca1/suspend \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -1974,7 +3606,7 @@ This endpoint allows you to cancel your subscription.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/subscription/{subscription_id}/suspend`
+`GET https://api.instantmerchant.io/api/v1/subscription/{subscription_id}/suspend`
 
 ### Query Parameters
 
@@ -1985,7 +3617,7 @@ subscription_id [required] | none | The identifier of the subscription.
 ## Resume Subscription
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/subscription/sub_587616ba745ca1/resume \
+curl https://api.instantmerchant.io/api/v1/subscription/sub_587616ba745ca1/resume \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -2019,7 +3651,7 @@ This endpoint allows you to cancel your subscription.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/subscription/{subscription_id}/resume`
+`GET https://api.instantmerchant.io/api/v1/subscription/{subscription_id}/resume`
 
 ### Query Parameters
 
@@ -2031,7 +3663,7 @@ subscription_id [required] | none | The identifier of the subscription.
 ## Update Card
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/subscription/sub_58611e30ae9131/update_card \
+curl https://api.instantmerchant.io/api/v1/subscription/sub_58611e30ae9131/update_card \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X POST \
@@ -2084,7 +3716,7 @@ This endpoint allows you to update only card details, like the expiration date o
 
 ### HTTP Request
 
-`POST https://api.instantmerchant.io/api/v2/subscription/{subscription_id}/update_card`
+`POST https://api.instantmerchant.io/api/v1/subscription/{subscription_id}/update_card`
 
 
 
@@ -2104,7 +3736,7 @@ is_default [optional] | false | If set to `true`. card details are saved and mak
 ## Update Amount
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/subscription/sub_58611e30ae9131
+curl https://api.instantmerchant.io/api/v1/subscription/sub_58611e30ae9131
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X POST \
@@ -2141,7 +3773,7 @@ This endpoint allows you to update only amount details.
 
 ### HTTP Request
 
-`POST https://api.instantmerchant.io/api/v2/subscription/{subscription_id}`
+`POST https://api.instantmerchant.io/api/v1/subscription/{subscription_id}`
 
 
 
@@ -2155,7 +3787,7 @@ amount [required] | none | amount to update for the subscription.
 ## Retrieve Subscription
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/subscription?id=sub_587616ba745ca1 \
+curl https://api.instantmerchant.io/api/v1/subscription?id=sub_587616ba745ca1 \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -2208,7 +3840,7 @@ This endpoint allows you to retrieve your subscription.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/subscription?id={subscription_id}`
+`GET https://api.instantmerchant.io/api/v1/subscription?id={subscription_id}`
 
 ### Query Parameters
 
@@ -2219,7 +3851,7 @@ subscription_id [required] | none | The identifier of the subscription.
 ## List all Subscriptions
 
 ```shell
-curl https://api.instantmerchant.io/api/v2/subscription \
+curl https://api.instantmerchant.io/api/v1/subscription \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -2299,7 +3931,7 @@ This endpoint allows you to retrieve your subscription.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v2/subscription`
+`GET https://api.instantmerchant.io/api/v1/subscription`
 ### Query Parameters
 
 Parameter | Default | Description
