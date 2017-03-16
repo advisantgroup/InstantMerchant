@@ -167,6 +167,9 @@ This endpoint creates invoice and optionally charges it immediately.
 Parameter | Default | Description
 --------- | ------- | -----------
 customer [optional] | none | Required `customer`, only for existing customers.
+name [optional] | none | Required  when `customer` is new.
+username [optional] | none | Required  when `customer` is new.
+email [optional] | none | Required  when `customer` is new.
 description [required] | none | Payment description
 date_due [required] | none | Invoice due date in format mm/dd/yyyy
 items[] [required] | none | Item name
@@ -187,6 +190,7 @@ state [optional] | none | Required, when the `customer` is new.
 zip [optional] | none | Required, when the `customer` is new.
 country [optional] | US | Only allowed country is `US`. Required, when the `customer` is new.
 payment_type [required] | one_time | If set to `recurring` , subscription will be added to the charge.
+allowed_cycles [optional] | none | If `allowed_cycles` is set , Subscription will renew the charge until the count of 1allowed_cycles` given.
 interval [optional] | false | Required, when payment_type is set to `recurring`.
 save_card [optional] | false | If set to `true`, card details will be stored.
 is_default [optional] | false | If set to `true`. card details are saved and make it as default card.
@@ -1657,6 +1661,7 @@ state [optional] | none | 2-letter state code. Required, when `customer` is not 
 country [optional] | none | 2-letter country code. Required, when `customer` is not set.
 invoice_num [optional] | none | Required for the id of the invoice to charge
 payment_mode [required] | auth_and_capture | If set to `auth_and_capture`, given credit card will be charged immediately. if set to `auth_only` the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in **7 days**.
+payment_type [required] | one_time | If set to `recurring` , subscription will be added to the charge.
 cardholder_name [required] | none | Actual cardholder name. when `card_id` is not present.
 card_number [required] | none | The card number, as a string without any separators. when `card_id` is not present.
 exp_month [required] | none | Two digit number representing the card's expiration month. when `card_id` is not present.
@@ -3108,6 +3113,7 @@ curl https://api.instantmerchant.io/api/v1/customers \
   -d password='bacabcdefgh' \
   -d address='new address here' \
   -d city='nashville' \
+  -d state='AK' \
   -d zip=37251 \
   -d active=1
 
@@ -3476,11 +3482,10 @@ You can create subscription on <a href='#create-invoice'>Create Invoice</a> or <
 ## Renew Subscription
 
 ```shell
-curl https://api.instantmerchant.io/api/v1/subscriptions/renew \
+curl https://api.instantmerchant.io/api/v1/subscriptions/sub_58611e30ae9131/renew \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
-  -X POST \
-  -d subscription_id='sub_58611e30ae9131'
+  -X POST
 ```
 ```javascript
 //Request
@@ -3516,7 +3521,7 @@ This endpoint allows you to renew subscription.
 
 ### HTTP Request
 
-`POST https://api.instantmerchant.io/api/v1/subscriptions/renew`
+`POST https://api.instantmerchant.io/api/v1/subscriptions/{subscription_id}/renew`
 
 ### Query Parameters
 
