@@ -277,6 +277,21 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <td>Required <code class="prettyprint">customer</code>, only for existing customers.</td>
 </tr>
 <tr>
+<td>name [optional]</td>
+<td>none</td>
+<td>Required  when <code class="prettyprint">customer</code> is new.</td>
+</tr>
+<tr>
+<td>username [optional]</td>
+<td>none</td>
+<td>Required  when <code class="prettyprint">customer</code> is new.</td>
+</tr>
+<tr>
+<td>email [optional]</td>
+<td>none</td>
+<td>Required  when <code class="prettyprint">customer</code> is new.</td>
+</tr>
+<tr>
 <td>description [required]</td>
 <td>none</td>
 <td>Payment description</td>
@@ -375,6 +390,11 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <td>payment_type [required]</td>
 <td>one_time</td>
 <td>If set to <code class="prettyprint">recurring</code> , subscription will be added to the charge.</td>
+</tr>
+<tr>
+<td>allowed_cycles [optional]</td>
+<td>none</td>
+<td>If <code class="prettyprint">allowed_cycles</code> is set , Subscription will renew the charge until the count of 1allowed_cycles` given.</td>
 </tr>
 <tr>
 <td>interval [optional]</td>
@@ -1923,6 +1943,11 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <td>payment_mode [required]</td>
 <td>auth_and_capture</td>
 <td>If set to <code class="prettyprint">auth_and_capture</code>, given credit card will be charged immediately. if set to <code class="prettyprint">auth_only</code> the charge issues an authorization (or pre-authorization), and will need to be captured later. Uncaptured charges expire in <strong>7 days</strong>.</td>
+</tr>
+<tr>
+<td>payment_type [required]</td>
+<td>one_time</td>
+<td>If set to <code class="prettyprint">recurring</code> , subscription will be added to the charge.</td>
 </tr>
 <tr>
 <td>cardholder_name [required]</td>
@@ -3519,6 +3544,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
   -d <span class="nv">password</span><span class="o">=</span><span class="s1">'bacabcdefgh'</span> <span class="se">\</span>
   -d <span class="nv">address</span><span class="o">=</span><span class="s1">'new address here'</span> <span class="se">\</span>
   -d <span class="nv">city</span><span class="o">=</span><span class="s1">'nashville'</span> <span class="se">\</span>
+  -d <span class="nv">state</span><span class="o">=</span><span class="s1">'AK'</span> <span class="se">\</span>
   -d <span class="nv">zip</span><span class="o">=</span>37251 <span class="se">\</span>
   -d <span class="nv">active</span><span class="o">=</span>1
 
@@ -3990,11 +4016,10 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 <p>You can create subscription on <a href='#create-invoice'>Create Invoice</a> or <a href='#create-charge'> Charges </a>.</p>
 
 <h2 id="renew-subscription">Renew Subscription</h2>
-<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v1/subscriptions/renew <span class="se">\</span>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v1/subscriptions/sub_58611e30ae9131/renew <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
-  -X POST <span class="se">\</span>
-  -d <span class="nv">subscription_id</span><span class="o">=</span><span class="s1">'sub_58611e30ae9131'</span>
+  -X POST
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">//Request</span>
 <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
@@ -4029,7 +4054,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v1/subscriptions/renew</code></p>
+<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v1/subscriptions/{subscription_id}/renew</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
