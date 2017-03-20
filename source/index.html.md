@@ -3036,7 +3036,7 @@ This endpoint allows you to create your customers as well as customer's card.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v1/customers`
+`POST https://api.instantmerchant.io/api/v1/customers`
 
 ### Query Parameters
 
@@ -3532,10 +3532,10 @@ subscription_id [required] | none | The identifier of the subscription.
 ## Cancel Subscription
 
 ```shell
-curl https://api.instantmerchant.io/api/v1/subscription/sub_587616ba745ca1/cancel \
+curl https://api.instantmerchant.io/api/v1/subscriptiosn/sub_587616ba745ca1/cancel \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
-  -X GET
+  -X POST
 ```
 ```javascript
 //Request
@@ -3566,7 +3566,7 @@ This endpoint allows you to cancel your subscription.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v1/subscription/{subscription_id}/cancel`
+`POST https://api.instantmerchant.io/api/v1/subscriptions/{subscription_id}/cancel`
 
 ### Query Parameters
 
@@ -3577,10 +3577,10 @@ subscription_id [required] | none | The identifier of the subscription.
 ## Suspend Subscription
 
 ```shell
-curl https://api.instantmerchant.io/api/v1/subscription/sub_587616ba745ca1/suspend \
+curl https://api.instantmerchant.io/api/v1/subscriptions/sub_587616ba745ca1/suspend \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
-  -X GET
+  -X POST
 ```
 ```javascript
 //Request
@@ -3611,7 +3611,7 @@ This endpoint allows you to cancel your subscription.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v1/subscription/{subscription_id}/suspend`
+`POST https://api.instantmerchant.io/api/v1/subscriptions/{subscription_id}/suspend`
 
 ### Query Parameters
 
@@ -3622,10 +3622,10 @@ subscription_id [required] | none | The identifier of the subscription.
 ## Resume Subscription
 
 ```shell
-curl https://api.instantmerchant.io/api/v1/subscription/sub_587616ba745ca1/resume \
+curl https://api.instantmerchant.io/api/v1/subscriptions/sub_587616ba745ca1/resume \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
-  -X GET
+  -X POST
 ```
 ```javascript
 //Request
@@ -3656,7 +3656,7 @@ This endpoint allows you to cancel your subscription.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v1/subscription/{subscription_id}/resume`
+`POST https://api.instantmerchant.io/api/v1/subscriptions/{subscription_id}/resume`
 
 ### Query Parameters
 
@@ -3668,7 +3668,7 @@ subscription_id [required] | none | The identifier of the subscription.
 ## Update Card
 
 ```shell
-curl https://api.instantmerchant.io/api/v1/subscription/sub_58611e30ae9131/update_card \
+curl https://api.instantmerchant.io/api/v1/subscriptions/sub_58611e30ae9131/update_card \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X POST \
@@ -3721,7 +3721,7 @@ This endpoint allows you to update only card details, like the expiration date o
 
 ### HTTP Request
 
-`POST https://api.instantmerchant.io/api/v1/subscription/{subscription_id}/update_card`
+`POST https://api.instantmerchant.io/api/v1/subscriptions/{subscription_id}/update_card`
 
 
 
@@ -3741,7 +3741,7 @@ is_default [optional] | false | If set to `true`. card details are saved and mak
 ## Update Amount
 
 ```shell
-curl https://api.instantmerchant.io/api/v1/subscription/sub_58611e30ae9131
+curl https://api.instantmerchant.io/api/v1/subscriptions/sub_58611e30ae9131
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X POST \
@@ -3778,7 +3778,7 @@ This endpoint allows you to update only amount details.
 
 ### HTTP Request
 
-`POST https://api.instantmerchant.io/api/v1/subscription/{subscription_id}`
+`POST https://api.instantmerchant.io/api/v1/subscriptions/{subscription_id}`
 
 
 
@@ -3792,7 +3792,7 @@ amount [required] | none | amount to update for the subscription.
 ## Retrieve Subscription
 
 ```shell
-curl https://api.instantmerchant.io/api/v1/subscription?id=sub_587616ba745ca1 \
+curl https://api.instantmerchant.io/api/v1/subscriptions?id=sub_587616ba745ca1 \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -3845,7 +3845,7 @@ This endpoint allows you to retrieve your subscription.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v1/subscription?id={subscription_id}`
+`GET https://api.instantmerchant.io/api/v1/subscriptions?id={subscription_id}`
 
 ### Query Parameters
 
@@ -3856,7 +3856,7 @@ subscription_id [required] | none | The identifier of the subscription.
 ## List all Subscriptions
 
 ```shell
-curl https://api.instantmerchant.io/api/v1/subscription \
+curl https://api.instantmerchant.io/api/v1/subscriptions \
   -H "X-Api-Key: meowmeowmeow" \
   -H "X-Api-Secret: meowmeowmeow" \
   -X GET
@@ -3936,7 +3936,7 @@ This endpoint allows you to retrieve your subscription.
 
 ### HTTP Request
 
-`GET https://api.instantmerchant.io/api/v1/subscription`
+`GET https://api.instantmerchant.io/api/v1/subscriptions`
 ### Query Parameters
 
 Parameter | Default | Description
