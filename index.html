@@ -3394,7 +3394,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v1/customers</code></p>
+<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v1/customers</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -4073,10 +4073,10 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </tbody></table>
 
 <h2 id="cancel-subscription">Cancel Subscription</h2>
-<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v1/subscription/sub_587616ba745ca1/cancel <span class="se">\</span>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v1/subscriptiosn/sub_587616ba745ca1/cancel <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
-  -X GET
+  -X POST
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">//Request</span>
 <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
@@ -4107,7 +4107,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v1/subscription/{subscription_id}/cancel</code></p>
+<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v1/subscriptions/{subscription_id}/cancel</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -4126,10 +4126,10 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </tbody></table>
 
 <h2 id="suspend-subscription">Suspend Subscription</h2>
-<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v1/subscription/sub_587616ba745ca1/suspend <span class="se">\</span>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v1/subscriptions/sub_587616ba745ca1/suspend <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
-  -X GET
+  -X POST
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">//Request</span>
 <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
@@ -4160,7 +4160,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v1/subscription/{subscription_id}/suspend</code></p>
+<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v1/subscriptions/{subscription_id}/suspend</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -4179,10 +4179,10 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </tbody></table>
 
 <h2 id="resume-subscription">Resume Subscription</h2>
-<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v1/subscription/sub_587616ba745ca1/resume <span class="se">\</span>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v1/subscriptions/sub_587616ba745ca1/resume <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
-  -X GET
+  -X POST
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">//Request</span>
 <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
@@ -4213,7 +4213,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v1/subscription/{subscription_id}/resume</code></p>
+<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v1/subscriptions/{subscription_id}/resume</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -4232,7 +4232,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </tbody></table>
 
 <h2 id="update-card">Update Card</h2>
-<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v1/subscription/sub_58611e30ae9131/update_card <span class="se">\</span>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v1/subscriptions/sub_58611e30ae9131/update_card <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
   -X POST <span class="se">\</span>
@@ -4285,7 +4285,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v1/subscription/{subscription_id}/update_card</code></p>
+<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v1/subscriptions/{subscription_id}/update_card</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -4339,7 +4339,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </tbody></table>
 
 <h2 id="update-amount">Update Amount</h2>
-<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v1/subscription/sub_58611e30ae9131
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v1/subscriptions/sub_58611e30ae9131
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
   -X POST <span class="se">\</span>
@@ -4376,7 +4376,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v1/subscription/{subscription_id}</code></p>
+<p><code class="prettyprint">POST https://api.instantmerchant.io/api/v1/subscriptions/{subscription_id}</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -4400,7 +4400,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </tbody></table>
 
 <h2 id="retrieve-subscription">Retrieve Subscription</h2>
-<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v1/subscription?id<span class="o">=</span>sub_587616ba745ca1 <span class="se">\</span>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v1/subscriptions?id<span class="o">=</span>sub_587616ba745ca1 <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
   -X GET
@@ -4454,7 +4454,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v1/subscription?id={subscription_id}</code></p>
+<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v1/subscriptions?id={subscription_id}</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -4473,7 +4473,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 </tbody></table>
 
 <h2 id="list-all-subscriptions">List all Subscriptions</h2>
-<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v1/subscription <span class="se">\</span>
+<pre class="highlight shell"><code>curl https://api.instantmerchant.io/api/v1/subscriptions <span class="se">\</span>
   -H <span class="s2">"X-Api-Key: meowmeowmeow"</span> <span class="se">\</span>
   -H <span class="s2">"X-Api-Secret: meowmeowmeow"</span> <span class="se">\</span>
   -X GET
@@ -4554,7 +4554,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key and API se
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v1/subscription</code></p>
+<p><code class="prettyprint">GET https://api.instantmerchant.io/api/v1/subscriptions</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
